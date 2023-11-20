@@ -1,0 +1,40 @@
+name: AssurApp Dev
+environment: development
+server:
+  port: 8000
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/assurapp
+    username: assurapp
+    password: assurapp
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+  properties:
+    hibernate:
+      dialect: org.hibernate.dialect.PostgreSQLDialect
+
+---
+
+name: AssurApp Test
+environment: testing
+server:
+  port: 8000
+spring:
+  config:
+    activate:
+      on-profile: test
+  datasource:
+    url: jdbc:h2:mem:assurapp
+    username: assurapp
+    password: assurapp
+    driverClassName: org.h2.Driver
+    jpa:
+      show-sql: true
+      spring:
+        jpa:
+          database-platform: org.hibernate.dialect.H2Dialect
+      hibernate:
+        ddl-auto: create-drop
