@@ -1,13 +1,13 @@
-package be.helha.assurappapi;
+package be.helha.assurapp;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class AssurappApiApplication {
+public class AssurAppApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(AssurappApiApplication.class, args);
+        SpringApplication.run(AssurAppApplication.class, args);
     }
 
 }
