@@ -21,7 +21,7 @@ spring:
 name: AssurApp Test
 environment: testing
 server:
-  port: 8000
+  port: 9000
 spring:
   config:
     activate:
@@ -30,11 +30,11 @@ spring:
     url: jdbc:h2:mem:assurapp
     username: assurapp
     password: assurapp
-    driverClassName: org.h2.Driver
-    jpa:
-      show-sql: true
-      spring:
-        jpa:
-          database-platform: org.hibernate.dialect.H2Dialect
-      hibernate:
-        ddl-auto: create-drop
+    driver-class-name: org.h2.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+  properties:
+    hibernate:
+      database-platform: org.hibernate.dialect.H2Dialect
