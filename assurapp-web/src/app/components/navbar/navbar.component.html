@@ -1,4 +1,4 @@
-<nav class="navbar bg-base-100 px-10">
+<nav class="navbar bg-base-100 px-10 fixed">
   <div class="navbar-start">
     <div class="dropdown">
       <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
@@ -11,18 +11,18 @@
         <li><a routerLink="/">Contact</a></li>
       </ul>
     </div>
-    <a class="btn btn-ghost text-xl">daisyUI</a>
+    <a class="btn btn-ghost text-xl">AssurApp</a>
   </div>
   <div class="navbar-center hidden lg:flex">
     <ul class="menu menu-horizontal px-1">
-      <li><a routerLink="/">Home</a></li>
-      <li><a routerLink="/">Product</a></li>
-      <li><a routerLink="/">Pricing</a></li>
+      <li><a class="me-1" routerLink="/">Home</a></li>
+      <li><a class="me-1" routerLink="/">Product</a></li>
+      <li><a class="me-1" routerLink="/">Pricing</a></li>
       <li><a routerLink="/">Contact</a></li>
     </ul>
   </div>
   <div class="navbar-end">
-    <a class="btn me-2">Login</a>
-    <a class="btn btn-info text-white">Become a member</a>
+    <a class="btn me-2" routerLink="/login">Login</a>
+    <a class="btn btn-info text-white" routerLink="/register">Become a member</a>
   </div>
 </nav>
