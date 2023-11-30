@@ -1,6 +1,6 @@
 package be.helha.assurapp.authentication.models;
 
-import jakarta.annotation.Nonnull;
+import be.helha.assurapp.authentication.enums.RoleList;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -16,8 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@Builder
-@Table(name = "users")
+@Table(name="appusers")
 public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,17 +25,18 @@ public class User implements UserDetails {
     private String name;
     @NotNull
     private String lastname;
-    @NotNull
+    @NotNull @Column(unique = true)
     private String email;
     @NotNull
     private String password;
-    @NotNull @Enumerated(EnumType.STRING)
+    @OneToOne
     private Role role;
+    private boolean isVerified = false;
 
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+        return List.of(new SimpleGrantedAuthority("ROLE_" + this.role.getLabel()));
     }
 
     @Override

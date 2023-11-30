@@ -1,8 +1,23 @@
 package be.helha.assurapp.authentication.models;
 
-public enum Role {
-    ADMINISTRATOR,
-    CLIENT,
-    INSURER,
-    EXPERT
+
+import be.helha.assurapp.authentication.enums.RoleList;
+import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@Entity
+@Data
+@AllArgsConstructor @NoArgsConstructor
+@Table(name = "approles")
+public class Role {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    private RoleList label;
+
+
+
+
 }
