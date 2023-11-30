@@ -1,0 +1,19 @@
+<div class="drawer z-10">
+  <input id="my-drawer" type="checkbox" class="drawer-toggle" />
+  <div class="fixed top-0 w-100 min-h-full z-1">
+    <label for="my-drawer" class="btn primary-content drawer-button ms-2 absolute top-1/2 w-12 h-12 translate-y-0.5">
+      ->
+    </label>
+  </div>
+  <div class="drawer-side">
+    <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
+    <ul class="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
+      @if (true) {
+        <li><a routerLink="">Assurance</a></li>
+      } @else if (true) {
+        <li><a routerLink="">Mon assurance</a></li>
+        <li><a routerLink="">Facturation</a></li>
+      }
+    </ul>
+  </div>
+</div>
