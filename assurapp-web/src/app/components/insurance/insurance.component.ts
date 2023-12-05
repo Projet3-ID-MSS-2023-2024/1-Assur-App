@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {RouterLink} from "@angular/router";
+import {Insurance} from "../../interfaces/insurance";
 
 @Component({
   selector: 'app-insurance',
@@ -10,5 +11,5 @@ import {RouterLink} from "@angular/router";
   styleUrl: './insurance.component.css'
 })
 export class InsuranceComponent {
-
+  insurances!: Insurance[];
 }

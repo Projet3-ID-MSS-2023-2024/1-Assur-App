@@ -8,11 +8,12 @@
   <div class="drawer-side">
     <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
     <ul class="menu p-4 w-80 min-h-full bg-base-200 text-base-content">
-      @if (true) {
-        <li><a routerLink="">Assurance</a></li>
-      } @else if (true) {
-        <li><a routerLink="">Mon assurance</a></li>
-        <li><a routerLink="">Facturation</a></li>
+      @if (isInsurer) {
+        <li class="mb-2"><a routerLink="insurances">Insurances</a></li>
+        <li class="mb-2"><a routerLink="insurances/add">Add Insurance</a></li>
+      } @else if (!isInsurer) {
+        <li class="mb-2"><a routerLink="insurances/">My Insurance</a></li>
+        <li class="mb-2"><a routerLink="insurances/bill">Billing</a></li>
       }
     </ul>
   </div>

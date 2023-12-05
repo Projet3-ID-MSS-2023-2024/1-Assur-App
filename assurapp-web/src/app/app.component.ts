@@ -13,4 +13,5 @@ import {InsuranceComponent} from "./components/insurance/insurance.component";
 })
 export class AppComponent {
   title = 'Assur-App';
+  logged: boolean = true;
 }

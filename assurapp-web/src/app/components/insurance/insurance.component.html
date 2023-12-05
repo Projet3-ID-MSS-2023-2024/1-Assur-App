@@ -1,11 +1,10 @@
-<div class="w-100 flex justify-between items-center">
+<div class="w-100 flex justify-between items-center mt-6">
   <h2 class="uppercase font-bold ms-4 text-2xl">List of Insurances</h2>
-  <a routerLink="" class="btn btn-success my-4 me-10 w-1/6 text-white uppercase">+ New Offer</a>
+  <a routerLink="add" class="btn btn-success my-4 me-10 w-1/6 text-white uppercase">+ New Offer</a>
 </div>
 
 <div class="overflow-x-auto">
   <table class="table table-zebra">
-    <!-- head -->
     <thead>
     <tr>
       <th>ID</th>
@@ -15,19 +14,17 @@
     </tr>
     </thead>
     <tbody>
-    <!-- @for (insurance of insurances; track insurance.id) { -->
+    @for (insurance of insurances; track insurance.id) {
       <tr>
         <th></th>
         <td></td>
         <td></td>
         <td>
-          <a routerLink="" class="btn btn-sm btn-info uppercase mx-2 text-white">Update</a>
-          <a routerLink="" class="btn btn-sm btn-error uppercase mx-2 text-white">Delete</a>
+          <a routerLink="update" class="btn btn-sm btn-info uppercase mx-2 text-white">Update</a>
+          <a routerLink="delete" class="btn btn-sm btn-error uppercase mx-2 text-white">Delete</a>
         </td>
       </tr>
-    <!--
-    } @empty {
-    }-->
+    }
     </tbody>
   </table>
 </div>
