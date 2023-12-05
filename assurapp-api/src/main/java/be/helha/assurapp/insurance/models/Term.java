@@ -18,6 +18,6 @@ public class Term {
     private long id;
     @NotNull
     private String description;
-    @OneToOne
+    @ManyToOne
     private Offer offer;
 }

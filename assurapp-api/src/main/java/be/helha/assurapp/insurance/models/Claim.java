@@ -1,5 +1,6 @@
 package be.helha.assurapp.insurance.models;
 
+import be.helha.assurapp.authentication.User;
 import be.helha.assurapp.insurance.enums.ClaimStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;

@@ -21,8 +21,10 @@ public class Offer {
     private Long id;
     @NotNull
     private String name;
+    @NotNull
+    private double amount;
     @ManyToOne
     private User insurer;
     @OneToMany
-    private List<Claim> claims;
+    private List<Term> terms;
 }
