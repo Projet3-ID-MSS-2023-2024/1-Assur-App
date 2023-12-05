@@ -18,7 +18,4 @@ public class Role {
     @Enumerated(EnumType.STRING)
     private RoleList label;
 
-
-
-
 }

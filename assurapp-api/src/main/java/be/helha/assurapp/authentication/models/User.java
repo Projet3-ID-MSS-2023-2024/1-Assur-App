@@ -29,9 +29,9 @@ public class User implements UserDetails {
     private String email;
     @NotNull
     private String password;
-    @OneToOne
+    @ManyToOne
     private Role role;
-    private boolean isVerified = false;
+    private boolean isVerified = true;
 
 
     @Override
