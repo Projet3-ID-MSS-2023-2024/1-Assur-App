@@ -3,6 +3,7 @@ package be.helha.assurapp.authentication.controllers;
 
 import be.helha.assurapp.authentication.dto.AuthenticationDTO;
 import be.helha.assurapp.authentication.models.User;
+import be.helha.assurapp.authentication.services.JwtService;
 import be.helha.assurapp.authentication.services.UserService;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,14 +24,19 @@ import java.util.Map;
 public class UserController {
     private AuthenticationManager authenticationManager;
     private UserService userService;
+    private JwtService jwtService;
+
     @PostMapping("register")
     public void register(@RequestBody User user){
         userService.register(user);
     }
+
     @PostMapping("login")
     public Map<String, String> connexion(@RequestBody AuthenticationDTO authenticationDTO){
         final Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationDTO.username(), authenticationDTO.password()));
-        log.info("resultat {}", authenticate.isAuthenticated());
+        if(authenticate.isAuthenticated()){
+            return this.jwtService.generate(authenticationDTO.username());
+        }
         return null;
     }
 }
