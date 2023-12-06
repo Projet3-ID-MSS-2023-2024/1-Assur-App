@@ -6,7 +6,6 @@ import be.helha.assurapp.authentication.models.User;
 import be.helha.assurapp.authentication.repositories.RoleRepository;
 import be.helha.assurapp.authentication.repositories.UserRepository;
 import lombok.AllArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -39,9 +38,9 @@ public class UserService implements UserDetailsService {
         this.userRepository.save(user);
     }
 
-
     @Override
     public User loadUserByUsername(String username) throws UsernameNotFoundException {
         return this.userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
+
 }
