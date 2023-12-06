@@ -10,8 +10,9 @@ import {environment} from "../../../environments/environment.development";
 export class LoginService {
   constructor(private http: HttpClient) {}
 
-  login(user: User): Observable<any> {
-    return this.http.post<User>(`${environment.api}/login/{id}`, user);
+  login(username: string, password: string): Observable<any> {
+    const credentials = {username, password}
+    return this.http.post(`${environment.api}/login`, credentials);
   }
 
 
