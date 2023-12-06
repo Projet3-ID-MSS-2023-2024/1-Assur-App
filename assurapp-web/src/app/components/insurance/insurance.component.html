@@ -16,14 +16,16 @@
     <tbody>
     @for (insurance of insurances; track insurance.id) {
       <tr>
-        <th></th>
-        <td></td>
-        <td></td>
+        <th>{{insurance.id}}</th>
+        <th>{{insurance.name}}</th>
+        <th>{{insurance.name}}</th>
         <td>
-          <a routerLink="update" class="btn btn-sm btn-info uppercase mx-2 text-white">Update</a>
-          <a routerLink="delete" class="btn btn-sm btn-error uppercase mx-2 text-white">Delete</a>
+          <a routerLink="update/{{insurance.id}}" class="btn btn-sm btn-info uppercase mx-2 text-white">Update</a>
+          <a (click)="deleteInsurance(insurance.id)" class="btn btn-sm btn-error uppercase mx-2 text-white">Delete</a>
         </td>
       </tr>
+    } @empty {
+
     }
     </tbody>
   </table>

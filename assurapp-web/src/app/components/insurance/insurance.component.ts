@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {RouterLink} from "@angular/router";
 import {Insurance} from "../../interfaces/insurance";
+import {InsuranceService} from "../../services/insurance.service";
 
 @Component({
   selector: 'app-insurance',
@@ -12,4 +13,14 @@ import {Insurance} from "../../interfaces/insurance";
 })
 export class InsuranceComponent {
   insurances!: Insurance[];
+
+  constructor(private service: InsuranceService) {}
+
+  getAllInsurances(): void {
+    this.service.getAllInsurances().subscribe(data => this.insurances = data);
+  }
+
+  deleteInsurance(id: number): void {
+    this.service.deleteInsurance(id).subscribe(() => true);
+  }
 }
