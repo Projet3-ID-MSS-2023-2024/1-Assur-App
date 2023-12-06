@@ -1,2 +1,3 @@
-@import "primeng/resources/themes/tailwind-light/theme.css";
-@import "primeng/resources/primeng.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
