@@ -6,6 +6,5 @@ import {UpdateInsuranceComponent} from "./components/insurance/update-insurance/
 export const routes: Routes = [
   {path: 'insurances', component: InsuranceComponent},
   {path: 'insurances/add', component: AddInsuranceComponent},
-  {path: 'insurances/update', component: UpdateInsuranceComponent},
-  {path: 'insurances/delete', component: InsuranceComponent},
+  {path: 'insurances/update/:id', component: UpdateInsuranceComponent},
 ];

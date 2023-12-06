@@ -12,7 +12,16 @@ import {InsuranceService} from "../../services/insurance.service";
   styleUrl: './insurance.component.css'
 })
 export class InsuranceComponent {
-  insurances!: Insurance[];
+  insurances: Insurance[] = [
+    {
+      id: 1,
+      name: "random",
+    },
+    {
+      id: 2,
+      name: "random",
+    }
+  ];
 
   constructor(private service: InsuranceService) {}
 
