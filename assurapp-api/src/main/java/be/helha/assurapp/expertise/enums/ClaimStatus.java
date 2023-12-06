@@ -1,4 +1,4 @@
-package be.helha.assurappapi.expertise.enums;
+package be.helha.assurapp.expertise.enums;
 
 public enum ClaimStatus {
     APPROVED,
@@ -9,5 +9,6 @@ public enum ClaimStatus {
     CANCELLED,
     WAITING_FOR_EXPERT,
     WAITING_FOR_CLIENT,
-    WAITING_FOR_INSURER,
+    WAITING_FOR_INSURER
+
 }

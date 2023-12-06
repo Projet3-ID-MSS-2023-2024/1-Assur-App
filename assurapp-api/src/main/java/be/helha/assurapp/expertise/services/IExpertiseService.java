@@ -1,6 +1,6 @@
-package be.helha.assurappapi.expertise.services;
+package be.helha.assurapp.expertise.services;
 
-import be.helha.assurappapi.expertise.models.Expertise;
+import be.helha.assurapp.expertise.models.Expertise;
 
 import java.util.List;
 

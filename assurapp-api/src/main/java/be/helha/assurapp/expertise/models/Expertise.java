@@ -1,13 +1,9 @@
-package be.helha.assurappapi.expertise.models;
+package be.helha.assurapp.expertise.models;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import jakarta.persistence.Id;
 
 import java.util.Date;
 
@@ -25,8 +21,9 @@ public class Expertise {
 
     private String description;
 
+    @Temporal(TemporalType.DATE)
     private Date date;
 
-    private double givedAmount;
+    private double estimation;
 
 }

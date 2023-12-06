@@ -1,8 +1,8 @@
-package be.helha.assurappapi.expertise.services.impl;
+package be.helha.assurapp.expertise.services.impl;
 
-import be.helha.assurappapi.expertise.models.Claim;
-import be.helha.assurappapi.expertise.repositories.ClaimRepository;
-import be.helha.assurappapi.expertise.services.IClaimService;
+import be.helha.assurapp.expertise.models.Claim;
+import be.helha.assurapp.expertise.repositories.ClaimRepository;
+import be.helha.assurapp.expertise.services.IClaimService;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;

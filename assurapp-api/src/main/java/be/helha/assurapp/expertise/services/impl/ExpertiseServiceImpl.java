@@ -1,11 +1,18 @@
-package be.helha.assurappapi.expertise.services.impl;
+package be.helha.assurapp.expertise.services.impl;
 
-import be.helha.assurappapi.expertise.models.Expertise;
-import be.helha.assurappapi.expertise.repositories.ExpertiseRepository;
-import be.helha.assurappapi.expertise.services.IExpertiseService;
+import be.helha.assurapp.expertise.models.Expertise;
+import be.helha.assurapp.expertise.repositories.ExpertiseRepository;
+import be.helha.assurapp.expertise.services.IExpertiseService;
+import lombok.AllArgsConstructor;
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+
+@Service
+@Primary
+@AllArgsConstructor
 public class ExpertiseServiceImpl implements IExpertiseService {
 
     private ExpertiseRepository expertiseRepository;
@@ -34,6 +41,5 @@ public class ExpertiseServiceImpl implements IExpertiseService {
     public Expertise update(Expertise expertise) {
         return expertiseRepository.save(expertise);
     }
-
 
 }

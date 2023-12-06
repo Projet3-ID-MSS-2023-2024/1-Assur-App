@@ -1,7 +1,7 @@
-package be.helha.assurappapi.expertise.controllers;
+package be.helha.assurapp.expertise.controllers;
 
-import be.helha.assurappapi.expertise.models.Claim;
-import be.helha.assurappapi.expertise.services.IClaimService;
+import be.helha.assurapp.expertise.models.Claim;
+import be.helha.assurapp.expertise.services.IClaimService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +26,7 @@ public class ClaimController {
     }
 
     @PostMapping
-    public Claim save(Claim claim) {
+    public Claim save(@RequestBody Claim claim) {
         return claimService.save(claim);
     }
 

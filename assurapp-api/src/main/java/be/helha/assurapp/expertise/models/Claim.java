@@ -1,6 +1,6 @@
-package be.helha.assurappapi.expertise.models;
+package be.helha.assurapp.expertise.models;
 
-import be.helha.assurappapi.expertise.enums.ClaimStatus;
+import be.helha.assurapp.expertise.enums.ClaimStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -24,25 +24,25 @@ public class Claim {
     @NotNull
     private String description;
 
-    @NotNull
+    @Temporal(TemporalType.DATE)
     private Date date;
 
     private double RequestedAmount;
 
     @NotNull
-    @Enumerated(EnumType.STRING)
-    private ClaimStatus status;
+//    @Enumerated(EnumType.STRING)
+    private String status;
 
-    @OneToOne
-    private User client;
+//    @OneToOne
+////    private User client;
+//
+//    @OneToOne
+////    private User expert;
+//
+//    @OneToOne
+//    private User insurer;
 
-    @OneToOne
-    private User expert;
-
-    @OneToOne
-    private User insurer;
-
-    @OneToOne
-    private Expertise expertise;
+//    @OneToOne
+//    private Expertise expertise;
 
 }

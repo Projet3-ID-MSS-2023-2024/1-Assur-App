@@ -1,8 +1,8 @@
-package be.helha.assurappapi.expertise.controllers;
+package be.helha.assurapp.expertise.controllers;
 
 
-import be.helha.assurappapi.expertise.models.Expertise;
-import be.helha.assurappapi.expertise.services.IExpertiseService;
+import be.helha.assurapp.expertise.models.Expertise;
+import be.helha.assurapp.expertise.services.IExpertiseService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +26,7 @@ public class ExpertiseController {
     }
 
     @PostMapping
-    public Expertise save(Expertise expertise) {
+    public Expertise save(@RequestBody Expertise expertise) {
         return expertiseService.save(expertise);
     }
 
