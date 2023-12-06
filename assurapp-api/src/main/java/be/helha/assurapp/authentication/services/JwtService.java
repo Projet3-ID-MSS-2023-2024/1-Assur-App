@@ -52,7 +52,7 @@ public class JwtService {
         final Map<String, Object> claims = Map.of(
                 "name", user.getName(),
                 "role", user.getRole(),
-                Claims.EXPIRATION, new Date(currentTime + 3600 * 1000 * 2),
+                Claims.EXPIRATION, new Date(currentTime + 3600 * 1000 * 5),
                 Claims.SUBJECT, user.getEmail()
         );
 
