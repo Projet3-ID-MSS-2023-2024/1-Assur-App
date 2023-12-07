@@ -3,6 +3,20 @@ environment: development
 server:
   port: 8000
 spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-name: keycloak
+            client-id: assurapp
+            client-secret: d
+            scope: openid, profile, email, offline
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:8000/login/oauth2/code/assurapp
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8080/realms/assurapp
   datasource:
     url: jdbc:postgresql://localhost:5433/assurapp
     username: assurapp
@@ -15,3 +29,26 @@ spring:
   properties:
     hibernate:
       dialect: org.hibernate.dialect.PostgreSQLDialect
+
+---
+
+name: AssurApp Test
+environment: testing
+server:
+  port: 9000
+spring:
+  config:
+    activate:
+      on-profile: test
+  datasource:
+    url: jdbc:h2:mem:assurapp
+    username: assurapp
+    password: assurapp
+    driver-class-name: org.h2.Driver
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: create-drop
+  properties:
+    hibernate:
+      database-platform: org.hibernate.dialect.H2Dialect
