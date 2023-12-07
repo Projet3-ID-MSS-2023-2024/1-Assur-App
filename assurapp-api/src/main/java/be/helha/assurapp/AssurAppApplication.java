@@ -1,9 +1,8 @@
 package be.helha.assurapp;
 
+import be.helha.assurapp.authentication.enums.RoleList;
 import be.helha.assurapp.authentication.models.Role;
 import be.helha.assurapp.authentication.repositories.RoleRepository;
-import be.helha.assurapp.authentication.repositories.UserRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +12,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @SpringBootApplication
 public class AssurAppApplication {
+
+    private RoleRepository repository;
 
     public static void main(String[] args) {
 

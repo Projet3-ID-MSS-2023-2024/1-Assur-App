@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet } from '@angular/router';
 import {SidebarComponent} from "./components/sidebar/sidebar.component";
 import {InsuranceComponent} from "./components/insurance/insurance.component";
 import {RouterLink, RouterOutlet} from '@angular/router';
@@ -16,5 +15,5 @@ import {NavbarComponent} from "./components/navbar/navbar.component";
 })
 export class AppComponent {
   title = 'Assur-App';
-  logged: boolean = true;
+  logged: boolean = false;
 }
