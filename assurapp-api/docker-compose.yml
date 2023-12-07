@@ -8,7 +8,7 @@ services:
       - POSTGRES_PASSWORD=assurapp
       - POSTGRES_USER=assurapp
     ports:
-      - 5432:5432
+      - 5433:5432
   assurapp-kc:
     image: keycloak/keycloak:22.0
     container_name: assurapp-kc
@@ -20,5 +20,13 @@ services:
       - KEYCLOAK_DATABASE_PASSWORD=assurapp
       - KEYCLOAK_ADMIN=assurapp
       - KEYCLOAK_ADMIN_PASSWORD=assurapp
+      - KEYCLOAK_DATABASE_SCHEMA=kc-db
     ports:
       - 8080:8080
+  assurapp-smtp:
+    image: rnwood/smtp4dev:v3
+    restart: always
+    ports:
+      - 9080:80
+      - 9025:25
+      - 9143:143
