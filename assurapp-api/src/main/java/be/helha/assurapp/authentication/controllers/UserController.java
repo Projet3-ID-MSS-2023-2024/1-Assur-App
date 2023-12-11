@@ -3,6 +3,7 @@ package be.helha.assurapp.authentication.controllers;
 
 import be.helha.assurapp.authentication.dto.AuthenticationDTO;
 import be.helha.assurapp.authentication.models.User;
+import be.helha.assurapp.authentication.services.ActivationCodeService;
 import be.helha.assurapp.authentication.services.JwtService;
 import be.helha.assurapp.authentication.services.UserService;
 import lombok.AllArgsConstructor;
@@ -26,6 +27,7 @@ public class UserController {
     private AuthenticationManager authenticationManager;
     private UserService userService;
     private JwtService jwtService;
+    private ActivationCodeService activationCodeService;
 
     @PostMapping("register")
     public void register(@RequestBody User user){
@@ -51,4 +53,11 @@ public class UserController {
             userService.saveUser(userService.loadUserByUsername(userData.get("username")));//To be replaced by CRUD fct
         }
     }
+
+    @PostMapping("changeActivationCode")
+    public void changeActivationCode(@RequestBody Map<String, String> userData){
+        activationCodeService.sendCode(userService.loadUserByUsername(userData.get("username")));
+        userService.saveUser(userService.loadUserByUsername(userData.get("username")));
+    }
+
 }

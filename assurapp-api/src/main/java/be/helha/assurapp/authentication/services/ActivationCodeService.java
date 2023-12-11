@@ -46,6 +46,4 @@ public class ActivationCodeService {
         return random.nextInt(999999);
     }
 
-
-
 }
