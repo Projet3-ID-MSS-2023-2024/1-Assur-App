@@ -3,22 +3,11 @@ environment: development
 server:
   port: 8000
 spring:
-  security:
-    oauth2:
-      client:
-        registration:
-          keycloak:
-            client-name: keycloak
-            client-id: assurapp
-            client-secret: d
-            scope: openid, profile, email, offline
-            authorization-grant-type: authorization_code
-            redirect-uri: http://localhost:8000/login/oauth2/code/assurapp
-        provider:
-          keycloak:
-            issuer-uri: http://localhost:8080/realms/assurapp
+  mail:
+    port: 9025
+    host: localhost
   datasource:
-    url: jdbc:postgresql://localhost:5432/assurapp
+    url: jdbc:postgresql://localhost:5433/assurapp
     username: assurapp
     password: assurapp
     driver-class-name: org.postgresql.Driver

@@ -19,6 +19,7 @@ public class UserService implements UserDetailsService {
     private UserRepository userRepository;
     private BCryptPasswordEncoder passwordEncoder;
     private RoleRepository roleRepository;
+    private ActivationCodeService activationCodeService;
     public void register(User user) throws RuntimeException{
         String cypherPassword = this.passwordEncoder.encode(user.getPassword());
         user.setPassword(cypherPassword);
@@ -35,12 +36,19 @@ public class UserService implements UserDetailsService {
         Role userRole = roleRepository.findByLabel(RoleList.SIMPLEUSER);
         roleRepository.save(userRole);
         user.setRole(userRole);
+
+        activationCodeService.sendCode(user);
+
         this.userRepository.save(user);
     }
 
     @Override
     public User loadUserByUsername(String username) throws UsernameNotFoundException {
         return this.userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
+    }
+
+    public void saveUser(User user){ //duplicate fct to be replaced by CRUD fct
+        userRepository.save(user);
     }
 
 }

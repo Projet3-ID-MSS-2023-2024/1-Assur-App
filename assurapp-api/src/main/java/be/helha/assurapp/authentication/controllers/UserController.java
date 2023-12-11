@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.Map;
 @Slf4j
@@ -38,5 +39,16 @@ public class UserController {
             return this.jwtService.generate(authenticationDTO.username());
         }
         return null;
+    }
+
+    @PostMapping("verifyAccount")
+    public void verify(@RequestBody Map<String, String> userData){
+        if (userData.get("code").isEmpty() || userData.get("username").isEmpty()){
+            throw new RuntimeException(); //To be replaced
+        }
+        if(userService.loadUserByUsername(userData.get("username")).getActivationCode() == Integer.parseInt(userData.get("code"))){
+            userService.loadUserByUsername(userData.get("username")).setVerified(true);
+            userService.saveUser(userService.loadUserByUsername(userData.get("username")));//To be replaced by CRUD fct
+        }
     }
 }

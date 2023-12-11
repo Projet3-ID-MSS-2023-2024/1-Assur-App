@@ -39,6 +39,7 @@ public class SecurityConfig {
                         authorize
                                 .requestMatchers(antMatcher("/api/v1/register/**")).permitAll()
                                 .requestMatchers(antMatcher("/api/v1/login/**")).permitAll()
+                                .requestMatchers(antMatcher("/api/v1/verifyAccount/**")).permitAll()
                                 .anyRequest()
                                 .authenticated()
                 ).sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
