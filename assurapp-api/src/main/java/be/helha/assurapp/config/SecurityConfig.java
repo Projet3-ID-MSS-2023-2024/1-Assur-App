@@ -37,6 +37,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize ->
                         authorize
+                                .requestMatchers(antMatcher("/api/v1/users/**")).permitAll()
                                 .requestMatchers(antMatcher("/api/v1/register/**")).permitAll()
                                 .requestMatchers(antMatcher("/api/v1/login/**")).permitAll()
                                 .anyRequest()
