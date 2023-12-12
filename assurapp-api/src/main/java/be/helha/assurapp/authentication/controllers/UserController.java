@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 
+import java.util.HashMap;
 import java.util.Map;
 @Slf4j
 @AllArgsConstructor
@@ -37,8 +38,12 @@ public class UserController {
     @PostMapping("login")
     public Map<String, String> connexion(@RequestBody AuthenticationDTO authenticationDTO){
         final Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authenticationDTO.username(), authenticationDTO.password()));
-        if(authenticate.isAuthenticated()){
+        if(authenticate.isAuthenticated() && userService.loadUserByUsername(authenticationDTO.username()).isVerified()){
             return this.jwtService.generate(authenticationDTO.username());
+        } else if (!userService.loadUserByUsername(authenticationDTO.username()).isVerified()){
+            Map<String, String> errors = new HashMap<>();
+            errors.put("Errors", "Not activated account");
+            return errors;
         }
         return null;
     }
