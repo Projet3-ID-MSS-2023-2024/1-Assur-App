@@ -1,0 +1,78 @@
+
+<div class="w-100 flex justify-between items-center mt-6">
+    <h2 class="uppercase font-bold ms-4 text-2xl">Admin Page</h2>
+    <button type="button" class="btn btn-success my-4 me-10 w-1/6 text-white uppercase" (click)="showAdd()">
+        + Add User
+    </button>
+</div>
+
+<div class="overflow-x-auto">
+    <p-table 
+    [value]="users"
+    [rows]="10"
+    [paginator]="true"
+    class="table table-zebra">
+
+        <ng-template pTemplate="header" class="flex items-center justify-center">
+
+            <tr>
+
+                <th pSortableColumn="nom">
+                    <div class="flex align-items-center">
+                        nom
+                    </div>
+                </th>
+
+                <th pSortableColumn="prenom">
+                    <div class="flex align-items-center">
+                        Prenom
+                    </div>
+                </th>
+                
+                <th>
+                    <div class="flex align-items-center">
+                        Email
+                    </div>
+                </th>
+
+                <th pSortableColumn="role">
+                    <div class="flex justify-content-between align-items-center ">
+                    Role 
+                    </div>
+                </th>
+
+                <th>
+                    <div class="flex align-items-center justify-content-center">
+                        Actions
+                    </div>
+                </th>
+
+            </tr>
+
+        </ng-template>
+
+
+        <ng-template pTemplate="body" let-users>
+            <tr>
+                <td>{{ users.name}}</td>
+                <td>{{ users.lastname}}</td>
+                <td>{{ users.email }}</td>
+                <td>{{ users.role.label}}</td>
+                <td class="flex items-center justify-center">
+
+                    <button type="button"
+                       (click)="showUpdate(users)" class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600 mx-2">
+                        UPDATE
+                    </button>
+
+                    <!-- <button type="button"
+                       (click)="deleteUser(users.id)" class="py-3 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-red-500 text-white hover:bg-red-600 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600 mx-2 ">
+                        DELETE
+                    </button> -->
+                </td>
+            </tr>
+        </ng-template>
+
+
+    </p-table>
+</div>

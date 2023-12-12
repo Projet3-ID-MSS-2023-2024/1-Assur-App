@@ -6,9 +6,11 @@ import { DeclareClaimComponent } from './components/declare-claim/declare-claim.
 import {LoginComponent} from "./components/authentication/login/login.component";
 import {RegisterComponent} from "./components/authentication/register/register.component";
 import {HomeComponent} from "./components/home/home.component";
+import { AdminPageComponent } from './components/admin/admin-page/admin-page.component';
 
 export const routes: Routes = [
   { path: "", component: HomeComponent},
+  { path: "adminPage", component: AdminPageComponent},
   { path: "declareclaim", component: DeclareClaimComponent},
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent},

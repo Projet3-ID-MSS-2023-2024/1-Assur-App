@@ -1,2 +1,3 @@
-export interface Role {
+export enum Role {
+    
 }

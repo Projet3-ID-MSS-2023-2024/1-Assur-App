@@ -18,14 +18,14 @@ spring:
           keycloak:
             issuer-uri: http://localhost:8080/realms/assurapp
   datasource:
-    url: jdbc:postgresql://localhost:5432/assurapp
+    url: jdbc:postgresql://localhost:5431/assurapp
     username: assurapp
     password: assurapp
     driver-class-name: org.postgresql.Driver
   jpa:
     show-sql: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update
   properties:
     hibernate:
       dialect: org.hibernate.dialect.PostgreSQLDialect
