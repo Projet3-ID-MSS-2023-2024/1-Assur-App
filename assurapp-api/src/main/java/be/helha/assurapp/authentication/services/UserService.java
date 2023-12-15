@@ -32,6 +32,7 @@ public class UserService implements UserDetailsService {
         if (optionalUser.isPresent()){
             throw new RuntimeException("Used email");
         }
+
         //Temporaire, peut etre remplacer une fois le front fonctionnel
         Role userRole = roleRepository.findByLabel(RoleList.SIMPLEUSER);
         roleRepository.save(userRole);

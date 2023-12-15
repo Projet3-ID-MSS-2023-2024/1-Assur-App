@@ -41,12 +41,12 @@ public class SecurityConfig {
                                 .requestMatchers(antMatcher("/api/v1/login/**")).permitAll()
                                 .requestMatchers(antMatcher("/api/v1/verifyAccount/**")).permitAll()
                                 .requestMatchers(antMatcher("/api/v1/changeActivationCode/**")).permitAll()
+                                .requestMatchers(antMatcher("/api/v1/public/**")).permitAll()
                                 .anyRequest()
                                 .authenticated()
                 ).sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
-
     }
 
     @Bean

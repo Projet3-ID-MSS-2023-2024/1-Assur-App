@@ -33,7 +33,7 @@ public class User implements UserDetails {
     private Role role;
     private int activationCode;
     private boolean isVerified = false;
-
+    private String pwdCode;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
