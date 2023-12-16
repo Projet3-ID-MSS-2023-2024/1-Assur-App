@@ -1,17 +1,26 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgOptimizedImage} from "@angular/common";
 import {RouterLink} from "@angular/router";
+import {NavbarComponent} from "./navbar/navbar.component";
+import {HeroComponent} from "./hero/hero.component";
+import {ProductsComponent} from "./products/products.component";
+import {InsurancesComponent} from "./insurances/insurances.component";
+import {StatsComponent} from "./stats/stats.component";
 import {FooterComponent} from "./footer/footer.component";
-import {ReactiveFormsModule} from "@angular/forms";
-import {ItemComponent} from "./item/item.component";
-import {CardComponent} from "./card/card.component";
-import {CartXlComponent} from "./cart-xl/cart-xl.component";
-import {ContactFormComponent} from "./contact-form/contact-form.component";
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, RouterLink, FooterComponent, ReactiveFormsModule, ItemComponent, CardComponent, CartXlComponent, ContactFormComponent],
+  imports: [
+    NgOptimizedImage,
+    RouterLink,
+    NavbarComponent,
+    HeroComponent,
+    ProductsComponent,
+    InsurancesComponent,
+    StatsComponent,
+    FooterComponent
+  ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })

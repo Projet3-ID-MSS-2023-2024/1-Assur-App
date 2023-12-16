@@ -7,11 +7,13 @@ import {MessageModule} from "primeng/message";
 import {MessagesModule} from "primeng/messages";
 import {MessageService} from "primeng/api";
 import {ToastModule} from "primeng/toast";
+import {RouterLink} from "@angular/router";
+import {NavbarComponent} from "../../home/navbar/navbar.component";
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, FormsModule, MessageModule, MessagesModule, ToastModule],
+  imports: [CommonModule, FormsModule, MessageModule, MessagesModule, ToastModule, RouterLink, NavbarComponent],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
   providers: [MessageService]
