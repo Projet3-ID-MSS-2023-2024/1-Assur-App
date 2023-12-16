@@ -1,10 +1,12 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgOptimizedImage} from "@angular/common";
 
 @Component({
   selector: 'app-footer',
   standalone: true,
-  imports: [CommonModule],
+  imports: [
+    NgOptimizedImage
+  ],
   templateUrl: './footer.component.html',
   styleUrl: './footer.component.css'
 })

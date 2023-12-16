@@ -8,11 +8,13 @@ import {ToastModule} from "primeng/toast";
 import {FormsModule} from "@angular/forms";
 import {MessageModule} from "primeng/message";
 import {MessagesModule} from "primeng/messages";
+import {RouterLink} from "@angular/router";
+import {NavbarComponent} from "../../home/navbar/navbar.component";
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, ToastModule, MessageModule, MessagesModule, FormsModule],
+  imports: [CommonModule, ToastModule, MessageModule, MessagesModule, FormsModule, RouterLink, NavbarComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
   providers: [MessageService]
