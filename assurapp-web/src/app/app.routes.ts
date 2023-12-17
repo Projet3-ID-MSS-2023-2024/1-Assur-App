@@ -6,13 +6,16 @@ import { DeclareClaimComponent } from './components/declare-claim/declare-claim.
 import {LoginComponent} from "./components/authentication/login/login.component";
 import {RegisterComponent} from "./components/authentication/register/register.component";
 import {HomeComponent} from "./components/home/home.component";
+import {ActivateAccountComponent} from "./components/authentication/activate-account/activate-account.component";
+
 
 export const routes: Routes = [
   { path: "", component: HomeComponent},
   { path: "declareclaim", component: DeclareClaimComponent},
-  { path: 'login', component: LoginComponent},
-  { path: 'register', component: RegisterComponent},
+  { path: 'auth/login', component: LoginComponent},
+  { path: 'auth/register', component: RegisterComponent},
   {path: 'insurances', component: InsuranceComponent},
   {path: 'insurances/add', component: AddInsuranceComponent},
   {path: 'insurances/update/:id', component: UpdateInsuranceComponent},
+  {path: 'auth/activate', component: ActivateAccountComponent},
 ];
