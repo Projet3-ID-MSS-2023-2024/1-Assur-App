@@ -12,10 +12,11 @@ import {ActivateAccountComponent} from "./components/authentication/activate-acc
 export const routes: Routes = [
   { path: "", component: HomeComponent},
   { path: "declareclaim", component: DeclareClaimComponent},
-  { path: 'auth/login', component: LoginComponent},
-  { path: 'auth/register', component: RegisterComponent},
+  { path: 'login', component: LoginComponent},
+  {path: 'activate/:email', component: ActivateAccountComponent},
+  { path: 'register', component: RegisterComponent},
   {path: 'insurances', component: InsuranceComponent},
   {path: 'insurances/add', component: AddInsuranceComponent},
   {path: 'insurances/update/:id', component: UpdateInsuranceComponent},
-  {path: 'auth/activate', component: ActivateAccountComponent},
+
 ];

@@ -7,18 +7,20 @@ import {MessageModule} from "primeng/message";
 import {MessagesModule} from "primeng/messages";
 import {MessageService} from "primeng/api";
 import {ToastModule} from "primeng/toast";
+import {Router, RouterLink} from "@angular/router";
 
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [CommonModule, FormsModule, MessageModule, MessagesModule, ToastModule],
+  imports: [CommonModule, FormsModule, MessageModule, MessagesModule, ToastModule, RouterLink],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css',
   providers: [MessageService]
 })
 export class RegisterComponent implements OnInit{
   user!: User;
-  constructor(private registerService: RegisterService, private messageService: MessageService) {
+
+  constructor(private registerService: RegisterService, private messageService: MessageService, private router:Router) {
   }
 
   ngOnInit(): void {
@@ -37,6 +39,7 @@ export class RegisterComponent implements OnInit{
       next:(data)=>{
         console.log(data);
         this.messageService.add({severity:'success', summary: 'Success', detail: 'User added'})
+        this.router.navigate([`/activate/${this.user.email}`]) //['/activate', {email: this.user.email}]
       },
       error:(error) =>{
         console.log(error);
