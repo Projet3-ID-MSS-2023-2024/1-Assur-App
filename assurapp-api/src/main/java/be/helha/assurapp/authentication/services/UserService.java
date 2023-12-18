@@ -34,9 +34,9 @@ public class UserService implements UserDetailsService {
         }
 
         //Temporaire, peut etre remplacer une fois le front fonctionnel
-        Role userRole = roleRepository.findByLabel(RoleList.SIMPLEUSER);
-        roleRepository.save(userRole);
-        user.setRole(userRole);
+        //Role userRole = roleRepository.findByLabel(RoleList.SIMPLEUSER);
+        //roleRepository.save(userRole);
+        //user.setRole(userRole);
 
         activationCodeService.sendCode(user);
 

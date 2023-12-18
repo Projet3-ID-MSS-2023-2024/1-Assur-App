@@ -4,6 +4,7 @@ import be.helha.assurapp.authentication.enums.RoleList;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
+import org.hibernate.annotations.Cascade;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -29,7 +30,7 @@ public class User implements UserDetails {
     private String email;
     @NotNull
     private String password;
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     private Role role;
     private int activationCode;
     private boolean isVerified = false;
