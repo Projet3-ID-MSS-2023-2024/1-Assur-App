@@ -1,6 +1,7 @@
 package be.helha.assurapp.insurance.models;
 
 import be.helha.assurapp.authentication.models.User;
+import be.helha.assurapp.insurance.enums.InsuranceType;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -13,8 +14,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "offers")
-public class Offer {
+@Table(name = "insurances")
+public class Insurance {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +23,10 @@ public class Offer {
     @NotNull
     private String name;
     @NotNull
-    private double amount;
+    @Enumerated(EnumType.STRING)
+    private InsuranceType type;
+    @NotNull
+    private double coverageAmount;
     @ManyToOne
     private User insurer;
     @OneToMany

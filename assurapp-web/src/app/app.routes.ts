@@ -6,6 +6,11 @@ import {HomeComponent} from "./components/home/home.component";
 import {DashboardComponent} from "./components/dashboard/dashboard.component";
 import {InsurancesComponent} from "./components/insurances/insurances.component";
 import {ContactComponent} from "./components/contact/contact.component";
+import {InsurancesDashboardComponent} from "./components/dashboard/insurances-dashboard/insurances-dashboard.component";
+import {AddInsuranceComponent} from "./components/dashboard/insurances-dashboard/add-insurance/add-insurance.component";
+import {
+  UpdateInsuranceComponent
+} from "./components/dashboard/insurances-dashboard/update-insurance/update-insurance.component";
 
 export const routes: Routes = [
   { path: "", component: HomeComponent},
@@ -15,6 +20,8 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent},
   { path: 'dashboard', component: DashboardComponent, children: [
-
+      { path: 'insurances', component: InsurancesDashboardComponent},
+      { path: 'insurances/add', component: AddInsuranceComponent},
+      { path: 'insurances/update/:id', component: UpdateInsuranceComponent},
     ]},
 ];

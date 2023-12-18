@@ -30,7 +30,7 @@ public class Subscription {
     @OneToOne
     private User client;
     @ManyToOne
-    private Offer offer;
+    private Insurance insurance;
     @OneToMany
     private List<Claim> claims;
     @OneToMany

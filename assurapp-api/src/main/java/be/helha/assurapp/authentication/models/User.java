@@ -35,6 +35,14 @@ public class User implements UserDetails {
     private boolean isVerified = false;
     private String pwdCode;
 
+    public User(String firstname, String lastname, String email, String password, Role role) {
+        this.name = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.password = password;
+        this.role = role;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_" + this.role.getLabel()));

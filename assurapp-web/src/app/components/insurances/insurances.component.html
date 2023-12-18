@@ -6,20 +6,24 @@
   </div>
 
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-    <div class="flex flex-col rounded-xl p-4 md:p-6 bg-white border border-gray-200 dark:bg-slate-900 dark:border-gray-700">
-      <div class="flex items-center gap-x-4">
-        <div class="grow">
-          <h3 class="font-medium text-gray-800 dark:text-gray-200">
-            <!-- insurance name -->
-          </h3>
-          <p class="text-xs uppercase text-gray-500">
-            <!-- insurance company -->
-          </p>
+    @for (insurance of insurances; track insurance.id) {
+      <div class="flex flex-col rounded-xl p-4 md:p-6 bg-white border border-gray-200 dark:bg-slate-900 dark:border-gray-700">
+        <div class="flex items-center gap-x-4">
+          <div class="grow">
+            <h3 class="font-medium text-gray-800 dark:text-gray-200">
+              {{insurance.name}}
+            </h3>
+            <p class="text-xs uppercase text-gray-500">
+              {{insurance.insurer.name}}
+            </p>
+          </div>
         </div>
+        <p class="mt-3 text-gray-500">
+          @for (term of insurance.terms; track term.id) {
+            {{term.description}} <br>
+          }
+        </p>
       </div>
-      <p class="mt-3 text-gray-500">
-        <!-- description -->
-      </p>
-    </div>
+    }
   </div>
 </div>
