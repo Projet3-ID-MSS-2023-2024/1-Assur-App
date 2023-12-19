@@ -22,6 +22,7 @@ public class UserService implements UserDetailsService {
     private UserRepository userRepository;
     private BCryptPasswordEncoder passwordEncoder;
     private RoleRepository roleRepository;
+    private ActivationCodeService activationCodeService;
     public void register(User user) throws RuntimeException{
         String cypherPassword = this.passwordEncoder.encode(user.getPassword());
         user.setPassword(cypherPassword);
@@ -34,10 +35,14 @@ public class UserService implements UserDetailsService {
         if (optionalUser.isPresent()){
             throw new RuntimeException("Used email");
         }
+
         //Temporaire, peut etre remplacer une fois le front fonctionnel
         Role userRole = roleRepository.findByLabel(RoleList.SIMPLEUSER);
         roleRepository.save(userRole);
         user.setRole(userRole);
+
+        activationCodeService.sendCode(user);
+
         this.userRepository.save(user);
     }
 
@@ -45,7 +50,6 @@ public class UserService implements UserDetailsService {
     public User loadUserByUsername(String username) throws UsernameNotFoundException {
         return this.userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
-
 
     public List<User> findAll() {
         return userRepository.findAll();

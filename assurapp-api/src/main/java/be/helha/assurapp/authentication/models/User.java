@@ -31,8 +31,9 @@ public class User implements UserDetails {
     private String password;
     @ManyToOne
     private Role role;
-    private boolean isVerified = true;
-
+    private int activationCode;
+    private boolean isVerified = false;
+    private String pwdCode;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
