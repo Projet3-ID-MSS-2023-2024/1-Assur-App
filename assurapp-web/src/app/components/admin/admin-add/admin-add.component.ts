@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit} from '@angular/core';
 import { UserService } from '../../../services/user.service';
 import { User } from '../../../interfaces/user';
 import { FormsModule } from '@angular/forms';
@@ -10,18 +10,25 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './admin-add.component.html',
   styleUrl: './admin-add.component.css'
 })
-export class AdminAddComponent {
+export class AdminAddComponent implements OnInit{
+
+  user!: User;
 
   constructor(private userService: UserService) { }
+
   
-  user: User = { } as User;
-  addUser() {
-      
-      if (!this.user.id || this.user.id == 0) return;
-      if (!this.user.name || this.user.name == '') return; 
-      if (!this.user.lastname || this.user.lastname == '') return;
-      if (!this.user.email || this.user.email == '') return;
-      if (!this.user.password || this.user.password == '') return;
+  ngOnInit(): void {
+    this.user = {
+      id: 0,
+      name: '',
+      lastname: '',
+      email: '',
+      password: ''
+    }
+  }
+  
+
+  addUser() {      
   
       console.log(this.user);
       

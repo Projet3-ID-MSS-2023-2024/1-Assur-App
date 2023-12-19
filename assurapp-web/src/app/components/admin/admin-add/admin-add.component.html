@@ -3,25 +3,25 @@
     <form>
         <div class="mb-4">
             <label for="name" class="block text-sm font-medium text-black text-black ">Name</label>
-            <input [(ngModel)]="user.name" [ngModelOptions]="{standalone: true}" type="text" id="name" name="name"
+            <input [(ngModel)]="user.name" type="text" id="name" name="name"
                 class="mt-1 p-2 w-full border rounded-md bg-gray-200 text-black">
         </div>
 
         <div class="mb-4">
             <label for="lastname" class="block text-sm font-medium text-black">Last Name</label>
-            <input [(ngModel)]="user.lastname" [ngModelOptions]="{standalone: true}" type="text" id="lastname" name="lastname"
+            <input [(ngModel)]="user.lastname" type="text" id="lastname" name="lastname"
                 class="mt-1 p-2 w-full border rounded-md bg-gray-200 text-black">
         </div>
 
         <div class="mb-4">
             <label for="email" class="block text-sm font-medium text-black">Email</label>
-            <input [(ngModel)]="user.email" [ngModelOptions]="{standalone: true}" type="email" id="email" name="email"
+            <input [(ngModel)]="user.email" type="email" id="email" name="email"
                 class="mt-1 p-2 w-full border rounded-md bg-gray-200 text-black">
         </div>
 
         <div class="mb-4">
             <label  for="password" class="block text-sm font-medium text-black">Password</label>
-            <input [(ngModel)]="user.password" [ngModelOptions]="{standalone: true}" type="password" id="password" name="password" class="mt-1 p-2 w-full border rounded-md bg-gray-200 text-black">
+            <input [(ngModel)]="user.password" type="password" id="password" name="password" class="mt-1 p-2 w-full border rounded-md bg-gray-200 text-black">
         </div>
 
         <!-- <div class="mb-4">
@@ -30,13 +30,14 @@
                 class="mt-1 p-2 w-full border rounded-md bg-gray-200 text-black">
         </div> -->
 
-        <!-- <div class="mb-4">
+        <div class="mb-4">
             <label for="role" class="block text-sm font-medium text-black">Role</label>
-            <select id="role" name="role" class="mt-1 p-2 w-full border rounded-md bg-gray-200 text-black">
-                <option [(ngModel)]="user.role" [ngModelOptions]="{standalone: true}"  value="2">INSURER</option>
-                <option  [(ngModel)]="user.role"  [ngModelOptions]="{standalone: true}"  value="3">EXPERT</option>
+            <select id="role" [(ngModel)]="user.role" name="role"
+                class="mt-1 p-2 w-full border rounded-md bg-gray-200 text-black">
+                <option value="INSURER">INSURER</option>
+                <option value="EXPERT">EXPERT</option>
             </select>
-        </div> -->
+        </div>
 
         <button (click)="addUser()" class="bg-blue-500 text-white px-4 py-2 rounded-md"> + Add User</button>
     </form>
