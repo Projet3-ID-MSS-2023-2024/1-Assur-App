@@ -19,7 +19,7 @@ export class ExpertiseService {
     return this.http.get<Expertise>(`${environment.api}/expertises/${id}`);
   }
 
-  createExpertise(expertise: Expertise): Observable<Expertise> {
+  addExpertise(expertise: Expertise): Observable<Expertise> {
     return this.http.post<Expertise>(`${environment.api}/expertises`, expertise);
   }
 

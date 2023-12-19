@@ -12,7 +12,7 @@ export class ClaimService {
   constructor(private http: HttpClient) { }
 
 
-  getClaim(): Observable<Claim[]> {
+  getClaims(): Observable<Claim[]> {
     return this.http.get<Claim[]>(`${environment.api}/claims`);
   }
 
@@ -25,7 +25,7 @@ export class ClaimService {
   }
 
   updateClaim(claim: Claim): Observable<Claim> {
-    return this.http.put<Claim>(`${environment.api}/claims/${claim.id}`, claim);
+    return this.http.put<Claim>(`${environment.api}/claims`, claim);
   }
 
   deleteClaim(id: number): Observable<Claim> {

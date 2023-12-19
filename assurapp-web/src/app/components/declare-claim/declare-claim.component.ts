@@ -26,10 +26,8 @@ export class DeclareClaimComponent implements OnInit{
   ngOnInit(): void {
     this.claim = {
       id: 0,
-      name: '',
       description: '',
       date: new Date(),
-      requestedAmount: 0,
       status: ClaimStatus.PENDING,
     };
   }

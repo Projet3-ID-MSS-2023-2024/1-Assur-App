@@ -6,10 +6,14 @@ import {HomeComponent} from "./components/home/home.component";
 import {DashboardComponent} from "./components/dashboard/dashboard.component";
 import {InsurancesComponent} from "./components/insurances/insurances.component";
 import {ContactComponent} from "./components/contact/contact.component";
+import {ListClaimsComponent} from "./components/claims/list-claims/list-claims.component";
+import {AddExpertiseComponent} from "./components/expertises/add-expertise/add-expertise.component";
 
 export const routes: Routes = [
   { path: "", component: HomeComponent},
-  { path: "declareclaim", component: DeclareClaimComponent},
+  { path: "declare-claim", component: DeclareClaimComponent},
+  { path: 'list-claim', component: ListClaimsComponent},
+  { path: `add-expertise/:id`, component: AddExpertiseComponent},
   { path: 'insurances', component: InsurancesComponent},
   { path: 'contact', component: ContactComponent},
   { path: 'login', component: LoginComponent},
