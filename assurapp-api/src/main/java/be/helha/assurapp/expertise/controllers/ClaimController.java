@@ -21,7 +21,7 @@ public class ClaimController {
     }
 
     @GetMapping("/{id}")
-    public Claim findById(Long id) {
+    public Claim findById(@PathVariable Long id) {
         return claimService.findById(id);
     }
 
@@ -36,7 +36,7 @@ public class ClaimController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteById(Long id) {
+    public void deleteById(@PathVariable Long id) {
         claimService.deleteById(id);
     }
 

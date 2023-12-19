@@ -30,7 +30,6 @@ public class Claim {
     @NotNull
     private String status;
 
-    @OneToOne
-    private Expertise expertise;
+    private Long expertise;
 
 }
