@@ -50,6 +50,12 @@ export class AdminPageComponent implements OnInit, OnDestroy {
         user: user
       }
     });
+
+    this.update.onClose.subscribe((User: User) => {
+      if (User) {
+          this.messageService.add({ severity: 'info', summary: 'Product Selected', detail: user.name });
+      }
+  });
   }
  
 

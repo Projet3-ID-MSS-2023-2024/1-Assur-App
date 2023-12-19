@@ -1,4 +1,5 @@
 <div class="bg-white p-8 rounded shadow-md w-96">
+    <p-toast></p-toast>
     <h2 class="text-2xl font-semibold mb-4 text-black">Update Form</h2>
     <form>
         <div class="mb-4">
@@ -29,7 +30,7 @@
 
         <div class="mb-4">
             <label for="role" class="block text-sm font-medium text-black">Role</label>
-            <select id="role" [(ngModel)]="user.role"  [ngModelOptions]="{standalone: true}"name="role" class="mt-1 p-2 w-full border rounded-md bg-gray-200 text-black">
+            <select id="role" [(ngModel)]="user.role"  name="role" class="mt-1 p-2 w-full border rounded-md bg-gray-200 text-black">
                 <option   value="INSURER" >INSURER</option>
                 <option  value="EXPERT" >EXPERT</option>
             </select>

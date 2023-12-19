@@ -11,7 +11,7 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
-  bearer = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJza3lAZ21haWwuY29tIiwibmFtZSI6ImFkbWluIiwiZXhwIjoxNzAyOTYwMzExLCJyb2xlIjp7ImlkIjoxLCJsYWJlbCI6IkNMSUVOVCJ9fQ.38DAvy2RdX0zUgzdaA8a0oxaltjRuwGEk1r5NCulzf-QPMnHaUaqJDXSTIal_94_UWVVfxp_YKCSdfHn0sJpvQ"
+  bearer = "eyJhbGciOiJIUzUxMiJ9.eyJuYW1lIjoiQmVuamFtaW4iLCJzdWIiOiJkZWxzaW5uZWJlbmphbWluQGdtYWlsLmNvbSIsInJvbGUiOnsiaWQiOjMsImxhYmVsIjoiRVhQRVJUIn0sImV4cCI6MTcwMzAwNDI4NH0.DdTyDpCn3pD5CYRKAlmFmnfpn2i6WON163ueV0vjhPTJUeu_bGMlARDB6TYXFDZwQTyCAssR-dteuWXm33w62w"
 
     getAllUser(): Observable<User[]> {
       
@@ -41,7 +41,7 @@ export class UserService {
     }
 
     updateUser(user: User): Observable<User> {
-      return this.http.post<User>(`${environment.api}/users/update`, user,
+      return this.http.post<User>(`${environment.api}/usersUpdate`, user,
         {
           headers: {
             Authorization: `Bearer ${this.bearer}`
