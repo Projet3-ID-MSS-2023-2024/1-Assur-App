@@ -11,7 +11,7 @@ export class ExpertiseService {
 
   constructor(private http: HttpClient) { }
 
-  getExpertise(): Observable<Expertise[]> {
+  getExpertises(): Observable<Expertise[]> {
     return this.http.get<Expertise[]>(`${environment.api}/expertises`);
   }
 

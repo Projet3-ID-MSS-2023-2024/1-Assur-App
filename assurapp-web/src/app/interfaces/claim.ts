@@ -6,5 +6,5 @@ export interface Claim {
   description: string;
   date: Date;
   status: ClaimStatus;
-  expertise?: Expertise;
+  expertise?: Number;
 }

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {StyleClassModule} from 'primeng/styleclass';
-import { ClaimService } from '../../services/claim.service';
-import { Claim } from '../../interfaces/claim';
-import { ClaimStatus } from '../../interfaces/claim-status.enum';
+import { ClaimService } from '../../../services/claim.service';
+import { Claim } from '../../../interfaces/claim';
+import { ClaimStatus } from '../../../interfaces/claim-status.enum';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MessageService} from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
