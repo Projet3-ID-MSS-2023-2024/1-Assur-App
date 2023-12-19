@@ -63,6 +63,8 @@ public class UserService implements UserDetailsService {
 
 
     public User updateUser(User user) {
+        Role userRole = user.getRole();
+        user.setRole(roleRepository.findByLabel(userRole.getLabel()));
         return userRepository.save(user);
     }
 

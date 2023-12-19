@@ -27,13 +27,13 @@
                 class="mt-1 p-2 w-full border rounded-md bg-gray-200 text-black">
         </div> -->
 
-        <!-- <div class="mb-4">
+        <div class="mb-4">
             <label for="role" class="block text-sm font-medium text-black">Role</label>
-            <select id="role" name="role" class="mt-1 p-2 w-full border rounded-md bg-gray-200 text-black">
-                <option  [(ngModel)]="user.role" [ngModelOptions]="{standalone: true}" value="2" name="2">INSURER</option>
-                <option [(ngModel)]="user.role" [ngModelOptions]="{standalone: true}"  value="3" name="3">EXPERT</option>
+            <select id="role" [(ngModel)]="user.role"  [ngModelOptions]="{standalone: true}"name="role" class="mt-1 p-2 w-full border rounded-md bg-gray-200 text-black">
+                <option   value="INSURER" >INSURER</option>
+                <option  value="EXPERT" >EXPERT</option>
             </select>
-        </div> -->
+        </div>
 
         <button (click)="updateUser()" class="bg-blue-500 text-white px-4 py-2 rounded-md">Update</button>
     </form>
