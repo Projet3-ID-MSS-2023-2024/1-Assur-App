@@ -9,18 +9,23 @@ import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
 import { AdminAddComponent } from '../admin-add/admin-add.component';
 import { AdminUpdateComponent } from '../admin-update/admin-update.component';
 import { User } from '../../../interfaces/user';
+import { MessageService } from 'primeng/api';
+import { ToastModule } from 'primeng/toast';
+import { ConfirmPopupModule } from 'primeng/confirmpopup';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
 
 @Component({
   selector: 'app-admin-page',
   standalone: true,
-  imports: [CommonModule, TableModule, ButtonModule, DropdownModule],
+  imports: [CommonModule, TableModule, ButtonModule, DropdownModule, ToastModule,ConfirmPopupModule,ConfirmDialogModule],
   templateUrl: './admin-page.component.html',
   styleUrl: './admin-page.component.css',
-  providers: [DialogService]
+  providers: [DialogService,MessageService, ConfirmationService]
 })
 export class AdminPageComponent implements OnInit, OnDestroy {
 
-  constructor(private userService: UserService, public dialogService: DialogService) { }
+  constructor(private userService: UserService, public dialogService: DialogService, private messageService: MessageService, private confirmationService: ConfirmationService) { }
 
   users= [];
   add: DynamicDialogRef | undefined;
@@ -46,24 +51,38 @@ export class AdminPageComponent implements OnInit, OnDestroy {
       }
     });
   }
-
+ 
 
   getAllUsers() {
     const subscription = this.userService.getAllUser().subscribe(
-      (data: any) => {
-        console.log(data);
-        this.users = data;
-        subscription.unsubscribe();
-      },
-      (err: any) => {
-        console.log(err);
+      {
+        next: (data: any) => {
+          console.log(data);
+          this.users = data;
+          subscription.unsubscribe();
+        },
+        error: (err: any) => {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to get all users' });
+        }
       }
-    );
+    )
   }
   
 
-  // deleteUser(id: number): void {
-  //   this.userService.deleteUser(id).subscribe(() => true);
-  // }
+  deleteUser(id: number): void {
+    this.userService.deleteUser(id).subscribe(
+      () => {
+        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'User Deleted' });
+
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      },
+      (error) => {
+        console.error('Erreur lors de la suppression de l\'utilisateur : ', error);
+        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to delete user' });
+      }
+    );
+  }
 
 }

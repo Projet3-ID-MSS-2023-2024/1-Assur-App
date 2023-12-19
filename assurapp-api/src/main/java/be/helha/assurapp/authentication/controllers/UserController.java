@@ -13,8 +13,11 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
+import javax.swing.text.html.Option;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
+
 @Slf4j
 @AllArgsConstructor
 @RestController
@@ -38,7 +41,6 @@ public class UserController {
         return null;
     }
 
-
     @GetMapping("users")
     public List<User> findAll(){
         return userService.findAll();
@@ -50,13 +52,13 @@ public class UserController {
     }
 
     @PostMapping("users")
-    public User save(@RequestBody User user){
-        return userService.save(user);
+    public User addUser(@RequestBody User user){
+        return userService.addUser(user);
     }
 
-    @PutMapping("users")
-    public User update(@RequestBody User user){
-        return userService.save(user);
+    @PostMapping("users/update")
+    public User updateUser(@RequestBody User user ){
+        return userService.updateUser(user);
     }
 
     @DeleteMapping("users/{id}")

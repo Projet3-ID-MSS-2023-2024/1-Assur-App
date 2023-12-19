@@ -14,8 +14,7 @@ export class AdminAddComponent {
 
   constructor(private userService: UserService) { }
   
-  user!: User;
-
+  user: User = { } as User;
   addUser() {
       
       if (!this.user.id || this.user.id == 0) return;

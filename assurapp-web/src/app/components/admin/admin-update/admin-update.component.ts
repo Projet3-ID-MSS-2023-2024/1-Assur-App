@@ -20,6 +20,8 @@ export class AdminUpdateComponent  {
     lastname: this.oldUser.lastname,
     email: this.oldUser.email,
     password: this.oldUser.password,
+    role: this.oldUser.role,
+
   };
  
 
@@ -49,7 +51,5 @@ export class AdminUpdateComponent  {
       }
     )
   }
-
-  
 
 }
