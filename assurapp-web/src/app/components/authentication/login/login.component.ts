@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {CommonModule, DOCUMENT} from '@angular/common';
 import {RegisterService} from "../../../services/authentication/register.service";
 import {MessageService} from "primeng/api";
 import {User} from "../../../interfaces/user";
@@ -25,6 +25,7 @@ export class LoginComponent implements OnInit{
   }
 
   ngOnInit(): void {
+
     this.user = {
       id:0,
       name:'',
@@ -40,6 +41,7 @@ export class LoginComponent implements OnInit{
       next:(data)=>{
         console.log(data);
         this.messageService.add({severity:'success', summary: 'Success', detail: 'User authenticated'})
+
       },
       error:(error) =>{
         console.log(error);
