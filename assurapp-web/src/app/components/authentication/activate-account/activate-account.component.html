@@ -1,42 +1,54 @@
-<html class="h-full">
-<body class="dark:bg-slate-900 bg-gray-100 flex h-full items-center py-16">
-<main class="w-full max-w-md mx-auto p-6">
-  <div class="mt-7 bg-white border border-gray-200 rounded-xl shadow-sm dark:bg-gray-800 dark:border-gray-700">
-    <div class="p-4 sm:p-7">
-      <div class="text-center">
-        <h1 class="block text-2xl font-bold text-gray-800 dark:text-white">Activate your account</h1>
-        <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
-          Check your mailbox {{email}}! Another code?<a (click)="regenerate()" class="text-blue-600 decoration-2 hover:underline font-medium dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
-          Click here...</a>
+<section class="bg-white dark:bg-gray-900">
+  <div class="container flex flex-col items-center justify-center min-h-screen px-6 mx-auto">
+    <div class="flex justify-center mx-auto">
+      <img class="w-auto h-7 sm:h-8" src="https://merakiui.com/images/logo.svg" alt="">
+    </div>
+
+    <h1 class="mt-4 text-2xl font-semibold tracking-wide text-center text-gray-800 capitalize md:text-3xl dark:text-white">
+      Activate your account
+    </h1>
+
+    <div class="flex: items-center mt-6">
+      <p class="text-gray-500 dark:text-gray-400">continue as</p>
+
+      <div class="flex items-center mx-2">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" data-slot="icon" class="w-6 h-6">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+        </svg>
+
+        <span class="mx-1 text-gray-800 dark:text-white">Ana Williams...</span>
+      </div>
+
+      <button class="text-blue-500 dark:text-blue-400 focus:outline-none hover:underline">change</button>
+    </div>
+
+    <div class="w-full max-w-md mx-auto mt-6">
+      <form>
+        <div>
+          <label class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Password</label>
+          <input type="password" placeholder="Enter your password" class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+        </div>
+
+        <a href="#" class="inline-block mt-4 text-blue-500 capitalize hover:underline dark:text-blue-400">
+          reset password?
+        </a>
+
+        <button class="w-full px-6 py-3 mt-4 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
+          “Continue”
+        </button>
+
+        <div class="mt-6 text-center">
+          <a href="#" class="text-sm text-blue-500 hover:underline dark:text-blue-400">
+            Don’t have an account yet? Sign up
+          </a>
+        </div>
+
+        <p class="mt-6 text-gray-500 dark:text-gray-400">
+          By clicking “Continue” above, you acknowledge that you have read and
+          understood, and agree to Our <a href="#" class="text-gray-700 dark:text-white">Term & Conditions</a>
+          and<a href="#" class="text-gray-700 dark:text-white"> Privacy Policy.</a>
         </p>
-      </div>
-
-      <div class="mt-5">
-        <!-- Form -->
-        <form>
-          <div class="grid gap-y-4">
-            <!-- Form Group -->
-            <div>
-              <label for="code" class="block text-sm mb-2 dark:text-white">Activation Code</label>
-              <div class="relative">
-                <input [(ngModel)]="code" type="number" id="code" name="code" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600" required aria-describedby="email-error">
-                <div class="hidden absolute inset-y-0 end-0 flex items-center pointer-events-none pe-3">
-                  <svg class="h-5 w-5 text-red-500" width="16" height="16" fill="currentColor" viewBox="0 0 16 16" aria-hidden="true">
-                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM8 4a.905.905 0 0 0-.9.995l.35 3.507a.552.552 0 0 0 1.1 0l.35-3.507A.905.905 0 0 0 8 4zm.002 6a1 1 0 1 0 0 2 1 1 0 0 0 0-2z"/>
-                  </svg>
-                </div>
-              </div>
-              <p class="hidden text-xs text-red-600 mt-2" id="email-error">Please include a valid email address so we can get back to you</p>
-            </div>
-            <!-- End Form Group -->
-
-            <button (click)="onSubmit()" type="submit" class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">Activate account</button>
-          </div>
-        </form>
-        <!-- End Form -->
-      </div>
+      </form>
     </div>
   </div>
-</main>
-</body>
-</html>
+</section>
