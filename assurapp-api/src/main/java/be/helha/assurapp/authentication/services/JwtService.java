@@ -50,6 +50,7 @@ public class JwtService {
         final long currentTime = System.currentTimeMillis();
 
         final Map<String, Object> claims = Map.of(
+                "id", user.getId(),
                 "name", user.getName(),
                 "role", user.getRole(),
                 Claims.EXPIRATION, new Date(currentTime + 3600 * 1000 * 5),

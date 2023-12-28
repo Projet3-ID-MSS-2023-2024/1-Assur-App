@@ -34,7 +34,9 @@ public class UserService implements UserDetailsService {
         }
 
         Role userRole = user.getRole();
-        user.setRole(roleRepository.findByLabel(userRole.getLabel()));
+        if(userRole.getLabel() != RoleList.ADMINISTRATOR){
+            user.setRole(roleRepository.findByLabel(userRole.getLabel()));
+        }
 
         activationCodeService.sendCode(user);
 
