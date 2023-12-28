@@ -8,7 +8,7 @@ services:
       - POSTGRES_PASSWORD=assurapp
       - POSTGRES_USER=assurapp
     ports:
-      - 5432:5432
+      - 5431:5432
   assurapp-kc:
     image: keycloak/keycloak:22.0
     container_name: assurapp-kc

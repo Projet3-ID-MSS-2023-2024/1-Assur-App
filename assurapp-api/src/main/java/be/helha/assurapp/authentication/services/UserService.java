@@ -5,12 +5,15 @@ import be.helha.assurapp.authentication.models.Role;
 import be.helha.assurapp.authentication.models.User;
 import be.helha.assurapp.authentication.repositories.RoleRepository;
 import be.helha.assurapp.authentication.repositories.UserRepository;
+import be.helha.assurapp.expertise.models.Expertise;
 import lombok.AllArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @AllArgsConstructor
@@ -48,8 +51,29 @@ public class UserService implements UserDetailsService {
         return this.userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
-    public void saveUser(User user){ //duplicate fct to be replaced by CRUD fct
-        userRepository.save(user);
+    public List<User> findAll() {
+        return userRepository.findAll();
+    }
+
+
+    public User findById(Long id) {
+        return userRepository.findById(id).orElse(null);
+    }
+
+
+    public void deleteById(Long id) {
+        userRepository.deleteById(id);
+    }
+
+
+    public User updateUser(User user) {
+        Role userRole = user.getRole();
+        user.setRole(roleRepository.findByLabel(userRole.getLabel()));
+        return userRepository.save(user);
+    }
+
+    public User addUser(User user) {
+        return userRepository.save(user);
     }
 
 }

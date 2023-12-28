@@ -10,7 +10,7 @@ spring:
     init:
       mode: always
   datasource:
-    url: jdbc:postgresql://localhost:5433/assurapp
+    url: jdbc:postgresql://localhost:5432/assurapp
     username: assurapp
     password: assurapp
     driver-class-name: org.postgresql.Driver

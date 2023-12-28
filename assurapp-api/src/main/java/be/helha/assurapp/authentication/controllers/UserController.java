@@ -12,6 +12,8 @@ import org.springframework.http.MediaType;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.*;
+import java.util.List;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -20,10 +22,12 @@ import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
+
 @Slf4j
 @AllArgsConstructor
 @RestController
-@RequestMapping(path="/api/v1/",consumes = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(path="/api/v1/")
 public class UserController {
     private AuthenticationManager authenticationManager;
     private UserService userService;
@@ -46,6 +50,31 @@ public class UserController {
             return errors;
         }
         return null;
+    }
+  
+    @GetMapping("users")
+    public List<User> findAll(){
+        return userService.findAll();
+    }
+
+    @GetMapping("users/{id}")
+    public User findById(@PathVariable Long id){
+        return userService.findById(id);
+    }
+
+    @PostMapping("users")
+    public User addUser(@RequestBody User user){
+        return userService.addUser(user);
+    }
+
+    @PostMapping("usersUpdate")
+    public User updateUser(@RequestBody User user ){
+        return userService.updateUser(user);
+    }
+
+    @DeleteMapping("users/{id}")
+    public void deleteById(@PathVariable Long id){
+        userService.deleteById(id);
     }
 
     @PostMapping("verifyAccount")
