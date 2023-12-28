@@ -84,14 +84,14 @@ public class UserController {
         }
         if(userService.loadUserByUsername(userData.get("username")).getActivationCode() == Integer.parseInt(userData.get("code"))){
             userService.loadUserByUsername(userData.get("username")).setVerified(true);
-            userService.saveUser(userService.loadUserByUsername(userData.get("username")));//To be replaced by CRUD fct
+            userService.addUser(userService.loadUserByUsername(userData.get("username")));//To be replaced by CRUD fct
         }
     }
 
     @PostMapping("changeActivationCode")
     public void changeActivationCode(@RequestBody Map<String, String> userData){
         activationCodeService.sendCode(userService.loadUserByUsername(userData.get("username")));
-        userService.saveUser(userService.loadUserByUsername(userData.get("username")));
+        userService.addUser(userService.loadUserByUsername(userData.get("username")));
     }
 
 }
