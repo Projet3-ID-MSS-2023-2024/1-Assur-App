@@ -8,6 +8,8 @@ import {ActivateAccountComponent} from "./components/authentication/activate-acc
 import {DashboardComponent} from "./components/dashboard/dashboard.component";
 import {InsurancesComponent} from "./components/insurances/insurances.component";
 import {ContactComponent} from "./components/contact/contact.component";
+import {TermsAndConditionsComponent} from "./components/others/terms-and-conditions/terms-and-conditions.component";
+import {PrivacyPolicyComponent} from "./components/others/privacy-policy/privacy-policy.component";
 
 
 export const routes: Routes = [
@@ -19,6 +21,8 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent},
   {path: 'activate/:email', component: ActivateAccountComponent},
   { path: 'register', component: RegisterComponent},
+  {path:'conditions', component: TermsAndConditionsComponent},
+  {path:'privacy', component: PrivacyPolicyComponent},
   { path: 'dashboard', component: DashboardComponent, children: [
 
     ]},

@@ -36,10 +36,10 @@ public class UserService implements UserDetailsService {
             throw new RuntimeException("Used email");
         }
 
-        //Temporaire, peut etre remplacer une fois le front fonctionnel
-        Role userRole = roleRepository.findByLabel(RoleList.SIMPLEUSER);
-        roleRepository.save(userRole);
-        user.setRole(userRole);
+        Role userRole = user.getRole();
+        if(userRole.getLabel() != RoleList.ADMINISTRATOR){
+            user.setRole(roleRepository.findByLabel(userRole.getLabel()));
+        }
 
         activationCodeService.sendCode(user);
 

@@ -1,6 +1,4 @@
-export enum Role {
-    CLIENT = "CLIENT",
-    INSURER = "INSURER",
-    EXPERT = "EXPERT",
-    ADMINISTRATOR = "ADMINISTRATOR"
+export interface Role {
+  id : number;
+  label : String;
 }
