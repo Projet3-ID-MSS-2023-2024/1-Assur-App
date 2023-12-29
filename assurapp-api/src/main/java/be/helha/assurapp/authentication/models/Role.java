@@ -15,7 +15,21 @@ public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.STRING) @Column(unique = true)
     private RoleList label;
 
+    public Role(String label) {
+        this.id = 0L;
+        switch (label){
+            case "CLIENT":
+                this.label = RoleList.CLIENT;
+                break;
+            case "INSURER":
+                this.label = RoleList.INSURER;
+                break;
+            case "EXPERT":
+                this.label = RoleList.EXPERT;
+                break;
+        }
+    }
 }

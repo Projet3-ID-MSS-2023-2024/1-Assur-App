@@ -6,6 +6,9 @@ spring:
   mail:
     port: 9025
     host: localhost
+  sql:
+    init:
+      mode: always
   datasource:
     url: jdbc:postgresql://localhost:5432/assurapp
     username: assurapp
@@ -15,6 +18,7 @@ spring:
     show-sql: true
     hibernate:
       ddl-auto: create
+    defer-datasource-initialization: true
   properties:
     hibernate:
       dialect: org.hibernate.dialect.PostgreSQLDialect
