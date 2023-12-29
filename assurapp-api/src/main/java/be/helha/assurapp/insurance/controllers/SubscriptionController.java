@@ -25,12 +25,12 @@ public class SubscriptionController {
     }
 
     @PostMapping
-    public Subscription add(Subscription subscription) {
+    public Subscription add(@RequestBody Subscription subscription) {
         return this.service.add(subscription);
     }
 
     @PutMapping
-    public Subscription update(Subscription subscription) {
+    public Subscription update(@RequestBody Subscription subscription) {
         return this.service.update(subscription);
     }
 

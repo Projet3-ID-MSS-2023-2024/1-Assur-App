@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from "@angular/forms";
-import {Insurance} from "../../../../interfaces/insurance";
 import {InsuranceService} from "../../../../services/insurance.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {InsuranceType} from "../../../../enums/insurance-type";
@@ -50,7 +49,7 @@ export class UpdateInsuranceComponent implements OnInit {
   }
 
   onSubmit() {
-    console.log(this.insuranceForm.value)
+    //console.log(this.insuranceForm.value)
     this.insuranceService.updateInsurance(this.insuranceForm.value).subscribe({
       next: data => {
         this.router.navigate(['/dashboard/insurances'])
