@@ -1,11 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
-import {ActivateAccountService} from "../../../services/authentication/activate-account.service";
 import {CommonModule} from "@angular/common";
 import {MessageModule} from "primeng/message";
 import {MessagesModule} from "primeng/messages";
 import {ToastModule} from "primeng/toast";
 import {FormsModule} from "@angular/forms";
+import {AuthenticationService} from "../../../services/authentication.service";
 
 @Component({
   selector: 'app-activate-account',
@@ -21,7 +21,7 @@ export class ActivateAccountComponent implements OnInit{
 
   email: string = ""
   code: string=""
-  constructor(private activateAccountService : ActivateAccountService, private route: Router, private activeRoute: ActivatedRoute) {
+  constructor(private authService : AuthenticationService, private route: Router, private activeRoute: ActivatedRoute) {
   }
   ngOnInit(): void {
     this.email = this.activeRoute.snapshot.paramMap.get('email') || ''
@@ -30,7 +30,7 @@ export class ActivateAccountComponent implements OnInit{
   onSubmit(){
     console.log(this.email)
      console.log(this.code)
-    this.activateAccountService.activateAccount(this.email, this.code).subscribe(
+    this.authService.activateAccount(this.email, this.code).subscribe(
       {
         next:(data)=>{
           console.log(data)
@@ -45,7 +45,7 @@ export class ActivateAccountComponent implements OnInit{
   }
 
   regenerate(){
-    this.activateAccountService.regenerateCode(this.email).subscribe(
+    this.authService.regenerateCode(this.email).subscribe(
       {
         next:(data)=>{
           console.log(data)
@@ -56,9 +56,5 @@ export class ActivateAccountComponent implements OnInit{
         }
       }
     )
-  }
-
-  test(){
-    console.log(this.code)
   }
 }

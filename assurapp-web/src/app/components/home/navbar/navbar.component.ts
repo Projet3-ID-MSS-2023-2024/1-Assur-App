@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {NgIf, NgOptimizedImage} from "@angular/common";
 import {RouterLink} from "@angular/router";
-import {TokenService} from "../../../services/token.service";
+import {AuthenticationService} from "../../../services/authentication.service";
 
 @Component({
   selector: 'app-navbar',
@@ -16,12 +16,12 @@ import {TokenService} from "../../../services/token.service";
 })
 export class NavbarComponent implements OnInit{
   isLogged:boolean = false;
-  constructor(private tokenService: TokenService) {
+  constructor(private authService: AuthenticationService) {
 
   }
 
   ngOnInit(): void {
-    this.isLogged = this.tokenService.isLogged();
+    this.isLogged = this.authService.isLogged();
   }
 
 }

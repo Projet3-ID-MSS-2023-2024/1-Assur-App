@@ -1,11 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {User} from "../../../interfaces/user";
-import {RegisterService} from "../../../services/authentication/register.service";
 import {AbstractControl, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
 import {Router, RouterLink} from "@angular/router";
 import {Role} from "../../../interfaces/role";
 import {NavbarComponent} from "../../home/navbar/navbar.component";
+import {AuthenticationService} from "../../../services/authentication.service";
 
 @Component({
   selector: 'app-register',
@@ -19,7 +19,7 @@ export class RegisterComponent implements OnInit{
   role!: Role;
   form: FormGroup;
 
-  constructor(private registerService: RegisterService, private router:Router) {
+  constructor(private authService: AuthenticationService, private router:Router) {
     this.form = new FormGroup({
         name: new FormControl('', [Validators.required, Validators.pattern("[^0-9]")]),
         lastname: new FormControl('', [Validators.required, Validators.pattern("[^0-9]")]),
@@ -44,7 +44,7 @@ export class RegisterComponent implements OnInit{
 
     this.user = {
       id:0,
-      name:'',
+      name: '',
       lastname:'',
       email:'',
       password:'',
@@ -54,8 +54,12 @@ export class RegisterComponent implements OnInit{
 
   onSubmit(){
     this.user.id = 0;
+    this.user.name = this.form.value.name
+    this.user.lastname = this.form.value.lastname
+    this.user.email = this.form.value.email
+    this.user.password = this.form.value.password
     console.log(this.user)
-    this.registerService.register(this.user).subscribe({
+    this.authService.register(this.user).subscribe({
       next:(data)=>{
         console.log(data);
         this.router.navigate([`/activate/${this.user.email}`]) //['/activate', {email: this.user.email}]
@@ -63,9 +67,6 @@ export class RegisterComponent implements OnInit{
       error:(error) =>{
         console.log(error);
       }
-
     })
   }
-
-
 }

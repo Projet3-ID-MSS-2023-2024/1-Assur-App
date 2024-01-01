@@ -84,10 +84,10 @@
               </button>
             </div>
           </form>
-          <div class="mt-6">
-            <button (click)="test()" class="w-full px-4 py-2 tracking-wide text-white transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:bg-blue-400 focus:ring focus:ring-blue-300 focus:ring-opacity-50">
-              test
-            </button>
+
+          <div class="flex flex-row-reverse justify-content-between">
+            <input type="checkbox" class="shrink-0 mt-0.5 border-gray-200 rounded text-blue-600 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-gray-800 dark:border-gray-700 dark:checked:bg-blue-500 dark:checked:border-blue-500 dark:focus:ring-offset-gray-800" id="hs-checked-checkbox" checked>
+            <label for="hs-checked-checkbox" class="text-sm text-gray-500 ms-3 dark:text-gray-400">Remember me</label>
           </div>
 
           <p class="mt-6 text-sm text-center text-gray-400">Don&#x27;t have an account yet? <a routerLink="/register" class="text-blue-500 focus:outline-none focus:underline hover:underline">Sign up</a>.</p>
