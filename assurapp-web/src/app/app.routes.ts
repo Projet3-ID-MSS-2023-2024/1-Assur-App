@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
-import { DeclareClaimComponent } from './components/declare-claim/declare-claim.component';
+import {DeclareClaimComponent} from './components/declare-claim/declare-claim.component';
 import {LoginComponent} from "./components/authentication/login/login.component";
 import {RegisterComponent} from "./components/authentication/register/register.component";
 import {HomeComponent} from "./components/home/home.component";
-import { AdminPageComponent } from './components/admin/admin-page/admin-page.component';
+import {AdminPageComponent} from './components/admin/admin-page/admin-page.component';
 import {ActivateAccountComponent} from "./components/authentication/activate-account/activate-account.component";
 import {DashboardComponent} from "./components/dashboard/dashboard.component";
 import {InsurancesComponent} from "./components/insurances/insurances.component";
@@ -16,18 +16,18 @@ import {PrivacyPolicyComponent} from "./components/others/privacy-policy/privacy
 
 export const routes: Routes = [
   { path: "", component: HomeComponent},
-  { path: "adminPage", component: AdminPageComponent},
-  { path: "declareclaim", component: DeclareClaimComponent},
   { path: 'insurances', component: InsurancesComponent},
   { path: 'contact', component: ContactComponent},
   { path: 'login', component: LoginComponent},
-  {path: 'activate/:email', component: ActivateAccountComponent},
   { path: 'register', component: RegisterComponent},
-  {path:'conditions', component: TermsAndConditionsComponent},
-  {path:'privacy', component: PrivacyPolicyComponent},
+  { path: 'activate/:email', component: ActivateAccountComponent},
+  { path: 'conditions', component: TermsAndConditionsComponent},
+  { path: 'privacy', component: PrivacyPolicyComponent},
   { path: 'dashboard', component: DashboardComponent, children: [
       { path: 'insurances', component: InsurancesDashboardComponent},
       { path: 'insurances/add', component: AddInsuranceComponent},
       { path: 'insurances/update/:id', component: UpdateInsuranceComponent},
+      { path: "claims/add", component: DeclareClaimComponent},
+      { path: "administration", component: AdminPageComponent}
     ]},
 ];

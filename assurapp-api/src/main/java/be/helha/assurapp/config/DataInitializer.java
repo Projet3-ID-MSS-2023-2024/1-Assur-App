@@ -23,7 +23,7 @@ public class DataInitializer {
 
     @Bean
     @Transactional
-    CommandLineRunner initDatabase(RoleRepository roleRepository, UserRepository userRepository, TermRepository termRepository, InsuranceRepository offerRepository) {
+    public CommandLineRunner initDatabase(RoleRepository roleRepository, UserRepository userRepository, TermRepository termRepository, InsuranceRepository offerRepository) {
         return args -> {
             List<Role> roles = new ArrayList<>();
             List<User> users = new ArrayList<>();
@@ -35,10 +35,10 @@ public class DataInitializer {
             roles.add(new Role(3L, RoleList.EXPERT));
             roles.add(new Role(4L, RoleList.INSURER));
 
-            users.add(new User("Administrator", "Administrator", "admin@assurapp.com", "admin", roles.get(0)));
-            users.add(new User("Client", "Client", "client@assurapp.com", "client", roles.get(1)));
-            users.add(new User("Expert", "Expert", "expert@assurapp.com", "expert", roles.get(2)));
-            users.add(new User("Insurer", "Insurer", "insurer@assurapp.com", "insurer", roles.get(3)));
+            users.add(new User(1L, "Administrator", "Administrator", "admin@assurapp.com", "$2a$10$TQETsi01Zxo7r6IG5rVgQONQJeKjOLQRvzjkxAGi7qjU1Zy02VblG", roles.get(0), 123456, true, null));
+            users.add(new User(2L, "Client", "Client", "client@assurapp.com", "$2a$10$TQETsi01Zxo7r6IG5rVgQONQJeKjOLQRvzjkxAGi7qjU1Zy02VblG", roles.get(1), 123456, true, null));
+            users.add(new User(3L, "Expert", "Expert", "expert@assurapp.com", "$2a$10$TQETsi01Zxo7r6IG5rVgQONQJeKjOLQRvzjkxAGi7qjU1Zy02VblG", roles.get(2), 123456, true, null));
+            users.add(new User(4L, "Insurer", "Insurer", "insurer@assurapp.com", "$2a$10$TQETsi01Zxo7r6IG5rVgQONQJeKjOLQRvzjkxAGi7qjU1Zy02VblG", roles.get(3), 123456, true, null));
 
             terms.add(new Term(1L, "Premium", "30 per month"));
             terms.add(new Term(2L, "Coverage", "Covers collision and theft, excludes natural disasters and vandalism"));
@@ -81,16 +81,16 @@ public class DataInitializer {
             terms.add(new Term(30L, "Deductible", "300 deductible for claims"));
 
 
-            insurances.add(new Insurance(1L, "AutoGuard Basic Plan", InsuranceType.CAR, 50000.00, users.get(3), terms.subList(0, 3)));
-            insurances.add(new Insurance(2L, "FamilyCar Comprehensive Coverage", InsuranceType.CAR, 100000.00, users.get(3), terms.subList(3, 6)));
-            insurances.add(new Insurance(3L, "UrbanSafe Liability Plan", InsuranceType.CAR, 30000.00, users.get(3), terms.subList(6, 9)));
-            insurances.add(new Insurance(4L, "EcoDrive Green Plan", InsuranceType.CAR, 70000.00, users.get(3), terms.subList(9, 12)));
-            insurances.add(new Insurance(5L, "HighMileage Adventure Coverage", InsuranceType.CAR, 80000.00, users.get(3), terms.subList(12, 15)));
-            insurances.add(new Insurance(6L, "CityDrive Compact Plan", InsuranceType.CAR, 40000.00, users.get(3), terms.subList(15, 18)));
-            insurances.add(new Insurance(7L, "SeniorDriver Safety Plan", InsuranceType.CAR, 60000.00, users.get(3), terms.subList(18, 21)));
-            insurances.add(new Insurance(8L, "LuxuryAuto Elite Plan", InsuranceType.CAR, 150000.00, users.get(3), terms.subList(21, 24)));
-            insurances.add(new Insurance(9L, "BusinessFleet Coverage Plan", InsuranceType.CAR, 200000.00, users.get(3), terms.subList(24, 27)));
-            insurances.add(new Insurance(10L, "FirstTime Driver Assurance", InsuranceType.CAR, 35000.00, users.get(3), terms.subList(27, 30)));
+            insurances.add(new Insurance(1L, "Auto Guard Basic Plan", InsuranceType.CAR, 50000.00, users.get(3), terms.subList(0, 3)));
+            insurances.add(new Insurance(2L, "Family Car Comprehensive Coverage", InsuranceType.CAR, 100000.00, users.get(3), terms.subList(3, 6)));
+            insurances.add(new Insurance(3L, "Urban Safe Liability Plan", InsuranceType.CAR, 30000.00, users.get(3), terms.subList(6, 9)));
+            insurances.add(new Insurance(4L, "Eco Drive Green Plan", InsuranceType.CAR, 70000.00, users.get(3), terms.subList(9, 12)));
+            insurances.add(new Insurance(5L, "High Mileage Adventure Coverage", InsuranceType.CAR, 80000.00, users.get(3), terms.subList(12, 15)));
+            insurances.add(new Insurance(6L, "City Drive Compact Plan", InsuranceType.CAR, 40000.00, users.get(3), terms.subList(15, 18)));
+            insurances.add(new Insurance(7L, "Senior Driver Safety Plan", InsuranceType.CAR, 60000.00, users.get(3), terms.subList(18, 21)));
+            insurances.add(new Insurance(8L, "Luxury Auto Elite Plan", InsuranceType.CAR, 150000.00, users.get(3), terms.subList(21, 24)));
+            insurances.add(new Insurance(9L, "Business Fleet Coverage Plan", InsuranceType.CAR, 200000.00, users.get(3), terms.subList(24, 27)));
+            insurances.add(new Insurance(10L, "First Time Driver Assurance", InsuranceType.CAR, 35000.00, users.get(3), terms.subList(27, 30)));
 
             roleRepository.saveAll(roles);
             userRepository.saveAll(users);

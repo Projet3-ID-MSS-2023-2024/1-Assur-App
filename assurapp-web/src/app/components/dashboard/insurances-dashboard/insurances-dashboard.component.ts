@@ -43,6 +43,7 @@ export class InsurancesDashboardComponent implements OnInit {
   }
 
   delete(id: number) {
+    if (!confirm("Are you sure to delete this insurance")) return;
     this.insuranceService.deleteInsurance(id).subscribe({
       next: data => this.fetch(),
       error: err => console.error(err)
@@ -91,7 +92,6 @@ export class InsurancesDashboardComponent implements OnInit {
       claims: [],
       payments: [],
     };
-    console.log(subscription)
     this.subscriptionService.addSubscription(subscription).subscribe({
       next: data => console.log(data),
       error: err => console.error(err)

@@ -21,10 +21,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 import java.util.Arrays;
-import java.util.List;
 
 import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
-
 
 @Configuration
 @EnableWebSecurity
@@ -43,11 +41,8 @@ public class SecurityConfig {
         return httpSecurity
                 .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(authorize ->
-                        authorize
-                                .anyRequest()
-                                .permitAll()
-                ).sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll())
+                .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .cors(Customizer.withDefaults())
                 .build();

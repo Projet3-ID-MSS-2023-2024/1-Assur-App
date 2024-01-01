@@ -1,5 +1,6 @@
 package be.helha.assurapp.insurance.controllers;
 
+import be.helha.assurapp.authentication.repositories.UserRepository;
 import be.helha.assurapp.insurance.models.Insurance;
 import be.helha.assurapp.insurance.models.Term;
 import be.helha.assurapp.insurance.services.IInsuranceService;
@@ -15,6 +16,7 @@ import java.util.List;
 @RequestMapping("/api/v1/insurances")
 public class InsuranceController {
 
+    private UserRepository repository;
     private IInsuranceService service;
     private ITermService termService;
 
@@ -35,6 +37,7 @@ public class InsuranceController {
             terms.add(this.termService.add(term));
         }
         insurance.setTerms(terms);
+        insurance.setInsurer(repository.findById(insurance.getInsurer().getId()).get());
         return this.service.add(insurance);
     }
 

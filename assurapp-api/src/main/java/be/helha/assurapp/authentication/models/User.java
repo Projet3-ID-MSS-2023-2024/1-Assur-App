@@ -1,16 +1,13 @@
 package be.helha.assurapp.authentication.models;
 
-import be.helha.assurapp.authentication.enums.RoleList;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
-import org.hibernate.annotations.Cascade;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.awt.*;
-import java.io.File;
 import java.util.Collection;
 import java.util.List;
 
@@ -32,20 +29,13 @@ public class User implements UserDetails {
     private String email;
     @NotNull
     private String password;
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     private Role role;
     private int activationCode;
     private boolean isVerified = false;
     private String pwdCode;
 
-    public User(String firstname, String lastname, String email, String password, Role role) {
-        this.name = firstname;
-        this.lastname = lastname;
-        this.email = email;
-        this.password = password;
-        this.role = role;
-    }
-
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_" + this.role.getLabel()));

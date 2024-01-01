@@ -3,6 +3,7 @@ import {InsuranceType} from "../../../../enums/insurance-type";
 import {InsuranceService} from "../../../../services/insurance.service";
 import {FormBuilder, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {Router} from "@angular/router";
+import {UserService} from "../../../../services/user.service";
 
 @Component({
   selector: 'app-add-insurance',
@@ -17,6 +18,7 @@ export class AddInsuranceComponent {
   types:InsuranceType[] = Object.values(InsuranceType);
   insuranceForm: FormGroup;
   constructor(private insuranceService: InsuranceService,
+              private userService: UserService,
               private formBuilder: FormBuilder,
               private router: Router) {
     this.insuranceForm = this.formBuilder.group({
@@ -50,9 +52,15 @@ export class AddInsuranceComponent {
   }
 
   onSubmit() {
-    this.insuranceService.addInsurance(this.insuranceForm.value).subscribe({
-      next: data => this.router.navigate(['/dashboard/insurances']),
+    this.userService.getUserById(1).subscribe({
+      next: data => {
+        this.insuranceForm.value.insurer = data;
+        this.insuranceService.addInsurance(this.insuranceForm.value).subscribe({
+          next: data => this.router.navigate(['/dashboard/insurances']),
+          error: err => console.error(err)
+        })
+      },
       error: err => console.error(err)
-    })
+      })
   }
 }
