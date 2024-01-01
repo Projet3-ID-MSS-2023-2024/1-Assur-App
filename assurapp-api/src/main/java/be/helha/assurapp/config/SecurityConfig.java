@@ -21,10 +21,8 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 import java.util.Arrays;
-import java.util.List;
 
 import static org.springframework.security.web.util.matcher.AntPathRequestMatcher.antMatcher;
-
 
 @Configuration
 @EnableWebSecurity
@@ -41,18 +39,10 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
+                .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(authorize ->
-                        authorize
-                                .requestMatchers(antMatcher("/api/v1/users/**")).permitAll()
-                                .requestMatchers(antMatcher("/api/v1/register/**")).permitAll()
-                                .requestMatchers(antMatcher("/api/v1/login/**")).permitAll()
-                                .requestMatchers(antMatcher("/api/v1/verifyAccount/**")).permitAll()
-                                .requestMatchers(antMatcher("/api/v1/changeActivationCode/**")).permitAll()
-                                .requestMatchers(antMatcher("/api/v1/public/**")).permitAll()
-                                .anyRequest()
-                                .authenticated()
-                ).sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll())
+                .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .cors(Customizer.withDefaults())
                 .build();
