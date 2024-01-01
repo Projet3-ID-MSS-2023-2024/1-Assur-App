@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {User} from "../interfaces/user";
 import {Observable} from "rxjs";
 import {environment} from "../../environments/environment.development";
@@ -31,4 +31,52 @@ export class AuthenticationService {
     return this.http.post(`${environment.api}/changeActivationCode`, data)
   }
 
+  saveToken(token: string){
+    localStorage.setItem('bearer', token)
+  }
+
+  getToken(): string | null{
+    return localStorage.getItem('bearer')
+  }
+
+  getTokenPayload(){
+    const token = this.getToken()
+    if(token){
+      const elements = token.split('.')
+      return JSON.parse(atob(elements[1]))
+    }
+    return null
+  }
+
+  getUserEmail(){
+    const payload = this.getTokenPayload()
+    if(payload){
+      return payload.sub
+    }
+  }
+
+  getUserId(){
+    const payload = this.getTokenPayload()
+    if(payload){
+      return payload.id
+    }
+  }
+
+  getUserRole(){
+    const payload = this.getTokenPayload()
+    if(payload){
+      return payload.role.label
+    }
+  }
+
+  getHeaders() {
+    return new HttpHeaders({
+      'Authorization': 'Bearer ' + this.getToken()
+    })
+  }
+
+  isLogged(): boolean{
+    const token = this.getToken()
+    return !! token
+  }
 }
