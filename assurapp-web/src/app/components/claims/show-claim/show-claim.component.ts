@@ -30,6 +30,7 @@ export class ShowClaimComponent implements OnInit{
       this.claimService.getClaimById(parseInt(id)).subscribe({
         next: (claim) => {
           this.claim = claim;
+          console.log(claim);
         },
         error: (err) => {
           console.log(err);

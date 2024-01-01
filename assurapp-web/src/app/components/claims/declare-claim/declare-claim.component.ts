@@ -20,7 +20,7 @@ import { MessagesModule} from 'primeng/messages';
 })
 export class DeclareClaimComponent implements OnInit{
   claim!: Claim;
-
+  selectedFile!: File;
   constructor(private claimService: ClaimService, private messageService: MessageService) { }
 
   ngOnInit(): void {
@@ -29,11 +29,16 @@ export class DeclareClaimComponent implements OnInit{
       description: '',
       date: new Date(),
       status: ClaimStatus.PENDING,
+      imageFile: '',
     };
   }
 
+  onFileSelected(event: any){
+    this.selectedFile = event.target.files[0];
+  }
+
   SendDeclaredClaim(){
-    this.claimService.createClaim(this.claim).subscribe({
+    this.claimService.createClaim(this.claim, this.selectedFile).subscribe({
       next: (claim) => {
         console.log(claim);
         this.messageService.add({severity:'success', summary:'Claim declared', detail:'Your claim has been declared'});

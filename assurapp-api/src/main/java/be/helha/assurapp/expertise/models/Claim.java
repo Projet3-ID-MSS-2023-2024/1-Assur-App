@@ -30,6 +30,8 @@ public class Claim {
     @NotNull
     private String status;
 
+    private String imageFile;
+
     private Long expertise;
 
 }

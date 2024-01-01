@@ -6,5 +6,6 @@ export interface Claim {
   description: string;
   date: Date;
   status: ClaimStatus;
+  imageFile: string;
   expertise?: Number;
 }

@@ -3,8 +3,14 @@ package be.helha.assurapp.expertise.controllers;
 import be.helha.assurapp.expertise.models.Claim;
 import be.helha.assurapp.expertise.services.IClaimService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.util.Date;
 import java.util.List;
 
 
@@ -25,10 +31,26 @@ public class ClaimController {
         return claimService.findById(id);
     }
 
-    @PostMapping
-    public Claim save(@RequestBody Claim claim) {
-        return claimService.save(claim);
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public Claim save(@RequestPart Claim claim, @RequestPart MultipartFile image) {
+        long timestamp = System.currentTimeMillis();
+        String imageFile = "claim_image_" + timestamp + ".png";
+
+        //Claim claim = new Claim(0L, "ezfz", new Date(), "PENDING", imageFile, null);
+
+
+        try {
+            image.transferTo(new File(FileSystems.getDefault().getPath("..").toAbsolutePath() + "/assurapp-web/src/assets/claim-images/" + imageFile));
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
+        imageFile = "assets/claim-images/" + imageFile;
+
+        claim.setImageFile(imageFile);
+       return claimService.save(claim);
     }
+
 
     @PutMapping
     public Claim update(Claim claim) {
