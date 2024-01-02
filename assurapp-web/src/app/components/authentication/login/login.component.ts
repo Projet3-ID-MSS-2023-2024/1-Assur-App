@@ -37,23 +37,12 @@ export class LoginComponent implements OnInit{
     this.user.id = 0;
     this.authService.login(this.user.email, this.user.password).subscribe({
       next:(data)=>{
-        //console.log(data);
         this.authService.saveToken(data.bearer)
-
-        //this.router.navigate([''])
+        this.router.navigate([''])
       },
       error:(error) =>{
         console.log(error);
       }
     })
-  }
-
-  @HostListener("window:beforeunload", ["$event"])
-  clearLocalStorage(event: Event){
-    localStorage.removeItem('test')
-  }
-
-  test(){
-    localStorage.setItem('test', 'lkslmdklsmfk')
   }
 }
