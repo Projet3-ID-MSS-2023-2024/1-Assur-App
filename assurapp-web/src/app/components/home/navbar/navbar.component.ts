@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {NgIf, NgOptimizedImage} from "@angular/common";
-import {RouterLink} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {AuthenticationService} from "../../../services/authentication.service";
 
 @Component({
@@ -16,12 +16,17 @@ import {AuthenticationService} from "../../../services/authentication.service";
 })
 export class NavbarComponent implements OnInit{
   isLogged:boolean = false;
-  constructor(private authService: AuthenticationService) {
+  constructor(private authService: AuthenticationService, private route: Router) {
 
   }
 
   ngOnInit(): void {
     this.isLogged = this.authService.isLogged();
+  }
+
+  logout(){
+    this.authService.logout();
+    location.reload()
   }
 
 }

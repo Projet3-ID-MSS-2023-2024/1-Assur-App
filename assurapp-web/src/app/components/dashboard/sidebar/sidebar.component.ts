@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {NgOptimizedImage} from "@angular/common";
 import {RouterLink} from "@angular/router";
+import {AuthenticationService} from "../../../services/authentication.service";
 
 @Component({
   selector: 'app-sidebar',
@@ -13,5 +14,11 @@ import {RouterLink} from "@angular/router";
   styleUrl: './sidebar.component.css'
 })
 export class SidebarComponent {
+  constructor(private authService: AuthenticationService) {
+  }
+
+  logout(){
+    this.authService.logout()
+  }
 
 }
