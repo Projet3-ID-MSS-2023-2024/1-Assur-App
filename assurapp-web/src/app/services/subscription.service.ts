@@ -3,31 +3,38 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {environment} from "../../environments/environment.development";
 import {Subscription} from "../interfaces/subscription";
+import {AuthenticationService} from "./authentication.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class SubscriptionService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient,
+              private authenticationService: AuthenticationService) { }
 
   getAllSubscriptions(): Observable<Subscription[]> {
-    return this.http.get<Subscription[]>(`${environment.api}/subscriptions`);
+    const headers = this.authenticationService.getHeaders();
+    return this.http.get<Subscription[]>(`${environment.api}/subscriptions`, {headers});
   }
 
   getSubscriptionById(id: number): Observable<Subscription> {
-    return this.http.get<Subscription>(`${environment.api}/subscriptions/${id}`);
+    const headers = this.authenticationService.getHeaders();
+    return this.http.get<Subscription>(`${environment.api}/subscriptions/${id}`, {headers});
   }
 
   addSubscription(subscription: Subscription): Observable<Subscription> {
-    return this.http.post<Subscription>(`${environment.api}/subscriptions`, subscription);
+    const headers = this.authenticationService.getHeaders();
+    return this.http.post<Subscription>(`${environment.api}/subscriptions`, subscription, {headers});
   }
 
   updateSubscription(subscription: Subscription): Observable<Subscription> {
-    return this.http.put<Subscription>(`${environment.api}/subscriptions`, subscription);
+    const headers = this.authenticationService.getHeaders();
+    return this.http.put<Subscription>(`${environment.api}/subscriptions`, subscription, {headers});
   }
 
   deleteSubscription(id: number): Observable<void> {
-    return this.http.delete<void>(`${environment.api}/subscriptions/${id}`);
+    const headers = this.authenticationService.getHeaders();
+    return this.http.delete<void>(`${environment.api}/subscriptions/${id}`, {headers});
   }
 }

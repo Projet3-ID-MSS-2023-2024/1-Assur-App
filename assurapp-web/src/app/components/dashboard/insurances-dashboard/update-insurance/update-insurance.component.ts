@@ -18,6 +18,8 @@ export class UpdateInsuranceComponent implements OnInit {
   types:InsuranceType[] = Object.values(InsuranceType);
   insuranceForm!: FormGroup;
   id!: number;
+  added: boolean = false;
+  error: boolean = false;
   constructor(private insuranceService: InsuranceService,
               private router: Router,
               private route: ActivatedRoute,
@@ -49,12 +51,15 @@ export class UpdateInsuranceComponent implements OnInit {
   }
 
   onSubmit() {
-    //console.log(this.insuranceForm.value)
     this.insuranceService.updateInsurance(this.insuranceForm.value).subscribe({
       next: data => {
-        this.router.navigate(['/dashboard/insurances'])
+        this.added = true;
+        setTimeout(() => this.router.navigate(['/dashboard/insurances']), 5000)
       },
-      error: err => console.error(err)
+      error: err => {
+        this.error = true
+        setTimeout(() => this.error = false, 5000)
+      }
     })
   }
 }

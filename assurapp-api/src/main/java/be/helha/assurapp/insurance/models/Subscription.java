@@ -29,7 +29,7 @@ public class Subscription {
     private Date endDate;
     @NotNull
     private boolean payed;
-    @OneToOne
+    @ManyToOne
     private User client;
     @ManyToOne
     private Insurance insurance;

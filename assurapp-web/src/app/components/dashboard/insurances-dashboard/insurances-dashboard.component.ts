@@ -4,10 +4,8 @@ import {InsuranceService} from "../../../services/insurance.service";
 import {RouterLink} from "@angular/router";
 import {CurrencyPipe} from "@angular/common";
 import {SubscriptionService} from "../../../services/subscription.service";
-import {User} from "../../../interfaces/user";
-import {Claim} from "../../../interfaces/claim";
-import {Payment} from "../../../interfaces/payment";
-import {Subscription} from "../../../interfaces/subscription";
+import {AuthenticationService} from "../../../services/authentication.service";
+import {UserService} from "../../../services/user.service";
 
 @Component({
   selector: 'app-insurances-dashboard',
@@ -26,6 +24,8 @@ export class InsurancesDashboardComponent implements OnInit {
   max = 10;
 
   constructor(private insuranceService: InsuranceService,
+              private authenticationService: AuthenticationService,
+              private userService: UserService,
               private subscriptionService: SubscriptionService) {}
 
   ngOnInit(): void {
@@ -33,12 +33,17 @@ export class InsurancesDashboardComponent implements OnInit {
   }
 
   fetch() {
-    this.insuranceService.getAllInsurances().subscribe({
+    this.userService.getUserById(this.authenticationService.getUserId()).subscribe({
       next: data => {
-        this.insurances = data;
-        this.getData();
+        this.insuranceService.getInsurancesByInsurer(data).subscribe({
+          next: data => {
+            this.insurances = data;
+            this.getData();
+          },
+          error: err => console.error(err)
+        })
       },
-      error: err => console.error(err)
+      error: err => console.log(err)
     })
   }
 
@@ -81,20 +86,4 @@ export class InsurancesDashboardComponent implements OnInit {
     return this.current > 1;
   }
 
-  subscribe(insurance: Insurance) {
-    const subscription: Subscription = {
-      id: 0,
-      startDate: new Date(),
-      endDate: new Date() ,
-      payment: false,
-      client: insurance.insurer,
-      insurance: insurance,
-      claims: [],
-      payments: [],
-    };
-    this.subscriptionService.addSubscription(subscription).subscribe({
-      next: data => console.log(data),
-      error: err => console.error(err)
-    })
-  }
 }

@@ -1,5 +1,6 @@
 package be.helha.assurapp.insurance.controllers;
 
+import be.helha.assurapp.authentication.models.User;
 import be.helha.assurapp.authentication.repositories.UserRepository;
 import be.helha.assurapp.insurance.models.Insurance;
 import be.helha.assurapp.insurance.models.Term;
@@ -9,7 +10,9 @@ import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 @AllArgsConstructor
 @RestController
@@ -25,9 +28,16 @@ public class InsuranceController {
         return this.service.getAll();
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/{id:\\d+}")
     public Insurance getOne(@PathVariable Long id) {
         return this.service.getOne(id);
+    }
+
+    @GetMapping("/{email:.+@.+\\..+}")
+    public List<Insurance> getByInsurer(@PathVariable String email) {
+        Optional<User> user = this.repository.findByEmail(email);
+        if (user.isEmpty()) return Collections.emptyList();
+        return this.service.getByInsurer(user.get());
     }
 
     @PostMapping
@@ -43,11 +53,13 @@ public class InsuranceController {
 
     @PutMapping
     public Insurance update(@RequestBody Insurance insurance) {
+        for (Term term: insurance.getTerms()) this.termService.update(term);
         return this.service.update(insurance);
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
+        for (Term term: this.service.getOne(id).getTerms()) this.termService.delete(term.getId());
         this.service.delete(id);
     }
 
