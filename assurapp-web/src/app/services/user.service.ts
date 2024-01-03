@@ -3,14 +3,13 @@ import { Injectable } from '@angular/core';
 import { environment } from "../../environments/environment.development";
 import { Observable } from 'rxjs';
 import { User } from '../interfaces/user';
-import { AuthenticationService } from './authentication.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor(private http: HttpClient, private authService: AuthentificationService) { }
+  constructor(private http: HttpClient, private authService: AuthenticationService) { }
 
     getAllUser(): Observable<User[]> {
       
