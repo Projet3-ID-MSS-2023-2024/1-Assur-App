@@ -7,15 +7,20 @@ import be.helha.assurapp.authentication.repositories.RoleRepository;
 import be.helha.assurapp.authentication.repositories.UserRepository;
 import be.helha.assurapp.insurance.enums.InsuranceType;
 import be.helha.assurapp.insurance.models.Insurance;
+import be.helha.assurapp.insurance.models.Subscription;
 import be.helha.assurapp.insurance.models.Term;
 import be.helha.assurapp.insurance.repositories.InsuranceRepository;
+import be.helha.assurapp.insurance.repositories.SubscriptionRepository;
 import be.helha.assurapp.insurance.repositories.TermRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 @Configuration
@@ -23,12 +28,13 @@ public class DataInitializer {
 
     @Bean
     @Transactional
-    public CommandLineRunner initDatabase(RoleRepository roleRepository, UserRepository userRepository, TermRepository termRepository, InsuranceRepository offerRepository) {
+    public CommandLineRunner initDatabase(RoleRepository roleRepository, UserRepository userRepository, TermRepository termRepository, InsuranceRepository insuranceRepository, SubscriptionRepository subscriptionRepository) {
         return args -> {
             List<Role> roles = new ArrayList<>();
             List<User> users = new ArrayList<>();
             List<Term> terms = new ArrayList<>();
             List<Insurance> insurances = new ArrayList<>();
+            List<Subscription> subscriptions = new ArrayList<>();
 
             roles.add(new Role(1L, RoleList.ADMINISTRATOR));
             roles.add(new Role(2L, RoleList.CLIENT));
@@ -194,11 +200,15 @@ public class DataInitializer {
             insurances.add(new Insurance(35L, "Third-Party Liability Car Insurance", InsuranceType.CAR, 17000.00, users.get(4), terms.subList(102, 105)));
             insurances.add(new Insurance(36L, "All-Inclusive Car Insurance Premium", InsuranceType.CAR, 35000.00, users.get(5), terms.subList(105, 108)));
 
+            subscriptions.add(new Subscription(1L, Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now().plusMonths(3)), false, users.get(1), insurances.get(0), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(2L, Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now().plusMonths(6)), false, users.get(1), insurances.get(1), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(3L, Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now().plusMonths(12)), false, users.get(1), insurances.get(2), Collections.emptyList(), Collections.emptyList()));
 
             roleRepository.saveAll(roles);
             userRepository.saveAll(users);
             termRepository.saveAll(terms);
-            offerRepository.saveAll(insurances);
+            insuranceRepository.saveAll(insurances);
+            subscriptionRepository.saveAll(subscriptions);
         };
     }
 }

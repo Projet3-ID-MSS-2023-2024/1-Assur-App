@@ -10,6 +10,8 @@ import {Roles} from "../../enums/roles";
 import {SubscriptionService} from "../../services/subscription.service";
 import {Subscription} from "../../interfaces/subscription";
 import {UserService} from "../../services/user.service";
+import {SubscribeComponent} from "./subscribe/subscribe.component";
+import {NgClass} from "@angular/common";
 
 @Component({
   selector: 'app-insurances',
@@ -17,7 +19,9 @@ import {UserService} from "../../services/user.service";
   imports: [
     NavbarComponent,
     RouterLink,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    SubscribeComponent,
+    NgClass
   ],
   templateUrl: './insurances.component.html',
   styleUrl: './insurances.component.css'
@@ -29,11 +33,11 @@ export class InsurancesComponent implements OnInit {
   companies: string[] = [];
   type: string = "ALL";
   company: string = "ALL";
+  hidden: boolean = true;
+  insurance!: Insurance;
 
   constructor(private insuranceService: InsuranceService,
               private authenticationService: AuthenticationService,
-              private subscriptionService: SubscriptionService,
-              private userService: UserService,
               private router: Router) {}
 
   ngOnInit() {
@@ -81,34 +85,8 @@ export class InsurancesComponent implements OnInit {
 
   subscribe(insurance: Insurance) {
     if (this.authenticationService.isLogged() && this.authenticationService.getUserRole() === Roles.CLIENT) {
-
-
-      this.userService.getUserById(this.authenticationService.getUserId()).subscribe({
-        next: data => {
-          const currentDate = new Date();
-          let nextDate = new Date(currentDate);
-          nextDate.setFullYear(new Date().getFullYear() + 1);
-          const subscription : Subscription = {
-            id: 0,
-            startDate: new Date(),
-            endDate: nextDate,
-            payment: false,
-            client: data,
-            insurance: insurance,
-            claims: [],
-            payments: []
-          }
-          this.subscriptionService.addSubscription(subscription).subscribe({
-            next: data => {
-              this.router.navigate([`/dashboard/payments/${data.id}`]);
-            },
-            error: err => console.log(err)
-          })
-        },
-        error: err => console.log(err)
-      })
-
-
+      this.insurance = insurance;
+      this.hidden = false;
     } else this.router.navigate(['/login']);
   }
 }

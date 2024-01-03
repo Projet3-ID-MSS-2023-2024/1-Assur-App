@@ -40,6 +40,11 @@ public class InsuranceController {
         return this.service.getByInsurer(user.get());
     }
 
+    @GetMapping("/client/{id}")
+    public List<Insurance> getByClient(@PathVariable Long id) {
+        return this.service.getByClient(id);
+    }
+
     @PostMapping
     public Insurance add(@RequestBody Insurance insurance) {
         List<Term> terms = new ArrayList<>();

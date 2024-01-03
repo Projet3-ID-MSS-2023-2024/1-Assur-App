@@ -24,6 +24,11 @@ export class InsuranceService {
     return this.http.get<Insurance[]>(`${environment.api}/insurances/${user.email}`, {headers});
   }
 
+  getInsurancesByClient(id: number): Observable<Insurance[]> {
+    const headers = this.authenticationService.getHeaders();
+    return this.http.get<Insurance[]>(`${environment.api}/insurances/client/${id}`, {headers});
+  }
+
   getInsuranceById(id: number): Observable<Insurance> {
     const headers = this.authenticationService.getHeaders();
     return this.http.get<Insurance>(`${environment.api}/insurances/${id}`, {headers});
