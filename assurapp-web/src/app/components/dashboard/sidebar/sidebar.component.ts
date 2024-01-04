@@ -17,6 +17,12 @@ import {Roles} from "../../../enums/roles";
   styleUrl: './sidebar.component.css'
 })
 export class SidebarComponent {
+  constructor(private authService: AuthenticationService) {
+  }
+
+  logout(){
+    this.authService.logout()
+  }
 
   constructor(private location: Location,
               private authenticationService: AuthenticationService) {}

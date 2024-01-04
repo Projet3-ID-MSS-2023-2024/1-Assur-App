@@ -13,31 +13,12 @@
             <!-- Form -->
             <form>
               <div class="grid gap-y-4">
-                <!-- Form Group -->
-                <div>
-                  <label for="name" class="block text-sm mb-2 dark:text-white">Title</label>
-                  <div class="relative">
-                    <input [(ngModel)]="claim.name" type="text" id="name" name="name" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600" required>
-                  </div>
-                </div>
-                <!-- End Form Group -->
               <div>
                 <label for="date" class="block text-sm mb-2 dark:text-white">Incident Date</label>
                 <div class="relative">
                 <input [(ngModel)]="claim.date" type="datetime-local" id="date" name="date" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600">
                 </div>
                 </div>
-                <!-- Form Group -->
-                <!-- <div>
-                  <div class="flex justify-between items-center">
-                    <label for="description" class="block text-sm mb-2 dark:text-white">Description</label>
-                  </div>
-                  <div class="relative">
-                    <input type="textarea" id="description" name="description" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600" required>
-                  </div>
-                  <p class="hidden text-xs text-red-600 mt-2" id="password-error">8+ characters required</p>
-                </div> -->
-                <!-- Floating Textarea -->
                 <div class="relative">
                   <textarea [(ngModel)]="claim.description" [ngModelOptions]="{standalone: true}" id="hs-floating-textarea" class="peer p-4 block w-full border-gray-200 rounded-lg text-sm placeholder:text-transparent focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600
                   focus:pt-6
@@ -54,17 +35,10 @@
                     peer-[:not(:placeholder-shown)]:-translate-y-1.5
                     peer-[:not(:placeholder-shown)]:text-gray-500">Description</label>
                 </div>
-                <!-- End Floating Textarea -->
-                <!-- End Form Group -->
-                 <!-- Form Group -->
-                 <!-- <div>
-                  <label for="RequestedAmount" class="block text-sm mb-2 dark:text-white">Amount Request</label>
-                  <div class="relative">
-                    <input [(ngModel)]="claim.requestedAmount" type="number" id="RequestedAmount" name="RequestedAmount" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600" required>
-                  </div>
-                </div> -->
-                <!-- End Form Group -->
-
+                <div class="mt-5">
+                  <label for="image" class="block text-sm mb-2 dark:text-white">Upload Image</label>
+                  <input type="file" (change)="onFileSelected($event)" id="image" name="image" class="py-3 px-4 block w-full border-gray-200 rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600">
+                </div>
                 <button (click)="SendDeclaredClaim()" class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">Declare this Claim</button>
               </div>
             </form>

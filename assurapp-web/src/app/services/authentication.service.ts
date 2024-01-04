@@ -77,4 +77,8 @@ export class AuthenticationService {
     const token = this.getToken()
     return !! token
   }
+
+  logout(){
+    localStorage.removeItem('bearer')
+  }
 }

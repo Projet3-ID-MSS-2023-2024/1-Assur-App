@@ -26,4 +26,8 @@ public class Expertise {
 
     private double estimation;
 
+
+    @OneToOne
+    private Claim claim;
+
 }
