@@ -1,7 +1,9 @@
 package be.helha.assurapp.expertise.controllers;
 
 
+import be.helha.assurapp.expertise.models.Claim;
 import be.helha.assurapp.expertise.models.Expertise;
+import be.helha.assurapp.expertise.services.IClaimService;
 import be.helha.assurapp.expertise.services.IExpertiseService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -14,9 +16,10 @@ import java.util.List;
 public class ExpertiseController {
 
     private IExpertiseService expertiseService;
+    private IClaimService claimService;
 
     @GetMapping("/{id}")
-    public Expertise findById(Long id) {
+    public Expertise findById(@PathVariable Long id) {
         return expertiseService.findById(id);
     }
 
@@ -26,8 +29,12 @@ public class ExpertiseController {
     }
 
     @PostMapping
-    public Expertise save(@RequestBody Expertise expertise) {
-        return expertiseService.save(expertise);
+    public Long save(@RequestBody Expertise expertise) {
+        expertiseService.save(expertise);
+        Claim claim = claimService.findById(expertise.getClaim().getId());
+        claim.setExpertise(expertise.getId());
+        claimService.update(claim);
+        return claim.getExpertise();
     }
 
     @PutMapping
@@ -36,7 +43,7 @@ public class ExpertiseController {
     }
 
     @DeleteMapping("/{id}")
-    public void deleteById(Long id) {
+    public void deleteById(@PathVariable Long id) {
         expertiseService.deleteById(id);
     }
 

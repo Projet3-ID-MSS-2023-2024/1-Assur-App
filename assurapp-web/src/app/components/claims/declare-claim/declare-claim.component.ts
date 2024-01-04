@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {StyleClassModule} from 'primeng/styleclass';
-import { ClaimService } from '../../services/claim.service';
-import { Claim } from '../../interfaces/claim';
-import { ClaimStatus } from '../../interfaces/claim-status.enum';
+import { ClaimService } from '../../../services/claim.service';
+import { Claim } from '../../../interfaces/claim';
+import { ClaimStatus } from '../../../interfaces/claim-status.enum';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MessageService} from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
@@ -20,22 +20,25 @@ import { MessagesModule} from 'primeng/messages';
 })
 export class DeclareClaimComponent implements OnInit{
   claim!: Claim;
-
+  selectedFile!: File;
   constructor(private claimService: ClaimService, private messageService: MessageService) { }
 
   ngOnInit(): void {
     this.claim = {
       id: 0,
-      name: '',
       description: '',
       date: new Date(),
-      requestedAmount: 0,
       status: ClaimStatus.PENDING,
+      imageFile: '',
     };
   }
 
+  onFileSelected(event: any){
+    this.selectedFile = event.target.files[0];
+  }
+
   SendDeclaredClaim(){
-    this.claimService.createClaim(this.claim).subscribe({
+    this.claimService.createClaim(this.claim, this.selectedFile).subscribe({
       next: (claim) => {
         console.log(claim);
         this.messageService.add({severity:'success', summary:'Claim declared', detail:'Your claim has been declared'});
