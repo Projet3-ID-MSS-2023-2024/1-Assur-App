@@ -35,12 +35,14 @@ export class InsurancesComponent implements OnInit {
   company: string = "ALL";
   hidden: boolean = true;
   insurance!: Insurance;
+  connected: boolean = true;
 
   constructor(private insuranceService: InsuranceService,
               private authenticationService: AuthenticationService,
               private router: Router) {}
 
   ngOnInit() {
+    this.connected = this.authenticationService.getUserId() ?? false;
     this.insuranceService.getAllInsurances().subscribe({
       next: data => {
         this.insurances = data;
@@ -87,6 +89,10 @@ export class InsurancesComponent implements OnInit {
     if (this.authenticationService.isLogged() && this.authenticationService.getUserRole() === Roles.CLIENT) {
       this.insurance = insurance;
       this.hidden = false;
-    } else this.router.navigate(['/login']);
+    } else {
+     setTimeout(() => {
+       this.router.navigate(['/login'])
+     }, 5000);
+    }
   }
 }

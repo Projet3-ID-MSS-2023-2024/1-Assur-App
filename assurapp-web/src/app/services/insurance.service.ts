@@ -15,8 +15,8 @@ export class InsuranceService {
               private authenticationService: AuthenticationService) { }
 
   getAllInsurances(): Observable<Insurance[]> {
-    const headers = this.authenticationService.getHeaders();
-    return this.http.get<Insurance[]>(`${environment.api}/insurances`, {headers});
+    //const headers = this.authenticationService.getHeaders();
+    return this.http.get<Insurance[]>(`${environment.api}/insurances`);
   }
 
   getInsurancesByInsurer(user: User): Observable<Insurance[]> {
