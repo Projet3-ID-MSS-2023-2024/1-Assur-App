@@ -27,6 +27,9 @@ public class InsuranceServiceImpl implements IInsuranceService {
     }
 
     @Override
+    public List<Insurance> getByClient(Long id) {return this.repository.findInsurancesByClient(id);}
+
+    @Override
     public List<Insurance> getByInsurer(User insurer) {
         return this.repository.findByInsurer(insurer);
     }

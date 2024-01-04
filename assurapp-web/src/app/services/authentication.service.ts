@@ -62,11 +62,9 @@ export class AuthenticationService {
     }
   }
 
-  getUserRole(){
+  getUserRole(): string {
     const payload = this.getTokenPayload()
-    if(payload){
-      return payload.role.label
-    }
+    return payload.role.label
   }
 
   getHeaders() {
