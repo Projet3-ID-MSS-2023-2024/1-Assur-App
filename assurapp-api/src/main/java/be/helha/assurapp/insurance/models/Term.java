@@ -17,7 +17,7 @@ public class Term {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     @NotNull
+    private String name;
+    @NotNull
     private String description;
-    @ManyToOne
-    private Offer offer;
 }

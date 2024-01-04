@@ -8,7 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 
 @Data
@@ -22,15 +22,17 @@ public class Subscription {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @NotNull
+    @Temporal(TemporalType.DATE)
     private Date startDate;
     @NotNull
+    @Temporal(TemporalType.DATE)
     private Date endDate;
     @NotNull
-    private boolean payment;
+    private boolean payed;
     @OneToOne
     private User client;
     @ManyToOne
-    private Offer offer;
+    private Insurance insurance;
     @OneToMany
     private List<Claim> claims;
     @OneToMany

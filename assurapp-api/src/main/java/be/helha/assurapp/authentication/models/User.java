@@ -1,6 +1,6 @@
 package be.helha.assurapp.authentication.models;
 
-import be.helha.assurapp.authentication.enums.RoleList;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.*;
@@ -35,6 +35,7 @@ public class User implements UserDetails {
     private boolean isVerified = false;
     private String pwdCode;
 
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority("ROLE_" + this.role.getLabel()));
