@@ -5,6 +5,7 @@ import be.helha.assurapp.authentication.models.Role;
 import be.helha.assurapp.authentication.models.User;
 import be.helha.assurapp.authentication.repositories.RoleRepository;
 import be.helha.assurapp.authentication.repositories.UserRepository;
+import be.helha.assurapp.authentication.utils.RandomStringGenerator;
 import be.helha.assurapp.expertise.models.Expertise;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ public class UserService implements UserDetailsService {
     private BCryptPasswordEncoder passwordEncoder;
     private RoleRepository roleRepository;
     private ActivationCodeService activationCodeService;
+    private RandomStringGenerator randomStringGenerator;
     public void register(User user) throws RuntimeException{
         String cypherPassword = this.passwordEncoder.encode(user.getPassword());
         user.setPassword(cypherPassword);
@@ -44,6 +46,21 @@ public class UserService implements UserDetailsService {
         activationCodeService.sendCode(user);
 
         this.userRepository.save(user);
+    }
+
+    public String generateChangePasswordCode(User user){
+        user.setPwdCode(this.randomStringGenerator.generateRandomString());
+        this.userRepository.save(user);
+        return user.getPwdCode();
+    }
+
+    public Boolean changePassword(User user, String newPassword, String oldPassword) throws Exception{
+        if(this.passwordEncoder.matches(oldPassword, user.getPassword())){
+            user.setPassword(this.passwordEncoder.encode(newPassword));
+            userRepository.save(user);
+            return true;
+        }
+        throw new RuntimeException("Incorrect Data");
     }
 
     @Override
