@@ -67,7 +67,7 @@ export class SubscribeComponent implements OnInit {
       id: 0,
       startDate: current,
       endDate: end,
-      payment: false,
+      payed: false,
       client: this.client,
       insurance: this.insurance,
       claims: [],

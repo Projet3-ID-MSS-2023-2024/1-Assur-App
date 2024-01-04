@@ -1,5 +1,6 @@
 package be.helha.assurapp.insurance.services.impl;
 
+import be.helha.assurapp.authentication.models.User;
 import be.helha.assurapp.insurance.models.Subscription;
 import be.helha.assurapp.insurance.repositories.SubscriptionRepository;
 import be.helha.assurapp.insurance.services.ISubscriptionService;
@@ -22,6 +23,16 @@ public class SubscriptionServiceImpl implements ISubscriptionService {
     @Override
     public Subscription getOne(Long id) {
         return this.repository.findById(id).orElseThrow();
+    }
+
+    @Override
+    public List<Subscription> getByClient(Long id) {
+        return this.repository.findSubscriptionsByClient(id);
+    }
+
+    @Override
+    public List<Subscription> getByInsurer(Long id) {
+        return this.repository.findSubscriptionsByInsurer(id);
     }
 
     @Override

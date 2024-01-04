@@ -1,0 +1,160 @@
+<div class="max-w-px px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+  <div class="flex flex-col">
+    <div class="-m-1.5 overflow-x-auto">
+      <div class="p-1.5 min-w-full inline-block align-middle">
+        <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden dark:bg-slate-900 dark:border-gray-700">
+          <div class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200 dark:border-gray-700">
+            <div>
+              <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200">
+                Payments
+              </h2>
+              <p class="text-sm text-gray-600 dark:text-gray-400">
+                Manage your payments
+              </p>
+            </div>
+          </div>
+
+          <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+            <thead class="bg-gray-50 dark:bg-slate-800">
+            <tr>
+              <th scope="col" class="px-6 py-3 text-start">
+                <a class="group inline-flex items-center gap-x-2">
+										<span class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+										  Insurance
+										</span>
+                </a>
+              </th>
+              @if (role === Roles.INSURER) {
+                <th scope="col" class="px-6 py-3 text-start">
+                  <a class="group inline-flex items-center gap-x-2">
+										<span class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+										  Client
+										</span>
+                  </a>
+                </th>
+              }
+
+              <th scope="col" class="px-6 py-3 text-start">
+                <a class="group inline-flex items-center gap-x-2">
+										<span class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+										  Amount
+										</span>
+                </a>
+              </th>
+
+              <th scope="col" class="px-6 py-3 text-start">
+                <a class="group inline-flex items-center gap-x-2">
+									<span class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+									  Date
+									</span>
+                </a>
+              </th>
+
+              <th scope="col" class="px-6 py-3 text-start">
+                <a class="group inline-flex items-center gap-x-2">
+									<span class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+									  Status
+									</span>
+                </a>
+              </th>
+
+              <th scope="col" class="px-6 py-3 text-end">
+								<span class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+									  Actions
+								</span>
+              </th>
+            </tr>
+            </thead>
+
+            <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+              @for (payment of data; track payment.id) {
+                <tr class="bg-white hover:bg-gray-50 dark:bg-slate-900 dark:hover:bg-slate-800">
+                  <td class="h-px w-px whitespace-nowrap">
+                    <div class="px-6 py-2">
+                      <div class="block text-sm text-black-600 decoration-2 dark:text-white">{{ payment.subscription.insurance.name }}</div>
+                    </div>
+                  </td>
+                  @if (role === Roles.INSURER) {
+                    <td class="h-px w-px whitespace-nowrap">
+                      <div class="px-6 py-2">
+                        <div class="flex items-center gap-x-3">
+                          <div class="grow">
+                            <span class="block text-sm font-semibold text-gray-800 dark:text-gray-200">{{ payment.subscription.client.name + ' ' + payment.subscription.client.lastname.toUpperCase() }}</span>
+                            <span class="block text-sm text-gray-500">{{payment.subscription.client.email}}</span>
+                          </div>
+                        </div>
+                      </div>
+                    </td>
+                  }
+                  <td class="h-px w-px whitespace-nowrap">
+                    <div class="px-6 py-2">
+                      <div class="block text-sm text-black-600 decoration-2 dark:text-white">{{ payment.amount | currency: 'EUR' }}</div>
+                    </div>
+                  </td>
+                  <td class="h-px w-px whitespace-nowrap">
+                    <div class="px-6 py-2">
+                      <div class="block text-sm text-black-600 decoration-2 dark:text-white">{{ payment.transactionDate | date: 'dd/MM/yyyy' }}</div>
+                    </div>
+                  </td>
+                  <td class="h-px w-px whitespace-nowrap">
+                    <div class="px-6 py-2">
+                      @if (payment.status === PaymentStatus.COMPLETED || payment.status === PaymentStatus.REFUNDED) {
+                        <span class="py-1 px-1.5 inline-flex items-center gap-x-1 text-xs font-medium bg-teal-100 text-teal-800 rounded-full dark:bg-teal-500/10 dark:text-teal-500">
+                            <svg class="w-2.5 h-2.5" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                              <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                            </svg>
+                            {{ payment.status }}
+                          </span>
+                      } @else {
+                        <span class="py-1 px-1.5 inline-flex items-center gap-x-1 text-xs font-medium bg-red-100 text-red-800 rounded-full dark:bg-red-500/10 dark:text-red-500">
+                            <svg class="w-2.5 h-2.5" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+                              <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zM5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293 5.354 4.646z"/>
+                            </svg>
+                            {{ payment.status }}
+                          </span>
+                      }
+                    </div>
+                  </td>
+                  <td class="h-px w-px  whitespace-nowrap">
+                    <div class="flex justify-end ps-6 py-2 me-2">
+                      @if (role === Roles.CLIENT) {
+                        <button [disabled]="payment.status === PaymentStatus.COMPLETED" routerLink="/dashboard/payments/{{payment.id}}" type="button" class="me-2 py-2 px-8 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+                          Pay
+                        </button>
+                      } @else if (role === Roles.INSURER) {
+                        <button (click)="remind" type="button" class="me-2 py-2 px-8 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+                          Remind
+                        </button>
+                      }
+                    </div>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+
+          <div class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-t border-gray-200 dark:border-gray-700">
+            <div>
+              <p class="text-sm text-gray-600 dark:text-gray-400">
+                <span class="font-semibold text-gray-800 dark:text-gray-200">{{payments.length}}</span> results
+              </p>
+            </div>
+
+            <div>
+              <div class="inline-flex gap-x-2">
+                <button (click)="previous()" [disabled]="!isPrev()" type="button" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+                  <svg class="flex-shrink-0 w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                  Prev
+                </button>
+                <button (click)="next()" [disabled]="!isNext()" type="button" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+                  Next
+                  <svg class="flex-shrink-0 w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

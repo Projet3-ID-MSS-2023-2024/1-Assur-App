@@ -21,6 +21,9 @@ import {AdminManageInsurerComponent} from "./components/admin/admin-manage-insur
 import {AdminManageExpertComponent} from "./components/admin/admin-manage-expert/admin-manage-expert.component";
 import {AdminAddComponent} from "./components/admin/admin-add/admin-add.component";
 import {AdminUpdateComponent} from "./components/admin/admin-update/admin-update.component";
+import {SubscriptionsComponent} from "./components/dashboard/subscriptions/subscriptions.component";
+import {PaymentsComponent} from "./components/dashboard/payments/payments.component";
+import {PaymentComponent} from "./components/dashboard/payments/payment/payment.component";
 
 export const routes: Routes = [
   { path: "", component: HomeComponent},
@@ -36,6 +39,10 @@ export const routes: Routes = [
       { path: 'insurances/clients', component: ManageUsersComponent},
       { path: 'insurances/add', component: AddInsuranceComponent},
       { path: 'insurances/update/:id', component: UpdateInsuranceComponent},
+      { path: 'subscriptions', component: SubscriptionsComponent},
+      { path: 'payments', component: PaymentsComponent},
+      { path: 'payments/add/:id', component: PaymentComponent},
+      { path: 'payments/update/:id', component: PaymentsComponent},
       { path: "claims", component: ListClaimsComponent},
       { path: "claims/add", component: DeclareClaimComponent},
       { path: "claims/update/:id", component: ShowClaimComponent},
