@@ -11,10 +11,7 @@ import java.util.Optional;
 public interface UserRepository extends JpaRepository<User, Long> {
     Optional<User> findByEmail(String email);
 
-
-    @Query("SELECT u FROM User u WHERE u.id IN (SELECT s.client.id FROM Subscription s WHERE s.offer.id IN (SELECT i.id FROM Offer i WHERE i.insurer.id = :id))")
+    @Query("SELECT u FROM User u WHERE u.id IN (SELECT s.client.id FROM Subscription s WHERE s.insurance.id IN (SELECT i.id FROM Insurance i WHERE i.insurer.id = :id))")
     List<User> findUsersByInsurer(@Param("id") Long id);
-
-
 
 }

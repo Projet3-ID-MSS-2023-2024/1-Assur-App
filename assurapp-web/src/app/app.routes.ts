@@ -1,9 +1,8 @@
 import { Routes } from '@angular/router';
-import { DeclareClaimComponent } from './components/claims/declare-claim/declare-claim.component';
+import {DeclareClaimComponent} from './components/claims/declare-claim/declare-claim.component';
 import {LoginComponent} from "./components/authentication/login/login.component";
 import {RegisterComponent} from "./components/authentication/register/register.component";
 import {HomeComponent} from "./components/home/home.component";
-import {AdminPageComponent} from './components/admin/admin-page/admin-page.component';
 import {ActivateAccountComponent} from "./components/authentication/activate-account/activate-account.component";
 import {DashboardComponent} from "./components/dashboard/dashboard.component";
 import {InsurancesComponent} from "./components/insurances/insurances.component";
@@ -17,6 +16,11 @@ import {AddInsuranceComponent} from "./components/dashboard/insurances-dashboard
 import {UpdateInsuranceComponent} from "./components/dashboard/insurances-dashboard/update-insurance/update-insurance.component";
 import {TermsAndConditionsComponent} from "./components/others/terms-and-conditions/terms-and-conditions.component";
 import {PrivacyPolicyComponent} from "./components/others/privacy-policy/privacy-policy.component";
+import {ManageUsersComponent} from "./components/dashboard/manage-users/manage-users.component";
+import {AdminManageInsurerComponent} from "./components/admin/admin-manage-insurer/admin-manage-insurer.component";
+import {AdminManageExpertComponent} from "./components/admin/admin-manage-expert/admin-manage-expert.component";
+import {AdminAddComponent} from "./components/admin/admin-add/admin-add.component";
+import {AdminUpdateComponent} from "./components/admin/admin-update/admin-update.component";
 
 export const routes: Routes = [
   { path: "", component: HomeComponent},
@@ -27,16 +31,21 @@ export const routes: Routes = [
   { path: 'activate/:email', component: ActivateAccountComponent},
   { path: 'conditions', component: TermsAndConditionsComponent},
   { path: 'privacy', component: PrivacyPolicyComponent},
-  { path: "declare-claim", component: DeclareClaimComponent},
-  { path: 'list-claim', component: ListClaimsComponent},
-  { path: `add-expertise/:id`, component: AddExpertiseComponent},
-  { path: `list-expertise`, component: ListExpertiseComponent},
-  { path: 'claim/:id', component: ShowClaimComponent},
   { path: 'dashboard', component: DashboardComponent, children: [
       { path: 'insurances', component: InsurancesDashboardComponent},
+      { path: 'insurances/clients', component: ManageUsersComponent},
       { path: 'insurances/add', component: AddInsuranceComponent},
       { path: 'insurances/update/:id', component: UpdateInsuranceComponent},
+      { path: "claims", component: ListClaimsComponent},
       { path: "claims/add", component: DeclareClaimComponent},
-      { path: "administration", component: AdminPageComponent}
+      { path: "claims/update/:id", component: ShowClaimComponent},
+      { path: "expertises", component: ListExpertiseComponent},
+      { path: "expertises/add", component: AddExpertiseComponent},
+      { path: "expertises/add/:id", component: AddExpertiseComponent},
+      //{ path: "expertises/update/:id", component: ShowClaimComponent},
+      { path: "administration/insurers", component: AdminManageInsurerComponent},
+      { path: "administration/experts", component: AdminManageExpertComponent},
+      { path: "administration/add", component: AdminAddComponent},
+      { path: "administration/update/:id", component: AdminUpdateComponent},
     ]},
 ];

@@ -9,7 +9,9 @@
               <svg class="flex-shrink-0 w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
             </button>
           </div>
-          <h1 class="block text-2xl text-gray-800 dark:text-white">You are currently subscribing to:<br> <span class="font-bold">{{insurance.name}}</span></h1>
+          @if (insurance) {
+            <h1 class="block text-2xl text-gray-800 dark:text-white">You are currently subscribing to:<br> <span class="font-bold">{{insurance.name}}</span></h1>
+          }
         </div>
 
         <div class="mt-5">

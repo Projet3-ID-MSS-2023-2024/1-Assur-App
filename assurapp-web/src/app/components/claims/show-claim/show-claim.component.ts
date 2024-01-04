@@ -6,15 +6,17 @@ import {Claim} from "../../../interfaces/claim";
 import {ClaimService} from "../../../services/claim.service";
 import {MessageService} from "primeng/api";
 import {ActivatedRoute, Router} from "@angular/router";
+import {NgOptimizedImage} from "@angular/common";
 
 @Component({
   selector: 'app-show-claim',
   standalone: true,
-    imports: [
-        FormsModule,
-        PaginatorModule,
-        ToastModule
-    ],
+  imports: [
+    FormsModule,
+    PaginatorModule,
+    ToastModule,
+    NgOptimizedImage
+  ],
   templateUrl: './show-claim.component.html',
   styleUrl: './show-claim.component.css',
   providers: [ClaimService, MessageService]

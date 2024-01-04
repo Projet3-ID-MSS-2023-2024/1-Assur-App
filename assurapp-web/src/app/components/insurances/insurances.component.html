@@ -1,8 +1,6 @@
 <app-navbar class="fixed w-full z-10"></app-navbar>
 <div class="relative w-full h-full">
-  @if (connected) {
-    <app-subscribe [insurance]="insurance" [(hide)]="hidden" [ngClass]="{'hidden': hidden, 'block': !hidden}"></app-subscribe>
-  }
+  <app-subscribe [insurance]="insurance" [(hide)]="hidden" [ngClass]="{'hidden': hidden, 'block': !hidden}"></app-subscribe>
   <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
     <div class="max-w-2xl mt-12 mx-auto text-center mb-10 lg:mb-14">
       <h2 class="text-2xl font-bold md:text-4xl md:leading-tight dark:text-white">Our insurance solutions</h2>

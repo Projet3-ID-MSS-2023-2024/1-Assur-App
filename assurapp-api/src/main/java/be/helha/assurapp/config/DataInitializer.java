@@ -5,6 +5,11 @@ import be.helha.assurapp.authentication.models.Role;
 import be.helha.assurapp.authentication.models.User;
 import be.helha.assurapp.authentication.repositories.RoleRepository;
 import be.helha.assurapp.authentication.repositories.UserRepository;
+import be.helha.assurapp.expertise.enums.ClaimStatus;
+import be.helha.assurapp.expertise.models.Claim;
+import be.helha.assurapp.expertise.models.Expertise;
+import be.helha.assurapp.expertise.repositories.ClaimRepository;
+import be.helha.assurapp.expertise.repositories.ExpertiseRepository;
 import be.helha.assurapp.insurance.enums.InsuranceType;
 import be.helha.assurapp.insurance.models.Insurance;
 import be.helha.assurapp.insurance.models.Subscription;
@@ -28,13 +33,15 @@ public class DataInitializer {
 
     @Bean
     @Transactional
-    public CommandLineRunner initDatabase(RoleRepository roleRepository, UserRepository userRepository, TermRepository termRepository, InsuranceRepository insuranceRepository, SubscriptionRepository subscriptionRepository) {
+    public CommandLineRunner initDatabase(RoleRepository roleRepository, UserRepository userRepository, TermRepository termRepository, InsuranceRepository insuranceRepository, SubscriptionRepository subscriptionRepository, ClaimRepository claimRepository, ExpertiseRepository expertiseRepository) {
         return args -> {
             List<Role> roles = new ArrayList<>();
             List<User> users = new ArrayList<>();
             List<Term> terms = new ArrayList<>();
             List<Insurance> insurances = new ArrayList<>();
             List<Subscription> subscriptions = new ArrayList<>();
+            List<Claim> claims = new ArrayList<>();
+            List<Expertise> expertises = new ArrayList<>();
 
             roles.add(new Role(1L, RoleList.ADMINISTRATOR));
             roles.add(new Role(2L, RoleList.CLIENT));
@@ -204,11 +211,21 @@ public class DataInitializer {
             subscriptions.add(new Subscription(2L, Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now().plusMonths(6)), false, users.get(1), insurances.get(1), Collections.emptyList(), Collections.emptyList()));
             subscriptions.add(new Subscription(3L, Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now().plusMonths(12)), false, users.get(1), insurances.get(2), Collections.emptyList(), Collections.emptyList()));
 
+            claims.add(new Claim(1L, "Crash clio 4",  Date.valueOf(LocalDate.now()), ClaimStatus.IN_PROGRESS.toString(), "assets/clio.jpeg", null));
+            claims.add(new Claim(2L, "Crash Citroen C3",  Date.valueOf(LocalDate.now().plusDays(12)), ClaimStatus.PENDING.toString(), "assets/citroen.jpeg", null));
+            claims.add(new Claim(3L, "Crash Peugeut 206",  Date.valueOf(LocalDate.now().plusDays(16)), ClaimStatus.WAITING_FOR_EXPERT.toString(), "assets/peugeot.jpeg", null));
+
+            expertises.add(new Expertise(1L, "Front side", Date.valueOf(LocalDate.now()), 700.00, claims.get(0)));
+            expertises.add(new Expertise(2L, "Wheel damage", Date.valueOf(LocalDate.now().plusDays(13)), 1200.00, claims.get(1)));
+            expertises.add(new Expertise(3L, "Hood damage", Date.valueOf(LocalDate.now().plusDays(18)), 700.00, claims.get(2)));
+
             roleRepository.saveAll(roles);
             userRepository.saveAll(users);
             termRepository.saveAll(terms);
             insuranceRepository.saveAll(insurances);
             subscriptionRepository.saveAll(subscriptions);
+            claimRepository.saveAll(claims);
+            expertiseRepository.saveAll(expertises);
         };
     }
 }

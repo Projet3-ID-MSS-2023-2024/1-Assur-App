@@ -25,7 +25,6 @@ import { ConfirmationService } from 'primeng/api';
 })
 export class AdminManageExpertComponent implements OnInit, OnDestroy {
 
-  constructor(private userService: UserService, public dialogService: DialogService, private messageService: MessageService, private confirmationService: ConfirmationService) { }
   users: User[] = [];
   data: User[] = [];
   add: DynamicDialogRef | undefined;
@@ -33,6 +32,7 @@ export class AdminManageExpertComponent implements OnInit, OnDestroy {
   current = 1;
   max  = 10;
 
+  constructor(private userService: UserService, public dialogService: DialogService, private messageService: MessageService, private confirmationService: ConfirmationService) { }
 
   ngOnInit() {
     this.fetch();
@@ -86,7 +86,7 @@ export class AdminManageExpertComponent implements OnInit, OnDestroy {
   filterInsurers() {
     this.users = this.users.filter(user => user.role?.label === "EXPERT");
   }
-  
+
   fetch() {
     const subscription = this.userService.getAllUser().subscribe(
       {
@@ -137,8 +137,8 @@ export class AdminManageExpertComponent implements OnInit, OnDestroy {
     return this.current > 1;
   }
 
-  
+
   /* -------------------- */
-  
+
 
 }

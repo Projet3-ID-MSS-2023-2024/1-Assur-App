@@ -5,7 +5,7 @@
           <div class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200 dark:border-gray-700">
             <div>
               <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200">
-                Your Client
+                Your Clients
               </h2>
               <p class="text-sm text-gray-600 dark:text-gray-400">
                 Have an eyes on your clients.
@@ -13,7 +13,7 @@
             </div>
 
           </div>
-  
+
           <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
             <thead class="bg-gray-50 dark:bg-slate-800">
             <tr>
@@ -24,7 +24,7 @@
                     </span>
                 </a>
               </th>
-  
+
               <th scope="col" class="px-6 py-3 text-start">
                 <a class="group inline-flex items-center gap-x-2">
                     <span class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
@@ -32,7 +32,7 @@
                     </span>
                 </a>
               </th>
-  
+
               <th scope="col" class="px-6 py-3 text-start">
                 <a class="group inline-flex items-center gap-x-2">
                   <span class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
@@ -40,7 +40,7 @@
                   </span>
                 </a>
               </th>
-  
+
               <th scope="col" class="px-6 py-3 text-start">
                 <a class="group inline-flex items-center gap-x-2">
                   <span class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
@@ -48,10 +48,10 @@
                   </span>
                 </a>
               </th>
-  
+
             </tr>
             </thead>
-  
+
             <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
               @for (user of data; track user.id) {
                 <tr class="bg-white hover:bg-gray-50 dark:bg-slate-900 dark:hover:bg-slate-800">
@@ -60,19 +60,19 @@
                       <div class="block text-sm text-black-600 decoration-2 dark:text-white"> {{user.name}} </div>
                     </div>
                   </td>
-                  
+
                   <td class="h-px w-px whitespace-nowrap">
                     <div class="px-6 py-2">
                       <div class="block text-sm text-black-600 decoration-2 dark:text-white">{{user.lastname}}</div>
                     </div>
                   </td>
-  
+
                   <td class="h-px w-px whitespace-nowrap">
                     <div class="px-6 py-2">
                       <div class="block text-sm text-black-600 decoration-2 dark:text-white">{{user.email}}</div>
                     </div>
                   </td>
-  
+
                   <td class="h-px w-px whitespace-nowrap">
                     <div class="px-6 py-2">
                       <div class="block text-xs text-black-600 decoration-2 dark:text-gray-600">
@@ -80,21 +80,21 @@
                       </div>
                     </div>
                   </td>
-                  
+
                 </tr>
                 }
-              
+
             </tbody>
-          
+
           </table>
-  
+
           <div class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-t border-gray-200 dark:border-gray-700">
             <div>
               <p class="text-sm text-gray-600 dark:text-gray-400">
                 <span class="font-semibold text-gray-800 dark:text-gray-200">{{ users.length }}</span> results
               </p>
             </div>
-  
+
             <div>
               <div class="inline-flex gap-x-2">
                 <button (click)="previous()" [disabled]="!isPrev()"  type="button" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">

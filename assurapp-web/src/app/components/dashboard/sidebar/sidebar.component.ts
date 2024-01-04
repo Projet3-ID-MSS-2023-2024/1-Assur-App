@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {NgClass, NgOptimizedImage, Location} from "@angular/common";
-import {RouterLink} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {AuthenticationService} from "../../../services/authentication.service";
 import {InsuranceType} from "../../../enums/insurance-type";
 import {Roles} from "../../../enums/roles";
@@ -17,15 +17,9 @@ import {Roles} from "../../../enums/roles";
   styleUrl: './sidebar.component.css'
 })
 export class SidebarComponent {
-  constructor(private authService: AuthenticationService) {
-  }
-
-  logout(){
-    this.authService.logout()
-  }
-
   constructor(private location: Location,
-              private authenticationService: AuthenticationService) {}
+              private authenticationService: AuthenticationService,
+              private router: Router) {}
 
   active(path: string): boolean {
     return this.location.path(false).includes(path);
@@ -33,6 +27,13 @@ export class SidebarComponent {
 
   getRole(): string {
     return this.authenticationService.getUserRole();
+  }
+
+  logout(){
+    this.authenticationService.logout();
+    setTimeout(() => {
+      this.router.navigate(['/']);
+    }, 1000);
   }
 
   protected readonly Roles = Roles;

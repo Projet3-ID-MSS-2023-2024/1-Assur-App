@@ -18,13 +18,13 @@ import { ConfirmationService } from 'primeng/api';
 @Component({
   selector: 'app-admin-manage-insurer',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, TableModule, ButtonModule, DropdownModule, ToastModule,ConfirmPopupModule,ConfirmDialogModule],
   templateUrl: './admin-manage-insurer.component.html',
-  styleUrl: './admin-manage-insurer.component.css'
+  styleUrl: './admin-manage-insurer.component.css',
+  providers: [DialogService,MessageService, ConfirmationService]
 })
 export class AdminManageInsurerComponent implements OnInit, OnDestroy {
 
-  constructor(private userService: UserService, public dialogService: DialogService, private messageService: MessageService, private confirmationService: ConfirmationService) { }
   users: User[] = [];
   data: User[] = [];
   add: DynamicDialogRef | undefined;
@@ -32,6 +32,7 @@ export class AdminManageInsurerComponent implements OnInit, OnDestroy {
   current = 1;
   max  = 10;
 
+  constructor(private userService: UserService, private dialogService: DialogService, private messageService: MessageService, private confirmationService: ConfirmationService) { }
 
   ngOnInit() {
     this.fetch();
@@ -85,7 +86,7 @@ export class AdminManageInsurerComponent implements OnInit, OnDestroy {
   filterInsurers() {
     this.users = this.users.filter(user => user.role?.label === "INSURER");
   }
-  
+
   fetch() {
     const subscription = this.userService.getAllUser().subscribe(
       {
@@ -136,8 +137,8 @@ export class AdminManageInsurerComponent implements OnInit, OnDestroy {
     return this.current > 1;
   }
 
-  
+
   /* -------------------- */
-  
+
 
 }
