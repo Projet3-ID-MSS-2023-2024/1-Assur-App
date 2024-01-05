@@ -36,12 +36,12 @@ public class PaymentController {
     }
 
     @PostMapping
-    public Payment add(Payment payment) {
+    public Payment add(@RequestBody Payment payment) {
         return this.service.add(payment);
     }
 
     @PutMapping
-    public Payment update(Payment payment) {
+    public Payment update(@RequestBody Payment payment) {
         return this.service.update(payment);
     }
 

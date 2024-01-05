@@ -11,6 +11,7 @@ public interface ISubscriptionService {
     Subscription getOne(Long id);
     List<Subscription> getByClient(Long id);
     List<Subscription> getByInsurer(Long id);
+    Subscription getByPayment(Long id);
     Subscription add(Subscription subscription);
     Subscription update(Subscription subscription);
     void delete(Long id);

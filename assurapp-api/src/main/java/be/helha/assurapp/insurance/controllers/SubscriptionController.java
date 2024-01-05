@@ -35,6 +35,11 @@ public class SubscriptionController {
         return this.service.getByInsurer(id);
     }
 
+    @GetMapping("/payment/{id}")
+    public Subscription getByPayment(@PathVariable Long id) {
+        return this.service.getByPayment(id);
+    }
+
     @PostMapping
     public Subscription add(@RequestBody Subscription subscription) {
         return this.service.add(subscription);

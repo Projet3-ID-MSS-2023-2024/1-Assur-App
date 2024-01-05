@@ -42,7 +42,6 @@ export const routes: Routes = [
       { path: 'subscriptions', component: SubscriptionsComponent},
       { path: 'payments', component: PaymentsComponent},
       { path: 'payments/add/:id', component: PaymentComponent},
-      { path: 'payments/update/:id', component: PaymentsComponent},
       { path: "claims", component: ListClaimsComponent},
       { path: "claims/add", component: DeclareClaimComponent},
       { path: "claims/update/:id", component: ShowClaimComponent},

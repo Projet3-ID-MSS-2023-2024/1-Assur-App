@@ -34,6 +34,11 @@ export class SubscriptionService {
     return this.http.get<Subscription[]>(`${environment.api}/subscriptions/insurer/${id}`,  {headers});
   }
 
+  getSubscriptionByPayment(id: number): Observable<Subscription> {
+    const headers = this.authenticationService.getHeaders();
+    return this.http.get<Subscription>(`${environment.api}/subscriptions/payment/${id}`,  {headers});
+  }
+
   addSubscription(subscription: Subscription): Observable<Subscription> {
     const headers = this.authenticationService.getHeaders();
     return this.http.post<Subscription>(`${environment.api}/subscriptions`, subscription, {headers});

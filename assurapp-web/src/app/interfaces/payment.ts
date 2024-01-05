@@ -6,5 +6,4 @@ export interface Payment {
   amount: number;
   transactionDate: Date;
   status: PaymentStatus;
-  subscription: Subscription;
 }

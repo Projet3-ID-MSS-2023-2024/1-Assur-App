@@ -220,7 +220,7 @@ public class DataInitializer {
 
             subscriptions.add(new Subscription(1L, Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now().plusMonths(3)), true, users.get(1), insurances.get(0), Collections.emptyList(), Collections.emptyList()));
             subscriptions.add(new Subscription(2L, Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now().plusMonths(6)), true, users.get(1), insurances.get(1), Collections.emptyList(), Collections.emptyList()));
-            subscriptions.add(new Subscription(3L, Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now().plusMonths(12)), true, users.get(1), insurances.get(2), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(3L, Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now().plusMonths(12)), false, users.get(1), insurances.get(2), Collections.emptyList(), Collections.emptyList()));
 
             claims.add(new Claim(1L, "Crash clio 4",  Date.valueOf(LocalDate.now()), ClaimStatus.IN_PROGRESS.toString(), "assets/clio.jpeg", null));
             claims.add(new Claim(2L, "Crash Citroen C3",  Date.valueOf(LocalDate.now().plusDays(12)), ClaimStatus.PENDING.toString(), "assets/citroen.jpeg", null));
@@ -230,9 +230,9 @@ public class DataInitializer {
             expertises.add(new Expertise(2L, "Wheel damage", Date.valueOf(LocalDate.now().plusDays(13)), 1200.00, claims.get(1)));
             expertises.add(new Expertise(3L, "Hood damage", Date.valueOf(LocalDate.now().plusDays(18)), 700.00, claims.get(2)));
 
-            payments.add(new Payment(1L, 200.00, Date.valueOf(LocalDate.now()), PaymentStatus.COMPLETED, subscriptions.get(0)));
-            payments.add(new Payment(2L, 300.00, Date.valueOf(LocalDate.now().plusDays(1)), PaymentStatus.COMPLETED, subscriptions.get(1)));
-            payments.add(new Payment(3L, 220.00, Date.valueOf(LocalDate.now().plusDays(2)), PaymentStatus.COMPLETED, subscriptions.get(2)));
+            payments.add(new Payment(1L, 220.80, Date.valueOf(LocalDate.now()), PaymentStatus.COMPLETED));
+            payments.add(new Payment(2L, 332.89, Date.valueOf(LocalDate.now().plusDays(1)), PaymentStatus.COMPLETED));
+            payments.add(new Payment(3L, 224.92, Date.valueOf(LocalDate.now().plusDays(2)), PaymentStatus.COMPLETED));
 
             roleRepository.saveAll(roles);
             userRepository.saveAll(users);
@@ -246,6 +246,8 @@ public class DataInitializer {
             claims.get(2).setExpertise(3L);
             claimRepository.saveAll(claims);
             paymentRepository.saveAll(payments);
+            subscriptions.get(0).setPayments(payments);
+            subscriptionRepository.saveAll(subscriptions);
         };
     }
 }

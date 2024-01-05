@@ -144,7 +144,7 @@
                   <td class="h-px w-px  whitespace-nowrap">
                     <div class="flex justify-end ps-6 py-2 me-2">
                       @if (role === Roles.CLIENT) {
-                        <button [disabled]="payments(subscription)" routerLink="/dashboard/payments/{{subscription.payed ? 'update':'add'}}/{{subscription.id}}" type="button" class="me-2 py-2 px-2 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+                        <button [disabled]="payments(subscription)" routerLink="/dashboard/payments/add/{{subscription.id}}" type="button" class="me-2 py-2 px-2 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
                           {{subscription.payed ? 'Renew':'Pay'}}
                         </button>
                       }

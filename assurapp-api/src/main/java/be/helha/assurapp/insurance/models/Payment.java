@@ -24,6 +24,4 @@ public class Payment {
     private Date transactionDate;
     @Enumerated(EnumType.STRING)
     private PaymentStatus status;
-    @ManyToOne
-    private Subscription subscription;
 }
