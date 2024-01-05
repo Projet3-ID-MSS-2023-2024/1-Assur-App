@@ -6,6 +6,7 @@ import {Router, RouterLink} from "@angular/router";
 import {Role} from "../../../interfaces/role";
 import {NavbarComponent} from "../../home/navbar/navbar.component";
 import {AuthenticationService} from "../../../services/authentication.service";
+import {DataService} from "../../../services/data.service";
 
 @Component({
   selector: 'app-register',
@@ -19,7 +20,7 @@ export class RegisterComponent implements OnInit{
   role!: Role;
   form: FormGroup;
 
-  constructor(private authService: AuthenticationService, private router:Router) {
+  constructor(private authService: AuthenticationService, private router:Router, private dataService: DataService) {
     this.form = new FormGroup({
         name: new FormControl('', [Validators.required, Validators.pattern("[^0-9]")]),
         lastname: new FormControl('', [Validators.required, Validators.pattern("[^0-9]")]),
@@ -61,8 +62,9 @@ export class RegisterComponent implements OnInit{
     console.log(this.user)
     this.authService.register(this.user).subscribe({
       next:(data)=>{
-        console.log(data);
-        this.router.navigate([`/activate/${this.user.email}`]) //['/activate', {email: this.user.email}]
+        this.dataService.setSharedData(this.user.email)
+        this.router.navigate([`/activate`])
+
       },
       error:(error) =>{
         console.log(error);

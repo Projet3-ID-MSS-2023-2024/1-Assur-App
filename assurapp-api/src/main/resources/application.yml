@@ -6,8 +6,9 @@ spring:
   mail:
     port: 9025
     host: localhost
+
   datasource:
-    url: jdbc:postgresql://localhost:5432/assurapp
+    url: jdbc:postgresql://localhost:5433/assurapp
     username: assurapp
     password: assurapp
     driver-class-name: org.postgresql.Driver
