@@ -16,28 +16,36 @@ import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService } from 'primeng/api';
 
 @Component({
-  selector: 'app-admin-page',
+  selector: 'app-admin-manage-insurer',
   standalone: true,
   imports: [CommonModule, TableModule, ButtonModule, DropdownModule, ToastModule,ConfirmPopupModule,ConfirmDialogModule],
-  templateUrl: './admin-page.component.html',
-  styleUrl: './admin-page.component.css',
+  templateUrl: './admin-manage-insurer.component.html',
+  styleUrl: './admin-manage-insurer.component.css',
   providers: [DialogService,MessageService, ConfirmationService]
 })
-export class AdminPageComponent implements OnInit, OnDestroy {
+export class AdminManageInsurerComponent implements OnInit, OnDestroy {
 
-  constructor(private userService: UserService, public dialogService: DialogService, private messageService: MessageService, private confirmationService: ConfirmationService) { }
-
-  users= [];
+  users: User[] = [];
+  data: User[] = [];
   add: DynamicDialogRef | undefined;
   update: DynamicDialogRef | undefined;
-  roles: any[] = ['ADMIN', 'SIMPLEUSER', 'INSURER', 'EXPERT'];
+  current = 1;
+  max  = 10;
 
+  constructor(private userService: UserService, private dialogService: DialogService, private messageService: MessageService, private confirmationService: ConfirmationService) { }
 
   ngOnInit() {
-    this.getAllUsers();
+    this.fetch();
   }
 
-  ngOnDestroy(): void {
+  ngOnDestroy() {
+    if (this.add) {
+        this.add.close();
+    }
+
+    if(this.update){
+      this.update.close();
+    }
   }
 
   showAdd() {
@@ -57,23 +65,6 @@ export class AdminPageComponent implements OnInit, OnDestroy {
       }
   });
   }
- 
-
-  getAllUsers() {
-    const subscription = this.userService.getAllUser().subscribe(
-      {
-        next: (data: any) => {
-          console.log(data);
-          this.users = data;
-          subscription.unsubscribe();
-        },
-        error: (err: any) => {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to get all users' });
-        }
-      }
-    )
-  }
-  
 
   deleteUser(id: number): void {
     this.userService.deleteUser(id).subscribe(
@@ -90,5 +81,64 @@ export class AdminPageComponent implements OnInit, OnDestroy {
       }
     );
   }
+
+
+  filterInsurers() {
+    this.users = this.users.filter(user => user.role?.label === "INSURER");
+  }
+
+  fetch() {
+    const subscription = this.userService.getAllUser().subscribe(
+      {
+        next: (data: any) => {
+          console.log(data);
+          this.users = data;
+          this.filterInsurers();
+          this.getData();
+        },
+        error: (err: any) => {
+          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to get all users' });
+        }
+      }
+    )
+  }
+
+  /* -------------------- Pagination -------------------- */
+
+  getData() {
+    const start = (this.current - 1) * this.max;
+    const end = start + this.max;
+    this.data = this.users.slice(start, end);
+  }
+
+
+  next() {
+    if (this.current < this.getTotalPages()) {
+      this.current++;
+      this.getData()
+    }
+  }
+  previous() {
+    if (this.current > 1) {
+      this.current--;
+      this.getData()
+    }
+  }
+
+  getTotalPages(): number {
+    return Math.ceil(this.users.length / this.max)
+  }
+
+  isNext(): boolean {
+    return this.current < this.getTotalPages();
+  }
+
+  isPrev(): boolean {
+    return this.current > 1;
+  }
+
+
+  /* -------------------- */
+
 
 }

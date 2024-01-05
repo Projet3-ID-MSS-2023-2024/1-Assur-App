@@ -3,60 +3,49 @@ import { Injectable } from '@angular/core';
 import { environment } from "../../environments/environment.development";
 import { Observable } from 'rxjs';
 import { User } from '../interfaces/user';
+import {AuthenticationService} from "./authentication.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
 
-  constructor(private http: HttpClient) { }
-
-  bearer = "eyJhbGciOiJIUzUxMiJ9.eyJuYW1lIjoiQmVuamFtaW4iLCJzdWIiOiJkZWxzaW5uZWJlbmphbWluQGdtYWlsLmNvbSIsInJvbGUiOnsiaWQiOjMsImxhYmVsIjoiRVhQRVJUIn0sImV4cCI6MTcwMzAwNDI4NH0.DdTyDpCn3pD5CYRKAlmFmnfpn2i6WON163ueV0vjhPTJUeu_bGMlARDB6TYXFDZwQTyCAssR-dteuWXm33w62w"
+  constructor(private http: HttpClient, private authService: AuthenticationService) { }
 
     getAllUser(): Observable<User[]> {
-      
-      return this.http.get<User[]>(`${environment.api}/users`, 
-      {
-        headers: {
-          Authorization: `Bearer ${this.bearer}`}
-      });
+
+      const headers = this.authService.getHeaders();
+
+      return this.http.get<User[]>(`${environment.api}/users`, { headers });
     }
 
     getUserById(id: number): Observable<User> {
-      return this.http.get<User>(`${environment.api}/users/${id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${this.bearer}`
-          }
-        });
+      const headers = this.authService.getHeaders();
+
+      return this.http.get<User>(`${environment.api}/users/${id}`, { headers });
     }
 
     createUser(user: User): Observable<User> {
-      return this.http.post<User>(`${environment.api}/users`, user,
-        {
-          headers: {
-            Authorization: `Bearer ${this.bearer}`
-          }
-        });
+      const headers = this.authService.getHeaders();
+
+      return this.http.post<User>(`${environment.api}/users`, user, { headers });
     }
 
     updateUser(user: User): Observable<User> {
-      return this.http.post<User>(`${environment.api}/usersUpdate`, user,
-        {
-          headers: {
-            Authorization: `Bearer ${this.bearer}`
-          }
-        });
+      const headers = this.authService.getHeaders();
+
+      return this.http.post<User>(`${environment.api}/usersUpdate`, user, { headers });
     }
 
     deleteUser(id: number): Observable<User> {
-      
-      return this.http.delete<User>(`${environment.api}/users/${id}`, { 
-        headers: {
-          Authorization: `Bearer ${this.bearer}`
-        }
-      });
+      const headers = this.authService.getHeaders();
+
+      return this.http.delete<User>(`${environment.api}/users/${id}`, { headers });
     }
 
-    
+    findUserByInsurer(id: number): Observable<User[]> {
+      const headers = this.authService.getHeaders();
+
+      return this.http.get<User[]>(`${environment.api}/users/insurer/${id}`, { headers });
+    }
 }

@@ -77,6 +77,11 @@ public class UserController {
         userService.deleteById(id);
     }
 
+    @GetMapping("users/insurer/{id}")
+    public List<User> findUsersByInsurer(@PathVariable Long id){
+        return userService.findUsersByInsurer(id);
+    }
+
     @PostMapping("verifyAccount")
     public void verify(@RequestBody Map<String, String> userData){
         if (userData.get("code").isEmpty() || userData.get("username").isEmpty()){

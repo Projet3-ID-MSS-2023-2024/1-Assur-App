@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AdminPageComponent } from './admin-page.component';
+import { ListExpertiseComponent } from './list-expertise.component';
 
-describe('AdminPageComponent', () => {
-  let component: AdminPageComponent;
-  let fixture: ComponentFixture<AdminPageComponent>;
+describe('ListExpertiseComponent', () => {
+  let component: ListExpertiseComponent;
+  let fixture: ComponentFixture<ListExpertiseComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AdminPageComponent]
+      imports: [ListExpertiseComponent]
     })
     .compileComponents();
     
-    fixture = TestBed.createComponent(AdminPageComponent);
+    fixture = TestBed.createComponent(ListExpertiseComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

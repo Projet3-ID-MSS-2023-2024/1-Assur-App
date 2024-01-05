@@ -10,6 +10,7 @@ public interface IInsuranceService {
 
     List<Insurance> getAll();
     List<Insurance> getByType(InsuranceType type);
+    List<Insurance> getByClient(Long id);
     List<Insurance> getByInsurer(User insurer);
     Insurance getOne(Long id);
     Insurance add(Insurance offer);

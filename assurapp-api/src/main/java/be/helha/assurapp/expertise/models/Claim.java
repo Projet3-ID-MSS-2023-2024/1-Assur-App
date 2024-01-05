@@ -27,22 +27,11 @@ public class Claim {
     @Temporal(TemporalType.DATE)
     private Date date;
 
-    private double RequestedAmount;
-
     @NotNull
-//    @Enumerated(EnumType.STRING)
     private String status;
 
-//    @OneToOne
-////    private User client;
-//
-//    @OneToOne
-////    private User expert;
-//
-//    @OneToOne
-//    private User insurer;
+    private String imageFile;
 
-//    @OneToOne
-//    private Expertise expertise;
+    private Long expertise;
 
 }

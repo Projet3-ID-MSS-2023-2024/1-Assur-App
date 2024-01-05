@@ -1,3 +1,26 @@
+@if (added) {
+  <div class="fixed top-0 end-0 z-[60] sm:max-w-xl max-w-px mx-auto p-6 py-12">
+    <div class="p-4 bg-white border border-gray-300 rounded-xl shadow-sm dark:bg-gray-800 dark:border-gray-700">
+      <div class="flex justify-between items-center gap-x-5 sm:gap-x-10">
+        <h2 class="text-sm text-gray-600 dark:text-gray-400">
+          Your insurance has been added successfully. You will be redirected to the insurance page.
+        </h2>
+      </div>
+    </div>
+  </div>
+} @else if (error) {
+  <div class="fixed top-0 end-0 z-[60] sm:max-w-xl max-w-px mx-auto p-6 py-12">
+    <div class="p-4 bg-red-600 border border-gray-300 rounded-xl shadow-sm dark:bg-red-600 dark:border-gray-700">
+      <div class="flex justify-between items-center gap-x-5 sm:gap-x-10">
+        <h2 class="text-sm text-white text-center">
+          An error occured try to fill all the required fields and retry! <br>
+          If it happend again check your network setting.
+        </h2>
+      </div>
+    </div>
+  </div>
+}
+
 <div class="max-w-px px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
   <div class="bg-white border-[1px] rounded-xl shadow p-4 sm:p-7 dark:bg-slate-900 dark:border-gray-700">
     <form [formGroup]="insuranceForm" (ngSubmit)="onSubmit()">

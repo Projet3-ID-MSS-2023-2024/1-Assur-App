@@ -1,6 +1,9 @@
+import {Claim} from "./claim";
+
 export interface Expertise {
   id: number;
   description: string;
   date: Date;
-  EstimationAmount: number;
+  estimation: number;
+  claim: Claim;
 }
