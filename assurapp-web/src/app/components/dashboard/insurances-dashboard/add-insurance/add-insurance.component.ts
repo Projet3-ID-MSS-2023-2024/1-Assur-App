@@ -5,6 +5,8 @@ import {FormBuilder, FormGroup, ReactiveFormsModule} from "@angular/forms";
 import {Router} from "@angular/router";
 import {UserService} from "../../../../services/user.service";
 import {NgClass} from "@angular/common";
+import {PopupService} from "../../../../services/popup.service";
+import {PopupType} from "../../../../enums/popup-type";
 
 @Component({
   selector: 'app-add-insurance',
@@ -19,10 +21,9 @@ import {NgClass} from "@angular/common";
 export class AddInsuranceComponent {
   types:InsuranceType[] = Object.values(InsuranceType);
   insuranceForm: FormGroup;
-  added: boolean = false;
-  error : boolean = false;
   constructor(private insuranceService: InsuranceService,
               private userService: UserService,
+              private popupService: PopupService,
               private formBuilder: FormBuilder,
               private router: Router) {
     this.insuranceForm = this.formBuilder.group({
@@ -60,19 +61,17 @@ export class AddInsuranceComponent {
       next: data => {
         this.insuranceForm.value.insurer = data;
         this.insuranceService.addInsurance(this.insuranceForm.value).subscribe({
-          next: data => {
-            this.added = true;
-            setTimeout(() => this.router.navigate(['/dashboard/insurances']), 5000)
+          next: () => {
+            this.popupService.show("Added with success", PopupType.SUCCESS);
+            this.router.navigate(['/dashboard/insurances']);
           },
-          error: err => {
-            this.error = true
-            setTimeout(() => this.error = false, 5000)
+          error: () => {
+            this.popupService.show("An error occurred while adding insurance", PopupType.ERROR)
           }
         })
       },
-      error: err => {
-        this.error = true
-        setTimeout(() => this.error = false, 5000)
+      error: () => {
+          this.popupService.show("Can't access to API", PopupType.ERROR)
       }
       })
   }

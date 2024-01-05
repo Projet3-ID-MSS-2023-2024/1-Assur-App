@@ -5,6 +5,8 @@ import {AuthenticationService} from "../../../services/authentication.service";
 import {SubscriptionService} from "../../../services/subscription.service";
 import {Subscription} from "../../../interfaces/subscription";
 import {Roles} from "../../../enums/roles";
+import {PopupService} from "../../../services/popup.service";
+import {PopupType} from "../../../enums/popup-type";
 
 @Component({
   selector: 'app-subscriptions',
@@ -25,6 +27,7 @@ export class SubscriptionsComponent implements OnInit {
   role!: string;
 
   constructor(private authenticationService: AuthenticationService,
+              private popupService: PopupService,
               private subscriptionService: SubscriptionService) {}
 
   ngOnInit(): void {
@@ -39,7 +42,7 @@ export class SubscriptionsComponent implements OnInit {
           this.subscriptions = data;
           this.getData();
         },
-        error: err => console.error(err)
+        error: () => this.popupService.show("Can't access to API", PopupType.ERROR)
       })
     } else if (this.authenticationService.getUserRole() === Roles.INSURER) {
       this.subscriptionService.getSubscriptionByInsurer(this.authenticationService.getUserId()).subscribe({
@@ -47,7 +50,7 @@ export class SubscriptionsComponent implements OnInit {
           this.subscriptions = data;
           this.getData();
         },
-        error: err => console.error(err)
+        error: () => this.popupService.show("Can't access to API", PopupType.ERROR)
       })
     }
   }
@@ -56,8 +59,8 @@ export class SubscriptionsComponent implements OnInit {
     if (!confirm("Are you sure to close this subscription")) return;
     subscription.endDate = new Date();
     this.subscriptionService.updateSubscription(subscription).subscribe({
-      next: data => this.fetch(),
-      error: err => console.error(err)
+      next: () => this.fetch(),
+      error: () => this.popupService.show("Can't access to API", PopupType.ERROR)
     });
   }
 

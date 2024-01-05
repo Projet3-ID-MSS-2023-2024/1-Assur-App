@@ -6,6 +6,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {CurrencyPipe, DatePipe} from "@angular/common";
 import {Payment} from "../../../../interfaces/payment";
 import {PaymentStatus} from "../../../../enums/payment-status";
+import {PopupService} from "../../../../services/popup.service";
+import {PopupType} from "../../../../enums/popup-type";
 
 declare var paypal: any;
 
@@ -29,6 +31,7 @@ export class PaymentComponent implements OnInit {
   payment!: Payment;
   constructor(private subscriptionService: SubscriptionService,
               private paymentService: PaymentService,
+              private popupService: PopupService,
               private ngZone: NgZone,
               private route: ActivatedRoute,
               private router: Router) {}
@@ -50,7 +53,7 @@ export class PaymentComponent implements OnInit {
           this.subscription.endDate = endDate;
         }
       },
-      error: err => console.error(err)
+      error: () => this.popupService.show("Can't access to API", PopupType.ERROR)
     })
     paypal.Buttons({
       style: {
@@ -70,11 +73,11 @@ export class PaymentComponent implements OnInit {
             this.payment = data;
             this.subscription.payments.push(this.payment);
             this.subscriptionService.updateSubscription(this.subscription).subscribe({
-              next: data => {},
-              error: err => console.error(err)
+              next: () => this.popupService.show("Payment added", PopupType.INFO),
+              error: () => this.popupService.show("Can't access to API", PopupType.ERROR)
             })
           },
-          error: err => console.error(err)
+          error: () => this.popupService.show("Can't access to API", PopupType.ERROR)
         });
         return actions.order.create({
           purchase_units: [
@@ -95,11 +98,11 @@ export class PaymentComponent implements OnInit {
             this.paymentService.updatePayment(this.payment).subscribe({
               next: data => {
                 this.subscriptionService.updateSubscription(this.subscription).subscribe({
-                  next: data => {},
-                  error: err => console.error(err)
+                  next: () => this.popupService.show("Payment confirmed", PopupType.SUCCESS),
+                  error: () => this.popupService.show("Can't access to API", PopupType.ERROR)
                 })
               },
-              error: err => console.error(err)
+              error: () => this.popupService.show("Can't access to API", PopupType.ERROR)
             });
           });
         });
@@ -108,10 +111,10 @@ export class PaymentComponent implements OnInit {
         this.payment.status = PaymentStatus.FAILED;
         this.subscription.payed = true;
         this.paymentService.updatePayment(this.payment).subscribe({
-          next: data => {},
-          error: err => console.error(err)
+          next: () => this.popupService.show("Can't access to API", PopupType.ERROR),
+          error: () => this.popupService.show("Can't access to API", PopupType.ERROR)
         });
-        console.error('PayPal Error:', err);
+        this.popupService.show("Can't access to API", PopupType.ERROR)
       },
     }).render(this.paymentRef.nativeElement);
   }

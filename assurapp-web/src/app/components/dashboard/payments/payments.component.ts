@@ -8,6 +8,8 @@ import {PaymentService} from "../../../services/payment.service";
 import {PaymentStatus} from "../../../enums/payment-status";
 import {SubscriptionService} from "../../../services/subscription.service";
 import {Subscription} from "../../../interfaces/subscription";
+import {PopupType} from "../../../enums/popup-type";
+import {PopupService} from "../../../services/popup.service";
 
 @Component({
   selector: 'app-payments',
@@ -29,6 +31,7 @@ export class PaymentsComponent implements OnInit {
   role: string = "";
 
   constructor(private authenticationService: AuthenticationService,
+              private popupService: PopupService,
               private paymentService: PaymentService,
               private subscriptionService: SubscriptionService) {}
 
@@ -44,11 +47,11 @@ export class PaymentsComponent implements OnInit {
           this.payments = data;
           this.getData();
         },
-        error: err => console.error(err)
+        error: () => this.popupService.show("Can't access to API", PopupType.ERROR)
       })
       this.subscriptionService.getSubscriptionByClient(this.authenticationService.getUserId()).subscribe({
         next: data => this.subscriptions = data,
-        error: err => console.log(err)
+        error: () => this.popupService.show("Can't access to API", PopupType.ERROR)
       });
     } else if (this.authenticationService.getUserRole() === Roles.INSURER) {
       this.paymentService.getPaymentByInsurer(this.authenticationService.getUserId()).subscribe({
@@ -60,7 +63,7 @@ export class PaymentsComponent implements OnInit {
       })
       this.subscriptionService.getSubscriptionByInsurer(this.authenticationService.getUserId()).subscribe({
         next: data => this.subscriptions = data,
-        error: err => console.log(err)
+        error: () => this.popupService.show("Can't access to API", PopupType.ERROR)
       });
     }
   }
@@ -68,8 +71,8 @@ export class PaymentsComponent implements OnInit {
   close(payment: Payment) {
     if (!confirm("Are you sure to close this subscription")) return;
     this.paymentService.updatePayment(payment).subscribe({
-      next: data => this.fetch(),
-      error: err => console.error(err)
+      next: () => this.fetch(),
+      error: () => this.popupService.show("Can't access to API", PopupType.ERROR)
     });
   }
 
