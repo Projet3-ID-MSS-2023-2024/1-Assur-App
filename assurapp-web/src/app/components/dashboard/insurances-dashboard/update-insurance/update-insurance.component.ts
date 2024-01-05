@@ -3,6 +3,8 @@ import {FormBuilder, FormGroup, FormsModule, ReactiveFormsModule} from "@angular
 import {InsuranceService} from "../../../../services/insurance.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {InsuranceType} from "../../../../enums/insurance-type";
+import {PopupService} from "../../../../services/popup.service";
+import {PopupType} from "../../../../enums/popup-type";
 
 @Component({
   selector: 'app-update-insurance',
@@ -18,9 +20,8 @@ export class UpdateInsuranceComponent implements OnInit {
   types:InsuranceType[] = Object.values(InsuranceType);
   insuranceForm!: FormGroup;
   id!: number;
-  added: boolean = false;
-  error: boolean = false;
   constructor(private insuranceService: InsuranceService,
+              private popupService: PopupService,
               private router: Router,
               private route: ActivatedRoute,
               private formBuilder: FormBuilder) {}
@@ -35,7 +36,7 @@ export class UpdateInsuranceComponent implements OnInit {
   fetch() {
     this.insuranceService.getInsuranceById(this.id).subscribe({
       next: data => this.init(data),
-      error: err => console.error(err)
+      error: () => this.popupService.show("Can't retrive insurance", PopupType.ERROR)
     })
   }
 
@@ -52,13 +53,12 @@ export class UpdateInsuranceComponent implements OnInit {
 
   onSubmit() {
     this.insuranceService.updateInsurance(this.insuranceForm.value).subscribe({
-      next: data => {
-        this.added = true;
-        setTimeout(() => this.router.navigate(['/dashboard/insurances']), 5000)
+      next: () => {
+        this.popupService.show("Added with success", PopupType.SUCCESS);
+        this.router.navigate(['/dashboard/insurances'])
       },
-      error: err => {
-        this.error = true
-        setTimeout(() => this.error = false, 5000)
+      error: () => {
+        this.popupService.show("Can't access to API", PopupType.ERROR)
       }
     })
   }

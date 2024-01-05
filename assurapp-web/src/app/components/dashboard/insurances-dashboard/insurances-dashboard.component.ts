@@ -3,9 +3,10 @@ import {Insurance} from "../../../interfaces/insurance";
 import {InsuranceService} from "../../../services/insurance.service";
 import {RouterLink} from "@angular/router";
 import {CurrencyPipe} from "@angular/common";
-import {SubscriptionService} from "../../../services/subscription.service";
 import {AuthenticationService} from "../../../services/authentication.service";
 import {UserService} from "../../../services/user.service";
+import {PopupService} from "../../../services/popup.service";
+import {PopupType} from "../../../enums/popup-type";
 
 @Component({
   selector: 'app-insurances-dashboard',
@@ -26,7 +27,7 @@ export class InsurancesDashboardComponent implements OnInit {
   constructor(private insuranceService: InsuranceService,
               private authenticationService: AuthenticationService,
               private userService: UserService,
-              private subscriptionService: SubscriptionService) {}
+              private popupService: PopupService) {}
 
   ngOnInit(): void {
     this.fetch();
@@ -40,10 +41,10 @@ export class InsurancesDashboardComponent implements OnInit {
             this.insurances = data;
             this.getData();
           },
-          error: err => console.error(err)
+          error: () => this.popupService.show("Can't access to API", PopupType.ERROR)
         })
       },
-      error: err => console.log(err)
+      error: () =>  this.popupService.show("Can't access to API", PopupType.ERROR)
     })
   }
 
@@ -51,7 +52,7 @@ export class InsurancesDashboardComponent implements OnInit {
     if (!confirm("Are you sure to delete this insurance")) return;
     this.insuranceService.deleteInsurance(id).subscribe({
       next: data => this.fetch(),
-      error: err => console.error(err)
+      error: () =>  this.popupService.show("Can't delete to API", PopupType.ERROR)
     });
   }
 
