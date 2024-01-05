@@ -33,7 +33,7 @@ export class SidebarComponent {
     this.authenticationService.logout();
     setTimeout(() => {
       this.router.navigate(['/']);
-    }, 1000);
+    }, 500);
   }
 
   protected readonly Roles = Roles;

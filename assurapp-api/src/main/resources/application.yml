@@ -13,7 +13,7 @@ spring:
     password: assurapp
     driver-class-name: org.postgresql.Driver
   jpa:
-    show-sql: true
+    show-sql: false
     hibernate:
       ddl-auto: create
   properties:
@@ -36,7 +36,7 @@ spring:
     password: assurapp
     driver-class-name: org.h2.Driver
   jpa:
-    show-sql: true
+    show-sql: false
     hibernate:
       ddl-auto: create-drop
   properties:

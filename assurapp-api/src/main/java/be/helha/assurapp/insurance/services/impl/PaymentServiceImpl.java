@@ -25,6 +25,16 @@ public class PaymentServiceImpl implements IPaymentService {
     }
 
     @Override
+    public List<Payment> getByClient(Long id) {
+        return this.repository.findPaymentsByClient(id);
+    }
+
+    @Override
+    public List<Payment> getByInsurer(Long id) {
+        return this.repository.findPaymentsByInsurer(id);
+    }
+
+    @Override
     public Payment add(Payment payment) {
         return this.repository.save(payment);
     }

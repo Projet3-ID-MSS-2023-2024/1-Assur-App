@@ -11,10 +11,13 @@ import be.helha.assurapp.expertise.models.Expertise;
 import be.helha.assurapp.expertise.repositories.ClaimRepository;
 import be.helha.assurapp.expertise.repositories.ExpertiseRepository;
 import be.helha.assurapp.insurance.enums.InsuranceType;
+import be.helha.assurapp.insurance.enums.PaymentStatus;
 import be.helha.assurapp.insurance.models.Insurance;
+import be.helha.assurapp.insurance.models.Payment;
 import be.helha.assurapp.insurance.models.Subscription;
 import be.helha.assurapp.insurance.models.Term;
 import be.helha.assurapp.insurance.repositories.InsuranceRepository;
+import be.helha.assurapp.insurance.repositories.PaymentRepository;
 import be.helha.assurapp.insurance.repositories.SubscriptionRepository;
 import be.helha.assurapp.insurance.repositories.TermRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -33,7 +36,14 @@ public class DataInitializer {
 
     @Bean
     @Transactional
-    public CommandLineRunner initDatabase(RoleRepository roleRepository, UserRepository userRepository, TermRepository termRepository, InsuranceRepository insuranceRepository, SubscriptionRepository subscriptionRepository, ClaimRepository claimRepository, ExpertiseRepository expertiseRepository) {
+    public CommandLineRunner initDatabase(RoleRepository roleRepository,
+                                          UserRepository userRepository,
+                                          TermRepository termRepository,
+                                          InsuranceRepository insuranceRepository,
+                                          SubscriptionRepository subscriptionRepository,
+                                          ClaimRepository claimRepository,
+                                          ExpertiseRepository expertiseRepository,
+                                          PaymentRepository paymentRepository) {
         return args -> {
             List<Role> roles = new ArrayList<>();
             List<User> users = new ArrayList<>();
@@ -42,6 +52,7 @@ public class DataInitializer {
             List<Subscription> subscriptions = new ArrayList<>();
             List<Claim> claims = new ArrayList<>();
             List<Expertise> expertises = new ArrayList<>();
+            List<Payment> payments = new ArrayList<>();
 
             roles.add(new Role(1L, RoleList.ADMINISTRATOR));
             roles.add(new Role(2L, RoleList.CLIENT));
@@ -207,8 +218,8 @@ public class DataInitializer {
             insurances.add(new Insurance(35L, "Third-Party Liability Car Insurance", InsuranceType.CAR, 17000.00, users.get(4), terms.subList(102, 105)));
             insurances.add(new Insurance(36L, "All-Inclusive Car Insurance Premium", InsuranceType.CAR, 35000.00, users.get(5), terms.subList(105, 108)));
 
-            subscriptions.add(new Subscription(1L, Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now().plusMonths(3)), false, users.get(1), insurances.get(0), Collections.emptyList(), Collections.emptyList()));
-            subscriptions.add(new Subscription(2L, Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now().plusMonths(6)), false, users.get(1), insurances.get(1), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(1L, Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now().plusMonths(3)), true, users.get(1), insurances.get(0), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(2L, Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now().plusMonths(6)), true, users.get(1), insurances.get(1), Collections.emptyList(), Collections.emptyList()));
             subscriptions.add(new Subscription(3L, Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now().plusMonths(12)), false, users.get(1), insurances.get(2), Collections.emptyList(), Collections.emptyList()));
 
             claims.add(new Claim(1L, "Crash clio 4",  Date.valueOf(LocalDate.now()), ClaimStatus.IN_PROGRESS.toString(), "assets/clio.jpeg", null));
@@ -219,6 +230,10 @@ public class DataInitializer {
             expertises.add(new Expertise(2L, "Wheel damage", Date.valueOf(LocalDate.now().plusDays(13)), 1200.00, claims.get(1)));
             expertises.add(new Expertise(3L, "Hood damage", Date.valueOf(LocalDate.now().plusDays(18)), 700.00, claims.get(2)));
 
+            payments.add(new Payment(1L, 220.80, Date.valueOf(LocalDate.now()), PaymentStatus.COMPLETED));
+            payments.add(new Payment(2L, 332.89, Date.valueOf(LocalDate.now().plusDays(1)), PaymentStatus.COMPLETED));
+            payments.add(new Payment(3L, 224.92, Date.valueOf(LocalDate.now().plusDays(2)), PaymentStatus.COMPLETED));
+
             roleRepository.saveAll(roles);
             userRepository.saveAll(users);
             termRepository.saveAll(terms);
@@ -226,6 +241,13 @@ public class DataInitializer {
             subscriptionRepository.saveAll(subscriptions);
             claimRepository.saveAll(claims);
             expertiseRepository.saveAll(expertises);
+            claims.get(0).setExpertise(1L);
+            claims.get(1).setExpertise(2L);
+            claims.get(2).setExpertise(3L);
+            claimRepository.saveAll(claims);
+            paymentRepository.saveAll(payments);
+            subscriptions.get(0).setPayments(payments);
+            subscriptionRepository.saveAll(subscriptions);
         };
     }
 }

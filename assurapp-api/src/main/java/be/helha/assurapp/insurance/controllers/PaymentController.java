@@ -1,6 +1,7 @@
 package be.helha.assurapp.insurance.controllers;
 
 import be.helha.assurapp.insurance.models.Payment;
+import be.helha.assurapp.insurance.models.Subscription;
 import be.helha.assurapp.insurance.services.IPaymentService;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -24,13 +25,23 @@ public class PaymentController {
         return this.service.getOne(id);
     }
 
+    @GetMapping("/client/{id}")
+    public List<Payment> getByClient(@PathVariable Long id) {
+        return this.service.getByClient(id);
+    }
+
+    @GetMapping("/insurer/{id}")
+    public List<Payment> getByInsurer(@PathVariable Long id) {
+        return this.service.getByInsurer(id);
+    }
+
     @PostMapping
-    public Payment add(Payment payment) {
+    public Payment add(@RequestBody Payment payment) {
         return this.service.add(payment);
     }
 
     @PutMapping
-    public Payment update(Payment payment) {
+    public Payment update(@RequestBody Payment payment) {
         return this.service.update(payment);
     }
 

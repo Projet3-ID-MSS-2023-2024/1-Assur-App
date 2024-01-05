@@ -4,6 +4,7 @@ import {Observable} from "rxjs";
 import {environment} from "../../environments/environment.development";
 import {Subscription} from "../interfaces/subscription";
 import {AuthenticationService} from "./authentication.service";
+import {User} from "../interfaces/user";
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +22,21 @@ export class SubscriptionService {
   getSubscriptionById(id: number): Observable<Subscription> {
     const headers = this.authenticationService.getHeaders();
     return this.http.get<Subscription>(`${environment.api}/subscriptions/${id}`, {headers});
+  }
+
+  getSubscriptionByClient(id: number): Observable<Subscription[]> {
+    const headers = this.authenticationService.getHeaders();
+    return this.http.get<Subscription[]>(`${environment.api}/subscriptions/client/${id}`,  {headers});
+  }
+
+  getSubscriptionByInsurer(id: number): Observable<Subscription[]> {
+    const headers = this.authenticationService.getHeaders();
+    return this.http.get<Subscription[]>(`${environment.api}/subscriptions/insurer/${id}`,  {headers});
+  }
+
+  getSubscriptionByPayment(id: number): Observable<Subscription> {
+    const headers = this.authenticationService.getHeaders();
+    return this.http.get<Subscription>(`${environment.api}/subscriptions/payment/${id}`,  {headers});
   }
 
   addSubscription(subscription: Subscription): Observable<Subscription> {
