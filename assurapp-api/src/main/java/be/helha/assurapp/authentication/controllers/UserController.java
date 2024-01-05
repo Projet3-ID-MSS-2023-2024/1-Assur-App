@@ -94,7 +94,7 @@ public class UserController {
         userService.addUser(userService.loadUserByUsername(userData.get("username")));
     }
 
-    @GetMapping("generatepwdCode")
+    @PostMapping("generatepwdCode")
     public void generatepwdCode(@RequestBody Map<String, String> data){
         userService.generateChangePasswordCode(userService.loadUserByUsername(data.get("username")));
     }

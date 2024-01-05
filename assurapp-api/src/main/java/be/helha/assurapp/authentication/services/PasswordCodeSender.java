@@ -6,6 +6,8 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
+import java.util.Base64;
+
 @AllArgsConstructor
 @Service
 public class PasswordCodeSender {
@@ -14,7 +16,7 @@ public class PasswordCodeSender {
 
 
         SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setFrom("no-reply@assurapp.be");
+        mailMessage.setFrom("no-reply@assurapp.com");
         mailMessage.setTo(user.getEmail());
         mailMessage.setSubject("Reset password for AssurApp");
 
@@ -25,7 +27,7 @@ public class PasswordCodeSender {
                                                 
                         To reset your password, please follow the steps below:
                                                 
-                        Follow this link: http://localhost:4200/resetpassword/%s
+                        Follow this link: http://localhost:4200/reset/%s&%s
                         You will be redirected to a page where you can create a new password.
                         Enter your new password and confirm it.
                         Click on the "Reset Password" button.
@@ -38,6 +40,7 @@ public class PasswordCodeSender {
                         Best regards,
                         Your AssurApp Team""",
                 user.getLastname(),
+                Base64.getEncoder().encodeToString(user.getEmail().getBytes()),
                 user.getPwdCode());
 
         mailMessage.setText(content);

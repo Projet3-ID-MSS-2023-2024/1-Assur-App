@@ -31,6 +31,17 @@ export class AuthenticationService {
     return this.http.post(`${environment.api}/changeActivationCode`, data)
   }
 
+  sendForgotPasswordMail(username: string): Observable<any>{
+    const data = {username}
+    return this.http.post(`${environment.api}/generatepwdCode`, data)
+  }
+
+  changeForgottenPassword(username: string, newPassword: string, code: string): Observable<any>{
+    const data = {username, newPassword, code}
+    return this.http.post(`${environment.api}/changePasswordByCode`, data)
+  }
+
+
   saveToken(token: string){
     localStorage.setItem('bearer', token)
   }
