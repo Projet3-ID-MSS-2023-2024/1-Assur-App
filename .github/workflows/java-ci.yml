@@ -1,4 +1,4 @@
-name: Java CI with Docker Compose
+name: Java CI
 
 on:
   push:
