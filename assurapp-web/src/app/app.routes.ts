@@ -27,6 +27,8 @@ import {AdminUpdateComponent} from "./components/admin/admin-update/admin-update
 import {SubscriptionsComponent} from "./components/dashboard/subscriptions/subscriptions.component";
 import {PaymentsComponent} from "./components/dashboard/payments/payments.component";
 import {PaymentComponent} from "./components/dashboard/payments/payment/payment.component";
+import {AuthGuard} from "./guards/auth.guard";
+import {Roles} from "./enums/roles";
 
 export const routes: Routes = [
   { path: "", component: HomeComponent},
@@ -40,21 +42,20 @@ export const routes: Routes = [
   { path: 'activate', component: ActivateAccountComponent},
   { path: 'conditions', component: TermsAndConditionsComponent},
   { path: 'privacy', component: PrivacyPolicyComponent},
-  { path: 'dashboard', component: DashboardComponent, children: [
-      { path: 'insurances', component: InsurancesDashboardComponent},
-      { path: 'insurances/clients', component: ManageUsersComponent},
-      { path: 'insurances/add', component: AddInsuranceComponent},
-      { path: 'insurances/update/:id', component: UpdateInsuranceComponent},
-      { path: 'subscriptions', component: SubscriptionsComponent},
-      { path: 'payments', component: PaymentsComponent},
-      { path: 'payments/add/:id', component: PaymentComponent},
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard], data: {roles: [Roles.ADMINISTRATOR, Roles.EXPERT, Roles.INSURER, Roles.CLIENT]}, children: [
+      { path: 'insurances', component: InsurancesDashboardComponent, canActivate: [AuthGuard], data: {roles: [Roles.INSURER, Roles.CLIENT]}},
+      { path: 'insurances/clients', component: ManageUsersComponent, canActivate: [AuthGuard], data: {roles: [Roles.INSURER]}},
+      { path: 'insurances/add', component: AddInsuranceComponent, canActivate: [AuthGuard], data: {roles: [Roles.INSURER]}},
+      { path: 'insurances/update/:id', component: UpdateInsuranceComponent, canActivate: [AuthGuard], data: {roles: [Roles.INSURER]}},
+      { path: 'subscriptions', component: SubscriptionsComponent, canActivate: [AuthGuard], data: {roles: [Roles.INSURER, Roles.CLIENT]}},
+      { path: 'payments', component: PaymentsComponent, canActivate: [AuthGuard], data: {roles: [Roles.INSURER, Roles.CLIENT]}},
+      { path: 'payments/add/:id', component: PaymentComponent, canActivate: [AuthGuard], data: {roles: [Roles.CLIENT]}},
       { path: "claims", component: ListClaimsComponent},
       { path: "claims/add", component: DeclareClaimComponent},
       { path: "claims/update/:id", component: ShowClaimComponent},
       { path: "expertises", component: ListExpertiseComponent},
       { path: "expertises/add", component: AddExpertiseComponent},
       { path: "expertises/add/:id", component: AddExpertiseComponent},
-      //{ path: "expertises/update/:id", component: ShowClaimComponent},
       { path: "administration/insurers", component: AdminManageInsurerComponent},
       { path: "administration/experts", component: AdminManageExpertComponent},
       { path: "administration/add", component: AdminAddComponent},
