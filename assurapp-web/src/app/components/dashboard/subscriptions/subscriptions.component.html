@@ -12,11 +12,33 @@
                 Manage your subscriptions
               </p>
             </div>
-            @if (role == Roles.CLIENT) {
+            @if (role === Roles.CLIENT) {
               <div>
-                <div class="inline-flex gap-x-2">
+                <div class="inline-flex gap-x-2 items-center">
+                  <label for="paid" class="text-sm text-gray-600 dark:text-gray-400">Payment:</label>
+                  <select (change)="filterStatus($event)" name="paid" id="paid" class="py-2 px-3 pe-11 block w-full border-[1px] border-gray-200 shadow-sm text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600">
+                    <option value="ALL">ALL</option>
+                    <option value="PAID">PAID</option>
+                    <option value="UNPAID">UNPAID</option>
+                  </select>
                   <button routerLink="/insurances" type="button" class="py-2 px-8 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
                     Subscribe
+                  </button>
+                </div>
+              </div>
+            } @else if (role === Roles.INSURER) {
+              <div>
+                <div class="inline-flex gap-x-2 items-center">
+                  <label for="paid" class="text-sm text-gray-600 dark:text-gray-400">Payment:</label>
+                  <select (change)="filterStatus($event)" name="paid" id="paid" class="py-2 px-3 pe-11 block w-full border-[1px] border-gray-200 shadow-sm text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600">
+                    <option value="ALL">ALL</option>
+                    <option value="PAID">PAID</option>
+                    <option value="UNPAID">UNPAID</option>
+                  </select>
+                  <label for="client" class="text-sm text-gray-600 dark:text-gray-400">Client:</label>
+                  <input (input)="filterName($event)" name="client" id="client" type="text" class="py-2 px-3 pe-11 block w-full border-[1px] border-gray-200 shadow-sm text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600">
+                  <button routerLink="add" type="button" class="py-2 px-8 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+                    Create
                   </button>
                 </div>
               </div>
@@ -161,7 +183,7 @@
           <div class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-t border-gray-200 dark:border-gray-700">
             <div>
               <p class="text-sm text-gray-600 dark:text-gray-400">
-                <span class="font-semibold text-gray-800 dark:text-gray-200">{{subscriptions.length}}</span> results
+                <span class="font-semibold text-gray-800 dark:text-gray-200">{{subscriptions.length > 10 ? subscriptions.length: data.length}}</span> results
               </p>
             </div>
 

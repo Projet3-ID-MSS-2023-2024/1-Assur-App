@@ -10,6 +10,7 @@ import {SubscriptionService} from "../../../services/subscription.service";
 import {Subscription} from "../../../interfaces/subscription";
 import {PopupType} from "../../../enums/popup-type";
 import {PopupService} from "../../../services/popup.service";
+import {PaginatorModule} from "primeng/paginator";
 
 @Component({
   selector: 'app-payments',
@@ -17,18 +18,22 @@ import {PopupService} from "../../../services/popup.service";
   imports: [
     DatePipe,
     RouterLink,
-    CurrencyPipe
+    CurrencyPipe,
+    PaginatorModule
   ],
   templateUrl: './payments.component.html',
   styleUrl: './payments.component.css'
 })
 export class PaymentsComponent implements OnInit {
+  status: PaymentStatus[] = Object.values(PaymentStatus);
   subscriptions: Subscription[] = [];
   payments: Payment[] = [];
   data: Payment[] = [];
   current: number = 1;
   max: number = 10;
   role: string = "";
+  state: string = "ALL";
+
 
   constructor(private authenticationService: AuthenticationService,
               private popupService: PopupService,
@@ -68,27 +73,42 @@ export class PaymentsComponent implements OnInit {
     }
   }
 
-  close(payment: Payment) {
-    if (!confirm("Are you sure to close this subscription")) return;
-    this.paymentService.updatePayment(payment).subscribe({
-      next: () => this.fetch(),
-      error: () => this.popupService.show("Can't access to API", PopupType.ERROR)
-    });
-  }
-
-  disabled(date: Date): boolean {
-    return new Date(date) < new Date();
-  }
-
   remind(payment: Payment) {
-
+    this.paymentService.notify(payment).subscribe({
+      next: () => this.popupService.show("Reminded the client", PopupType.SUCCESS),
+      error: () => this.popupService.show("An error occurred while sending email", PopupType.ERROR)
+    })
   }
-
 
   subscription(id: number): Subscription {
     return this.subscriptions.filter(s => s.payments.some(p => p.id === id))[0];
   }
 
+  filterStatus(event: any) {
+    if (event.target.value === "ALL") {
+      this.data = this.payments
+      return
+    }
+    this.state = event.target.value;
+    this.data = this.payments.filter(p => p.status === event.target.value);
+  }
+
+  filterClient(event: any) {
+    if (this.state === "ALL") {
+      this.data = this.subscriptions
+        .filter(subscription =>
+          subscription.client.lastname.toLowerCase().includes(event.target.value.toLowerCase())
+        )
+        .flatMap(subscription => subscription.payments);
+    } else {
+      this.data = this.subscriptions
+        .filter(subscription =>
+          subscription.client.lastname.toLowerCase().includes(event.target.value.toLowerCase()) &&
+          subscription.payments.some(payment => payment.status === this.state as PaymentStatus)
+        )
+        .flatMap(subscription => subscription.payments);
+    }
+  }
 
   getData() {
     const start = (this.current - 1) * this.max;

@@ -119,25 +119,6 @@ export class PaymentComponent implements OnInit {
     }).render(this.paymentRef.nativeElement);
   }
 
-  renew(current: Subscription, start: Date, end: Date) {
-    let subscription = current;
-    subscription.payed = false;
-    subscription.startDate = end;
-    const duration: number = (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth());
-    console.log(duration)
-    let nextEnd = new Date(subscription.startDate);
-    nextEnd.setMonth(new Date(current.endDate).getMonth() + duration);
-    subscription.endDate = nextEnd;
-    this.subscription = subscription;
-    this.subscriptionService.addSubscription(subscription).subscribe({
-      next: data => {
-        this.subscription = data;
-        this.amountForDuration();
-      },
-      error: err => console.log(err)
-    })
-  }
-
   back() {
     setTimeout(() => this.router.navigate(['/dashboard/payments']),1000)
   }
