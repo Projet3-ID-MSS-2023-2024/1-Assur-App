@@ -16,11 +16,12 @@ import {AddInsuranceComponent} from "./components/dashboard/insurances-dashboard
 import {UpdateInsuranceComponent} from "./components/dashboard/insurances-dashboard/update-insurance/update-insurance.component";
 import {TermsAndConditionsComponent} from "./components/others/terms-and-conditions/terms-and-conditions.component";
 import {PrivacyPolicyComponent} from "./components/others/privacy-policy/privacy-policy.component";
-import {ManageUsersComponent} from "./components/dashboard/manage-users/manage-users.component";
-import {AdminManageInsurerComponent} from "./components/admin/admin-manage-insurer/admin-manage-insurer.component";
-import {AdminManageExpertComponent} from "./components/admin/admin-manage-expert/admin-manage-expert.component";
-import {AdminAddComponent} from "./components/admin/admin-add/admin-add.component";
-import {AdminUpdateComponent} from "./components/admin/admin-update/admin-update.component";
+import {AdminManageInsurerComponent} from './components/dashboard/admin/admin-manage-insurer/admin-manage-insurer.component';
+import {AdminManageExpertComponent } from './components/dashboard/admin/admin-manage-expert/admin-manage-expert.component';
+import {AdminAddComponent} from './components/dashboard/admin/admin-add/admin-add.component';
+import {AdminUpdateComponent} from './components/dashboard/admin/admin-update/admin-update.component';
+import { ManageUsersComponent } from './components/dashboard/manage-users/manage-users.component';
+
 
 export const routes: Routes = [
   { path: "", component: HomeComponent},
@@ -45,7 +46,9 @@ export const routes: Routes = [
       //{ path: "expertises/update/:id", component: ShowClaimComponent},
       { path: "administration/insurers", component: AdminManageInsurerComponent},
       { path: "administration/experts", component: AdminManageExpertComponent},
-      { path: "administration/add", component: AdminAddComponent},
-      { path: "administration/update/:id", component: AdminUpdateComponent},
+      { path: "administration/insurers/update/:id", component: AdminUpdateComponent},
+      { path: "administration/experts/update/:id", component: AdminUpdateComponent},
+      { path: "administration/experts/add", component: AdminAddComponent},
+      { path: "administration/insurers/add", component: AdminAddComponent},
     ]},
 ];
