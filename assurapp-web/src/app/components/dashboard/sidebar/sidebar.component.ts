@@ -17,6 +17,7 @@ import {Roles} from "../../../enums/roles";
   styleUrl: './sidebar.component.css'
 })
 export class SidebarComponent {
+  visible: boolean = false;
   constructor(private location: Location,
               private authenticationService: AuthenticationService,
               private router: Router) {}
@@ -37,4 +38,8 @@ export class SidebarComponent {
   }
 
   protected readonly Roles = Roles;
+
+  toggle() {
+    this.visible = !this.visible;
+  }
 }
