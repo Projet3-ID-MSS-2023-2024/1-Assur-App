@@ -18,7 +18,7 @@ public class ActivationCodeService {
         user.setActivationCode(code);
 
         SimpleMailMessage mailMessage = new SimpleMailMessage();
-        mailMessage.setFrom("no-reply@assurapp.be");
+        mailMessage.setFrom("no-reply@assurapp.com");
         mailMessage.setTo(user.getEmail());
         mailMessage.setSubject("Activation code for AssurApp");
 

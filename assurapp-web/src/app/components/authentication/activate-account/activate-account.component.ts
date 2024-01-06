@@ -6,6 +6,7 @@ import {MessagesModule} from "primeng/messages";
 import {ToastModule} from "primeng/toast";
 import {FormsModule} from "@angular/forms";
 import {AuthenticationService} from "../../../services/authentication.service";
+import {DataService} from "../../../services/data.service";
 
 @Component({
   selector: 'app-activate-account',
@@ -21,10 +22,13 @@ export class ActivateAccountComponent implements OnInit{
 
   email: string = ""
   code: string=""
-  constructor(private authService : AuthenticationService, private route: Router, private activeRoute: ActivatedRoute) {
+  constructor(private authService : AuthenticationService, private route: Router, private activeRoute: ActivatedRoute, private dataService: DataService) {
   }
   ngOnInit(): void {
-    this.email = this.activeRoute.snapshot.paramMap.get('email') || ''
+    this.email = this.dataService.getSharedData();
+    if (!this.email){
+      this.route.navigate([""])
+    }
   }
 
   onSubmit(){
@@ -33,7 +37,6 @@ export class ActivateAccountComponent implements OnInit{
     this.authService.activateAccount(this.email, this.code).subscribe(
       {
         next:(data)=>{
-          console.log(data)
           console.log("sucess")
           this.route.navigate(["/login"])
         },

@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {User} from "../interfaces/user";
 import {Observable} from "rxjs";
 import {environment} from "../../environments/environment.development";
+import {Roles} from "../enums/roles";
 
 @Injectable({
   providedIn: 'root'
@@ -30,6 +31,17 @@ export class AuthenticationService {
     const data = {username}
     return this.http.post(`${environment.api}/changeActivationCode`, data)
   }
+
+  sendForgotPasswordMail(username: string): Observable<any>{
+    const data = {username}
+    return this.http.post(`${environment.api}/generatepwdCode`, data)
+  }
+
+  changeForgottenPassword(username: string, newPassword: string, code: string): Observable<any>{
+    const data = {username, newPassword, code}
+    return this.http.post(`${environment.api}/changePasswordByCode`, data)
+  }
+
 
   saveToken(token: string){
     localStorage.setItem('bearer', token)
@@ -80,5 +92,9 @@ export class AuthenticationService {
 
   logout(){
     localStorage.removeItem('bearer')
+  }
+
+  hasPermission(roles: Roles[]): boolean {
+    return roles.some(r => r === this.getUserRole());
   }
 }

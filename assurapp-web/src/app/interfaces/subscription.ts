@@ -7,7 +7,7 @@ export interface Subscription {
   id: number;
   startDate: Date;
   endDate: Date;
-  payment: boolean;
+  payed: boolean;
   client: User;
   insurance: Insurance;
   claims: Claim[];

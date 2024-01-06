@@ -21,29 +21,41 @@ import {AdminManageExpertComponent } from './components/dashboard/admin/admin-ma
 import {AdminAddComponent} from './components/dashboard/admin/admin-add/admin-add.component';
 import {AdminUpdateComponent} from './components/dashboard/admin/admin-update/admin-update.component';
 import { ManageUsersComponent } from './components/dashboard/manage-users/manage-users.component';
-
+import {ForgotPasswordComponent} from "./components/authentication/forgot-password/forgot-password.component";
+import {MailSentComponent} from "./components/authentication/mail-sent/mail-sent.component";
+import {ForgotPasswordFormStepComponent} from "./components/authentication/forgot-password-form-step/forgot-password-form-step.component";
+import {SubscriptionsComponent} from "./components/dashboard/subscriptions/subscriptions.component";
+import {PaymentsComponent} from "./components/dashboard/payments/payments.component";
+import {PaymentComponent} from "./components/dashboard/payments/payment/payment.component";
+import {AuthGuard} from "./guards/auth.guard";
+import {Roles} from "./enums/roles";
 
 export const routes: Routes = [
   { path: "", component: HomeComponent},
   { path: 'insurances', component: InsurancesComponent},
   { path: 'contact', component: ContactComponent},
+  { path: 'forgot', component:ForgotPasswordComponent},
+  { path: 'mail', component:MailSentComponent},
+  { path: 'reset/:param', component:ForgotPasswordFormStepComponent},
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent},
-  { path: 'activate/:email', component: ActivateAccountComponent},
+  { path: 'activate', component: ActivateAccountComponent},
   { path: 'conditions', component: TermsAndConditionsComponent},
   { path: 'privacy', component: PrivacyPolicyComponent},
-  { path: 'dashboard', component: DashboardComponent, children: [
-      { path: 'insurances', component: InsurancesDashboardComponent},
-      { path: 'insurances/clients', component: ManageUsersComponent},
-      { path: 'insurances/add', component: AddInsuranceComponent},
-      { path: 'insurances/update/:id', component: UpdateInsuranceComponent},
+  { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard], data: {roles: [Roles.ADMINISTRATOR, Roles.EXPERT, Roles.INSURER, Roles.CLIENT]}, children: [
+      { path: 'insurances', component: InsurancesDashboardComponent, canActivate: [AuthGuard], data: {roles: [Roles.INSURER, Roles.CLIENT]}},
+      { path: 'insurances/clients', component: ManageUsersComponent, canActivate: [AuthGuard], data: {roles: [Roles.INSURER]}},
+      { path: 'insurances/add', component: AddInsuranceComponent, canActivate: [AuthGuard], data: {roles: [Roles.INSURER]}},
+      { path: 'insurances/update/:id', component: UpdateInsuranceComponent, canActivate: [AuthGuard], data: {roles: [Roles.INSURER]}},
+      { path: 'subscriptions', component: SubscriptionsComponent, canActivate: [AuthGuard], data: {roles: [Roles.INSURER, Roles.CLIENT]}},
+      { path: 'payments', component: PaymentsComponent, canActivate: [AuthGuard], data: {roles: [Roles.INSURER, Roles.CLIENT]}},
+      { path: 'payments/add/:id', component: PaymentComponent, canActivate: [AuthGuard], data: {roles: [Roles.CLIENT]}},
       { path: "claims", component: ListClaimsComponent},
       { path: "claims/add", component: DeclareClaimComponent},
-      { path: "claims/update/:id", component: ShowClaimComponent},
+      { path: "claims/:id", component: ShowClaimComponent},
       { path: "expertises", component: ListExpertiseComponent},
       { path: "expertises/add", component: AddExpertiseComponent},
       { path: "expertises/add/:id", component: AddExpertiseComponent},
-      //{ path: "expertises/update/:id", component: ShowClaimComponent},
       { path: "administration/insurers", component: AdminManageInsurerComponent},
       { path: "administration/experts", component: AdminManageExpertComponent},
       { path: "administration/insurers/update/:id", component: AdminUpdateComponent},

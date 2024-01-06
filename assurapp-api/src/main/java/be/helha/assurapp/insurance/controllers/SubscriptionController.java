@@ -1,5 +1,6 @@
 package be.helha.assurapp.insurance.controllers;
 
+import be.helha.assurapp.authentication.models.User;
 import be.helha.assurapp.insurance.models.Subscription;
 import be.helha.assurapp.insurance.services.ISubscriptionService;
 import lombok.AllArgsConstructor;
@@ -22,6 +23,21 @@ public class SubscriptionController {
     @GetMapping("/{id}")
     public Subscription getOne(@PathVariable Long id) {
         return this.service.getOne(id);
+    }
+
+    @GetMapping("/client/{id}")
+    public List<Subscription> getByClient(@PathVariable Long id) {
+        return this.service.getByClient(id);
+    }
+
+    @GetMapping("/insurer/{id}")
+    public List<Subscription> getByInsurer(@PathVariable Long id) {
+        return this.service.getByInsurer(id);
+    }
+
+    @GetMapping("/payment/{id}")
+    public Subscription getByPayment(@PathVariable Long id) {
+        return this.service.getByPayment(id);
     }
 
     @PostMapping

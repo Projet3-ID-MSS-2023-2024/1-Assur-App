@@ -8,6 +8,8 @@ import {Subscription} from "../../../interfaces/subscription";
 import {Insurance} from "../../../interfaces/insurance";
 import {User} from "../../../interfaces/user";
 import {FormsModule} from "@angular/forms";
+import {PopupService} from "../../../services/popup.service";
+import { PopupType } from '../../../enums/popup-type';
 
 @Component({
   selector: 'app-subscribe',
@@ -32,16 +34,17 @@ export class SubscribeComponent implements OnInit {
               private authenticationService: AuthenticationService,
               private subscriptionService: SubscriptionService,
               private userService: UserService,
+              private popupService: PopupService,
               private router: Router) {}
 
   ngOnInit() {
     this.userService.getUserById(this.authenticationService.getUserId()).subscribe({
       next: data => this.client = data,
-      error: err => console.log(err)
+      error: () => this.popupService.show("Can't reach the API for current user", PopupType.ERROR)
     });
     this.insuranceService.getInsurancesByClient(this.authenticationService.getUserId()).subscribe({
       next: data => this.insurances = data,
-      error: err => console.log(err)
+      error: () => this.popupService.show("Can't reach the API for the selected insurance", PopupType.ERROR)
     })
   }
 
@@ -67,7 +70,7 @@ export class SubscribeComponent implements OnInit {
       id: 0,
       startDate: current,
       endDate: end,
-      payment: false,
+      payed: false,
       client: this.client,
       insurance: this.insurance,
       claims: [],
@@ -76,9 +79,10 @@ export class SubscribeComponent implements OnInit {
 
     this.subscriptionService.addSubscription(subscription).subscribe({
       next: data => {
+        this.popupService.show("Redirecting to payments", PopupType.INFO)
         this.router.navigate([`/dashboard/payments/add/${data.id}`]);
       },
-      error: err => console.log(err)
+      error: () => this.popupService.show("An error occurred while trying to subscribe", PopupType.ERROR)
     })
   }
 }

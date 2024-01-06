@@ -99,4 +99,26 @@ public class UserController {
         userService.addUser(userService.loadUserByUsername(userData.get("username")));
     }
 
+    @PostMapping("generatepwdCode")
+    public void generatepwdCode(@RequestBody Map<String, String> data){
+        userService.generateChangePasswordCode(userService.loadUserByUsername(data.get("username")));
+    }
+
+    @PostMapping("changePassword")
+    public void changePassword(@RequestBody Map<String, String> data) throws Exception{
+        try {
+            userService.changePassword(userService.loadUserByUsername(data.get("username")),data.get("newPassword"), data.get("oldPassword"));
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
+    }
+
+    @PostMapping("changePasswordByCode")
+    public void changePasswordByCode(@RequestBody Map<String, String> data) throws Exception{
+        try {
+            userService.changePasswordByCode(userService.loadUserByUsername(data.get("username")), data.get("newPassword"), data.get("code"));
+        }catch (Exception e){
+            throw new RuntimeException(e);
+        }
+    }
 }

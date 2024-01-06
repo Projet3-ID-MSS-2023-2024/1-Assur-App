@@ -1,4 +1,4 @@
-import { ClaimStatus } from "./claim-status.enum";
+import { ClaimStatus } from "../enums/claim-status.enum";
 import { Expertise } from "./expertise";
 
 export interface Claim {
@@ -6,6 +6,7 @@ export interface Claim {
   description: string;
   date: Date;
   status: ClaimStatus;
-  imageFile: string;
   expertise?: Number;
+  client?: Number;
+  insurer?: Number;
 }
