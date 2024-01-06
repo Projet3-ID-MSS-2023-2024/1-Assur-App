@@ -3,6 +3,7 @@ import {NgForOf} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {Expertise} from "../../../interfaces/expertise";
 import {ExpertiseService} from "../../../services/expertise.service";
+import {Claim} from "../../../interfaces/claim";
 
 @Component({
   selector: 'app-list-expertise',
@@ -15,8 +16,10 @@ import {ExpertiseService} from "../../../services/expertise.service";
   styleUrl: './list-expertise.component.css'
 })
 export class ListExpertiseComponent implements OnInit{
-  expertises!: Expertise[];
+  expertises: Expertise[] = [];
   expertiseLenght!: number;
+  currentPage: number = 1;
+  itemsPerPage: number = 10;
 
   constructor(private expertiseService: ExpertiseService) { }
 
@@ -24,7 +27,6 @@ export class ListExpertiseComponent implements OnInit{
     this.expertiseService.getExpertises().subscribe({
       next: (expertises) => {
         this.expertises = expertises;
-        console.log(expertises[0]);
         this.expertiseLenght = expertises.length??0;
       },
       error: (err) => {
@@ -33,6 +35,15 @@ export class ListExpertiseComponent implements OnInit{
     });
   }
 
+  calculateItemsToShow(): Expertise[] {
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = this.currentPage * this.itemsPerPage;
+    return this.expertises.slice(startIndex, endIndex);
+  }
 
-
+  changePage(newPage: number): void {
+    if (newPage > 0 && newPage <= Math.ceil(this.expertises.length / this.itemsPerPage)) {
+      this.currentPage = newPage;
+    }
+  }
 }

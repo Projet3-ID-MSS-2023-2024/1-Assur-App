@@ -38,7 +38,7 @@ export const routes: Routes = [
       { path: 'insurances/update/:id', component: UpdateInsuranceComponent},
       { path: "claims", component: ListClaimsComponent},
       { path: "claims/add", component: DeclareClaimComponent},
-      { path: "claims/update/:id", component: ShowClaimComponent},
+      { path: "claims/:id", component: ShowClaimComponent},
       { path: "expertises", component: ListExpertiseComponent},
       { path: "expertises/add", component: AddExpertiseComponent},
       { path: "expertises/add/:id", component: AddExpertiseComponent},

@@ -26,8 +26,11 @@ public class Expertise {
 
     private double estimation;
 
+    private String imageFile;
 
     @OneToOne
     private Claim claim;
+
+    //add expert
 
 }

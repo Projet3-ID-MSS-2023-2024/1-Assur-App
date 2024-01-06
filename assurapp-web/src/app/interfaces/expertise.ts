@@ -5,5 +5,6 @@ export interface Expertise {
   description: string;
   date: Date;
   estimation: number;
+  imageFile: string;
   claim: Claim;
 }
