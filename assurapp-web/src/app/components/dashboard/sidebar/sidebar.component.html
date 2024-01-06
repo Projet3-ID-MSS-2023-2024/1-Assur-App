@@ -105,6 +105,14 @@
           Log out
         </a>
       </li>
+      <li *ngIf="timeBeforeLogout<61" class="pt-16">
+        <p (click)="logout()" class="absolute bottom-10 w-4/5 flex items-center gap-x-3.5 py-2 px-2.5 text-sm text-white rounded-lg bg-red-500 hover:bg-red-600 hover:text-white-300 focus:outline-none focus:ring-1 focus:ring-red-600 cursor-pointer">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="flex-shrink-0 w-4 h-4">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 9V5.25A2.25 2.25 0 0 1 10.5 3h6a2.25 2.25 0 0 1 2.25 2.25v13.5A2.25 2.25 0 0 1 16.5 21h-6a2.25 2.25 0 0 1-2.25-2.25V15m-3 0-3-3m0 0 3-3m-3 3H15" />
+          </svg>
+          You are inactive you will be diconnected in {{timeBeforeLogout}} seconds!
+        </p>
+      </li>
     </ul>
   </nav>
 </div>

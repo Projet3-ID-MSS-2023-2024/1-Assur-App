@@ -10,17 +10,17 @@
           Join Assur.App and stay covered
         </h1>
 
-        <p class="mt-4 text-gray-500 dark:text-gray-400">
+        <p class="mt-2 text-gray-500 dark:text-gray-400">
           Let’s get you all set up so you can verify your personal account and begin setting up your profile.
         </p>
 
-        <div class="mt-6">
+        <div class="mt-4">
           <h2 class="text-gray-500 dark:text-gray-300">Select type of account</h2>
 
           <div class="mt-3 flex select-none flex-wrap items-center gap-1">
             <label class="">
               <input type="radio" [(ngModel)]="this.role.label" name="role" value="CLIENT" class="peer sr-only" checked/>
-              <p class="flex space-x-4 text-gray-800 dark:text-gray-100 peer-checked:bg-blue-500 peer-checked:text-white rounded-lg border border-bg-blue-500 px-6 py-4 font-bold">
+              <p class="flex space-x-4 text-gray-800 dark:text-gray-100 peer-checked:bg-blue-500 peer-checked:text-white rounded-lg border border-bg-blue-500 px-5 py-3 font-bold">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
                 </svg>
@@ -31,7 +31,7 @@
             </label>
             <label class="">
               <input type="radio" [(ngModel)]="this.role.label" name="role" value="INSURER" class="peer sr-only" />
-              <p class="flex space-x-4 text-gray-800 dark:text-gray-100 peer-checked:bg-blue-500 peer-checked:text-white rounded-lg border border-bg-blue-500 px-6 py-4 font-bold">
+              <p class="flex space-x-4 text-gray-800 dark:text-gray-100 peer-checked:bg-blue-500 peer-checked:text-white rounded-lg border border-bg-blue-500 px-5 py-3 font-bold">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9.776c.112-.017.227-.026.344-.026h15.812c.117 0 .232.009.344.026m-16.5 0a2.25 2.25 0 0 0-1.883 2.542l.857 6a2.25 2.25 0 0 0 2.227 1.932H19.05a2.25 2.25 0 0 0 2.227-1.932l.857-6a2.25 2.25 0 0 0-1.883-2.542m-16.5 0V6A2.25 2.25 0 0 1 6 3.75h3.879a1.5 1.5 0 0 1 1.06.44l2.122 2.12a1.5 1.5 0 0 0 1.06.44H18A2.25 2.25 0 0 1 20.25 9v.776" />
                 </svg><span>
@@ -41,7 +41,7 @@
             </label>
             <label class="">
               <input type="radio" [(ngModel)]="this.role.label" name="role" value="EXPERT" class="peer sr-only" />
-              <p class="flex space-x-4 text-gray-800 dark:text-gray-100 peer-checked:bg-blue-500 peer-checked:text-white rounded-lg border border-bg-blue-500 px-6 py-4 font-bold">
+              <p class="flex space-x-4 text-gray-800 dark:text-gray-100 peer-checked:bg-blue-500 peer-checked:text-white rounded-lg border border-bg-blue-500 px-5 py-3 font-bold">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
                   <path stroke-linecap="round" stroke-linejoin="round" d="m15.75 15.75-2.489-2.489m0 0a3.375 3.375 0 1 0-4.773-4.773 3.375 3.375 0 0 0 4.774 4.774ZM21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                 </svg>
@@ -54,37 +54,37 @@
         <form [formGroup]="form" (ngSubmit)="onSubmit()" class="grid grid-cols-1 gap-6 mt-8 md:grid-cols-2">
           <div>
             <label  class="block mb-2 text-sm text-gray-600 dark:text-gray-200">First name</label>
-            <input id="name" formControlName="name" type="text" placeholder="John" class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+            <input id="name" formControlName="name" type="text" placeholder="John" class="block w-full px-5 py-3 mt-1 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
           </div>
 
           <div>
             <label class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Last name</label>
-            <input id="lastname" formControlName="lastname" type="text" placeholder="Snow" class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+            <input id="lastname" formControlName="lastname" type="text" placeholder="Snow" class="block w-full px-5 py-3 mt-1 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
           </div>
 
           <div>
             <label class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Identification Number (NISS or N°BCE)</label>
-            <input type="text" placeholder="John" class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+            <input type="text" formControlName="legalId" placeholder="John" class="block w-full px-5 py-3 mt-1 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
           </div>
 
           <div>
             <label class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Street address</label>
-            <input type="text" placeholder="Snow" class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+            <input type="text" formControlName="streetAddress" placeholder="Snow" class="block w-full px-5 py-3 mt-1 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
           </div>
 
           <div>
             <label class="block mb-2 text-sm text-gray-600 dark:text-gray-200">City</label>
-            <input type="text" placeholder="John" class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+            <input type="text" formControlName="city" placeholder="John" class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
           </div>
 
           <div>
             <label class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Country</label>
-            <input type="text" placeholder="Snow" class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+            <input type="text" formControlName="country" placeholder="Snow" class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
           </div>
 
           <div>
             <label class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Phone number</label>
-            <input type="text" placeholder="+32-XXX-XX-XX-XX" class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+            <input type="text" formControlName="phoneNumber" placeholder="+32-XXX-XX-XX-XX" class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
           </div>
 
           <div>

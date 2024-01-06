@@ -22,9 +22,14 @@ export class RegisterComponent implements OnInit{
 
   constructor(private authService: AuthenticationService, private router:Router, private dataService: DataService) {
     this.form = new FormGroup({
-        name: new FormControl('', [Validators.required, Validators.pattern("[^0-9]")]),
-        lastname: new FormControl('', [Validators.required, Validators.pattern("[^0-9]")]),
+        name: new FormControl('', [Validators.required]),
+        lastname: new FormControl('', [Validators.required]),
         email: new FormControl('', [Validators.required, Validators.email]),
+        legalId: new FormControl('', [Validators.required]),
+        streetAddress: new FormControl('', [Validators.required]),
+        city: new FormControl('', [Validators.required]),
+        country: new FormControl('', [Validators.required]),
+        phoneNumber: new FormControl('', [Validators.required]),
         password: new FormControl('', [Validators.required]),
         confirmPassword: new FormControl('', [Validators.required])
       },{
@@ -59,12 +64,14 @@ export class RegisterComponent implements OnInit{
     this.user.lastname = this.form.value.lastname
     this.user.email = this.form.value.email
     this.user.password = this.form.value.password
+    this.user.legalId = this.form.value.legalId
+    this.user.address = this.form.value.streetAddress + ", " + this.form.value.city + "," + this.form.value.country
+    this.user.phoneNumber = this.form.value.phoneNumber
     console.log(this.user)
     this.authService.register(this.user).subscribe({
       next:(data)=>{
         this.dataService.setSharedData(this.user.email)
         this.router.navigate([`/activate`])
-
       },
       error:(error) =>{
         console.log(error);

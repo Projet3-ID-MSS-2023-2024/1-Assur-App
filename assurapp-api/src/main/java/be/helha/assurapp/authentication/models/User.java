@@ -34,6 +34,10 @@ public class User implements UserDetails {
     private int activationCode;
     private boolean isVerified = false;
     private String pwdCode;
+    private String address;
+    private String legalId;
+    private String phoneNumber;
+
 
     @JsonIgnore
     @Override
