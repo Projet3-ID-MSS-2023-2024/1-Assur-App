@@ -19,7 +19,7 @@ import {ExpertiseService} from "../../../services/expertise.service";
   providers: [MessageService]
 })
 export class AddExpertiseComponent implements OnInit{
-
+  selectedFile!: File;
   claim!: Claim;
   expertise!: Expertise;
 
@@ -37,6 +37,7 @@ export class AddExpertiseComponent implements OnInit{
             date: new Date(),
             estimation: 0,
             claim: this.claim,
+            imageFile: '',
           };
         },
         error: (err) => {
@@ -46,12 +47,18 @@ export class AddExpertiseComponent implements OnInit{
     }
   }
 
+  onFileSelected(event: any){
+    this.selectedFile = event.target.files[0];
+  }
+
   addExpertise() {
-    console.log(this.expertise);
-    this.expertiseService.addExpertise(this.expertise).subscribe({
+    this.expertiseService.addExpertise(this.expertise, this.selectedFile).subscribe({
       next: (expertise) => {
+        console.log(expertise);
+        this.messageService.add({severity:'success', summary:'Expertise added', detail:'Your expertise has been added'});
       },
       error: (err: any) => {
+        this.messageService.add({severity:'error', summary:'Error', detail:'Your expertise has not been added'});
         console.log(err);
       },
     });
