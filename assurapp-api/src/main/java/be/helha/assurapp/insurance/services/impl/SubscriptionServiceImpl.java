@@ -1,6 +1,5 @@
 package be.helha.assurapp.insurance.services.impl;
 
-import be.helha.assurapp.authentication.models.User;
 import be.helha.assurapp.insurance.models.Subscription;
 import be.helha.assurapp.insurance.repositories.SubscriptionRepository;
 import be.helha.assurapp.insurance.services.ISubscriptionService;
