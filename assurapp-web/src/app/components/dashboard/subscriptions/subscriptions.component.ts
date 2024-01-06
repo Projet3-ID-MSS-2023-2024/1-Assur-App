@@ -7,6 +7,7 @@ import {Subscription} from "../../../interfaces/subscription";
 import {Roles} from "../../../enums/roles";
 import {PopupService} from "../../../services/popup.service";
 import {PopupType} from "../../../enums/popup-type";
+import {PaginatorModule} from "primeng/paginator";
 
 @Component({
   selector: 'app-subscriptions',
@@ -14,7 +15,8 @@ import {PopupType} from "../../../enums/popup-type";
   imports: [
     CurrencyPipe,
     RouterLink,
-    DatePipe
+    DatePipe,
+    PaginatorModule
   ],
   templateUrl: './subscriptions.component.html',
   styleUrl: './subscriptions.component.css'
@@ -25,6 +27,7 @@ export class SubscriptionsComponent implements OnInit {
   current: number = 1;
   max: number = 10;
   role!: string;
+  paymentStatus: number = 0;
 
   constructor(private authenticationService: AuthenticationService,
               private popupService: PopupService,
@@ -33,6 +36,25 @@ export class SubscriptionsComponent implements OnInit {
   ngOnInit(): void {
     this.role = this.authenticationService.getUserRole();
     this.fetch();
+  }
+
+  filterStatus(event: any) {
+    if (event.target.value === "ALL") {
+      this.paymentStatus = 0;
+      this.data = this.subscriptions;
+      return;
+    }
+    const status = event.target.value === "PAID";
+    this.paymentStatus = status ? 1 : 2;
+    this.data = this.subscriptions.filter(s => s.payed === status);
+  }
+
+  filterName(event: any) {
+    const status = this.paymentStatus > 0 ? this.paymentStatus === 1 : false;
+    if (this.paymentStatus > 0)
+      this.data = this.subscriptions.filter(s => s.client.lastname.toUpperCase().includes(event.target.value.toUpperCase()) && s.payed === status);
+    else
+      this.data = this.subscriptions.filter(s => s.client.lastname.toUpperCase().includes(event.target.value.toUpperCase()));
   }
 
   fetch() {

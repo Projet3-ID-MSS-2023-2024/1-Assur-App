@@ -33,6 +33,11 @@ export class PaymentService {
     return this.http.get<Payment[]>(`${environment.api}/payments/insurer/${id}`,  {headers});
   }
 
+  notify(payment: Payment): Observable<Payment> {
+    const headers = this.authenticationService.getHeaders();
+    return this.http.post<Payment>(`${environment.api}/payments/notify`, payment, {headers});
+  }
+
   addPayment(payment: Payment): Observable<Payment> {
     const headers = this.authenticationService.getHeaders();
     return this.http.post<Payment>(`${environment.api}/payments`, payment, {headers});
