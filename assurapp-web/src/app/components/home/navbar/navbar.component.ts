@@ -1,5 +1,5 @@
 import {Component, HostListener, Input, OnInit} from '@angular/core';
-import {NgIf, NgOptimizedImage} from "@angular/common";
+import {NgClass, NgIf, NgOptimizedImage} from "@angular/common";
 import {Router, RouterLink} from "@angular/router";
 import {AuthenticationService} from "../../../services/authentication.service";
 import {Subscription} from "rxjs";
@@ -10,7 +10,8 @@ import {Subscription} from "rxjs";
   imports: [
     NgOptimizedImage,
     RouterLink,
-    NgIf
+    NgIf,
+    NgClass
   ],
   templateUrl: './navbar.component.html',
   styleUrl: './navbar.component.css'
@@ -20,9 +21,9 @@ export class NavbarComponent implements OnInit{
   timeBeforeLogout : number = 900;
   interval: number | undefined;
   subscribe !: Subscription;
+  visible: boolean = false;
 
-  constructor(private authService: AuthenticationService, private route: Router) {
-  }
+  constructor(private authService: AuthenticationService, private route: Router) {}
 
   ngOnInit(): void {
     this.isLogged = this.authService.isLogged();
@@ -57,4 +58,7 @@ export class NavbarComponent implements OnInit{
     this.timeBeforeLogout = 900;
   }
 
+  toggle() {
+    this.visible = !this.visible;
+  }
 }
