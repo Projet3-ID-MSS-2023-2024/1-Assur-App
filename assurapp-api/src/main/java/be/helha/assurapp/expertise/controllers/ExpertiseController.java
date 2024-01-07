@@ -36,15 +36,15 @@ public class ExpertiseController {
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public Expertise save(@RequestPart Expertise expertise, @RequestPart MultipartFile image) {
         long timestamp = System.currentTimeMillis();
-        String imageFile = "claim_image_" + timestamp + ".png";
+        String imageFile = "expertise_" + timestamp + ".png";
 
         try {
-            image.transferTo(new File(FileSystems.getDefault().getPath("..").toAbsolutePath() + "/assurapp-web/src/assets/claim-images/" + imageFile));
+            image.transferTo(new File(FileSystems.getDefault().getPath("..").toAbsolutePath() + "/assurapp-web/src/assets/expertises/" + imageFile));
         } catch (IOException e){
             e.printStackTrace();
         }
 
-        imageFile = "assets/claim-images/" + imageFile;
+        imageFile = "assets/expertises/" + imageFile;
 
         expertise.setImageFile(imageFile);
         return expertiseService.save(expertise);

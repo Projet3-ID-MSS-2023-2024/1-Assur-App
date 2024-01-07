@@ -227,9 +227,9 @@ public class DataInitializer {
             claims.add(new Claim(3L, "Crash Peugeut 206",  Date.valueOf(LocalDate.now().plusDays(16)), ClaimStatus.APPROVED, users.get(1)));
 
 
-            expertises.add(new Expertise(1L, "Front side", Date.valueOf(LocalDate.now()), 700.00, "assets/clio.jpeg", claims.get(0), users.get(2)));
-            expertises.add(new Expertise(2L, "Wheel damage", Date.valueOf(LocalDate.now().plusDays(13)), 1200.00, "assets/citroen.jpeg",claims.get(1) , users.get(2)));
-            expertises.add(new Expertise(3L, "Hood damage", Date.valueOf(LocalDate.now().plusDays(18)), 700.00, "assets/peugeot.jpeg",claims.get(2) , users.get(2)));
+            expertises.add(new Expertise(1L, "Front side", Date.valueOf(LocalDate.now()), 700.00, "assets/expertises/clio.jpeg", claims.get(0), users.get(2)));
+            expertises.add(new Expertise(2L, "Wheel damage", Date.valueOf(LocalDate.now().plusDays(13)), 1200.00, "assets/expertises/citroen.jpeg",claims.get(1) , users.get(2)));
+            expertises.add(new Expertise(3L, "Hood damage", Date.valueOf(LocalDate.now().plusDays(18)), 700.00, "assets/expertises/peugeot.jpeg",claims.get(2) , users.get(2)));
 
             payments.add(new Payment(1L, 220.80, Date.valueOf(LocalDate.now()), PaymentStatus.COMPLETED));
             payments.add(new Payment(2L, 332.89, Date.valueOf(LocalDate.now().plusDays(1)), PaymentStatus.COMPLETED));
