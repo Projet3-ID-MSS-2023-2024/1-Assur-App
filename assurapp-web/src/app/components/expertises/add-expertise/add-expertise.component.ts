@@ -26,6 +26,7 @@ export class AddExpertiseComponent implements OnInit{
   selectedFile!: File;
   claim!: Claim;
   expertise!: Expertise;
+  loading = false;
 
   constructor(private popupService: PopupService, private authService: AuthenticationService, private userService: UserService, private router: Router, private activatedRoute: ActivatedRoute, private claimService: ClaimService, private expertiseService: ExpertiseService) {
   }
@@ -65,9 +66,16 @@ export class AddExpertiseComponent implements OnInit{
   }
 
   addExpertise() {
+    this.loading = true;
     this.expertiseService.addExpertise(this.expertise, this.selectedFile).subscribe({
       next: (expertise) => {
         this.popupService.show("Expertise added", PopupType.INFO)
+
+        setTimeout(() => {
+          this.loading = false;
+
+          this.router.navigate(['/dashboard/expertises']);
+        }, 2000);
       },
       error: (err: any) => {
         this.popupService.show("Can't access to API", PopupType.ERROR)

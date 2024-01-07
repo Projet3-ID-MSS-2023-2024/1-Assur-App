@@ -15,6 +15,7 @@ import {SubscriptionService} from "../../../services/subscription.service";
 import {Subscription} from "../../../interfaces/subscription";
 import {PopupType} from "../../../enums/popup-type";
 import {PopupService} from "../../../services/popup.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-declare-claim',
@@ -29,7 +30,8 @@ export class DeclareClaimComponent implements OnInit{
   insurer!: number;
   subscriptions!: Subscription[];
   subscriptionId!: number;
-  constructor(private popupService: PopupService,private claimService: ClaimService, private messageService: MessageService, private authService: AuthenticationService, private subscriptionService: SubscriptionService) { }
+  loading = false;
+  constructor(private popupService: PopupService,private claimService: ClaimService,private authService: AuthenticationService, private subscriptionService: SubscriptionService, private router: Router) { }
   userConnected = this.authService.getUserId();
 
   ngOnInit(): void {
@@ -51,6 +53,7 @@ export class DeclareClaimComponent implements OnInit{
   }
 
   SendDeclaredClaim(){
+    this.loading = true;
     let newSubscription = this.subscriptions.find((subscription) => subscription.id == this.subscriptionId);
     if (newSubscription != null) {
       this.claim.client = newSubscription.client;
@@ -62,7 +65,14 @@ export class DeclareClaimComponent implements OnInit{
         newSubscription.claims.push(this.claim);
           // @ts-ignore
         this.subscriptionService.updateSubscription(newSubscription).subscribe({
-            next: () => this.popupService.show("Claim added", PopupType.INFO),
+            next: () => {
+          this.popupService.show("Claim added", PopupType.INFO);
+              setTimeout(() => {
+                this.loading = false;
+
+                this.router.navigate(['/dashboard/expertises']);
+              }, 2000);
+        },
             error: () => this.popupService.show("Can't access to API", PopupType.ERROR)
           });
       },
