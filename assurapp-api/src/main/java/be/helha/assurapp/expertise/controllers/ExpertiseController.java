@@ -34,12 +34,9 @@ public class ExpertiseController {
     }
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public Long save(@RequestPart Expertise expertise, @RequestPart MultipartFile image) {
+    public Expertise save(@RequestPart Expertise expertise, @RequestPart MultipartFile image) {
         long timestamp = System.currentTimeMillis();
         String imageFile = "claim_image_" + timestamp + ".png";
-
-        //Claim claim = new Claim(0L, "ezfz", new Date(), "PENDING", imageFile, null);
-
 
         try {
             image.transferTo(new File(FileSystems.getDefault().getPath("..").toAbsolutePath() + "/assurapp-web/src/assets/claim-images/" + imageFile));
@@ -50,11 +47,7 @@ public class ExpertiseController {
         imageFile = "assets/claim-images/" + imageFile;
 
         expertise.setImageFile(imageFile);
-        expertiseService.save(expertise);
-        Claim claim = claimService.findById(expertise.getClaim().getId());
-        claim.setExpertise(expertise.getId());
-        claimService.update(claim);
-        return claim.getExpertise();
+        return expertiseService.save(expertise);
     }
 
     @PutMapping
