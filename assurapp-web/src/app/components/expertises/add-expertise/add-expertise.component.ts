@@ -9,6 +9,10 @@ import {Claim} from "../../../interfaces/claim";
 import {ActivatedRoute, Router} from "@angular/router";
 import {ClaimService} from "../../../services/claim.service";
 import {ExpertiseService} from "../../../services/expertise.service";
+import {UserService} from "../../../services/user.service";
+import {AuthenticationService} from "../../../services/authentication.service";
+import {PopupService} from "../../../services/popup.service";
+import {PopupType} from "../../../enums/popup-type";
 
 @Component({
   selector: 'app-add-expertise',
@@ -23,29 +27,38 @@ export class AddExpertiseComponent implements OnInit{
   claim!: Claim;
   expertise!: Expertise;
 
-  constructor(private messageService: MessageService, private router: Router, private activatedRoute: ActivatedRoute, private claimService: ClaimService, private expertiseService: ExpertiseService) {
+  constructor(private popupService: PopupService, private authService: AuthenticationService, private userService: UserService, private router: Router, private activatedRoute: ActivatedRoute, private claimService: ClaimService, private expertiseService: ExpertiseService) {
   }
   ngOnInit() {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
     if (id) {
-      this.claimService.getClaimById(parseInt(id)).subscribe({
-        next: (claim) => {
-          this.claim = claim;
-          this.expertise = {
-            id: 0,
-            description: '',
-            date: new Date(),
-            estimation: 0,
-            claim: this.claim,
-            imageFile: '',
-          };
+      this.userService.getUserById(this.authService.getUserId()).subscribe({
+        next: (user) => {
+          this.claimService.getClaimById(parseInt(id)).subscribe({
+            next: (claim) => {
+              this.claim = claim;
+              this.expertise = {
+                id: 0,
+                description: '',
+                date: new Date(),
+                estimation: 0,
+                claim: this.claim,
+                imageFile: '',
+                expert: user,
+              };
+            },
+            error: (err) => {
+              console.log(err);
+            },
+          });
         },
         error: (err) => {
           console.log(err);
         },
       });
+      }
+
     }
-  }
 
   onFileSelected(event: any){
     this.selectedFile = event.target.files[0];
@@ -54,12 +67,10 @@ export class AddExpertiseComponent implements OnInit{
   addExpertise() {
     this.expertiseService.addExpertise(this.expertise, this.selectedFile).subscribe({
       next: (expertise) => {
-        console.log(expertise);
-        this.messageService.add({severity:'success', summary:'Expertise added', detail:'Your expertise has been added'});
+        this.popupService.show("Expertise added", PopupType.INFO)
       },
       error: (err: any) => {
-        this.messageService.add({severity:'error', summary:'Error', detail:'Your expertise has not been added'});
-        console.log(err);
+        this.popupService.show("Can't access to API", PopupType.ERROR)
       },
     });
 
