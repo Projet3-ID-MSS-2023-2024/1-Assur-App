@@ -44,6 +44,14 @@
               <th scope="col" class="px-6 py-3 text-start">
                 <div class="flex items-center gap-x-2">
                     <span class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                      STATUS
+                    </span>
+                </div>
+              </th>
+
+              <th scope="col" class="px-6 py-3 text-start">
+                <div class="flex items-center gap-x-2">
+                    <span class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
                       CLAIM
                     </span>
                 </div>
@@ -77,6 +85,13 @@
               <td class="h-px w-72 whitespace-nowrap">
                 <div class="px-6 py-3">
                   <span class="block text-sm font-semibold text-gray-800 dark:text-gray-200">{{ expertise.date }}</span>
+                </div>
+              </td>
+              <td class="h-px w-px whitespace-nowrap">
+                <div class="px-6 py-3">
+                    <span [class]="getColor(expertise.claim.status)">
+                     {{ expertise.claim.status }}
+                    </span>
                 </div>
               </td>
               <td class="h-px w-px whitespace-nowrap">
