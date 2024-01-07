@@ -60,9 +60,9 @@ class TermServiceTest {
 
     @Test
     void updateTermSuccess() {
-        Term term = new Term();
+        Term term = new Term(1L, "Premium", "15 per month");
         when(repository.save(term)).thenReturn(term);
-
+        term.setDescription("20 per month");
         Term result = termService.update(term);
 
         assertEquals(term, result);
@@ -72,6 +72,8 @@ class TermServiceTest {
     @Test
     void deleteTermSuccess() {
         Long id = 1L;
+        Term term = new Term(id, "Premium", "15 per month");
+        when(repository.save(term)).thenReturn(term);
 
         termService.delete(id);
 
