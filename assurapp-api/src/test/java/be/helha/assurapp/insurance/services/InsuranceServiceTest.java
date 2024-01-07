@@ -11,6 +11,7 @@ import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,7 +29,9 @@ class InsuranceServiceTest {
 
     @Test
     void getAllInsurancesSuccess() {
-        List<Insurance> insurances = Arrays.asList(new Insurance(), new Insurance());
+        List<Insurance> insurances = Arrays.asList(
+                new Insurance(1L, "Health", InsuranceType.HEALTH, 1000.00, new User(), Collections.emptyList()),
+                new Insurance(2L, "Home", InsuranceType.HOME, 2000.00, new User(), Collections.emptyList()));
         when(repository.findAll()).thenReturn(insurances);
 
         List<Insurance> result = insuranceService.getAll();
@@ -39,8 +42,10 @@ class InsuranceServiceTest {
 
     @Test
     void getByTypeSuccess() {
-        InsuranceType type = InsuranceType.LIFE;
-        List<Insurance> insurances = Arrays.asList(new Insurance(), new Insurance());
+        InsuranceType type = InsuranceType.HEALTH;
+        List<Insurance> insurances = Arrays.asList(
+                new Insurance(1L, "Health", InsuranceType.HEALTH, 1000.00, new User(), Collections.emptyList()),
+                new Insurance(2L, "Home", InsuranceType.HEALTH, 2000.00, new User(), Collections.emptyList()));
         when(repository.findByType(type)).thenReturn(insurances);
 
         List<Insurance> result = insuranceService.getByType(type);
@@ -52,7 +57,9 @@ class InsuranceServiceTest {
     @Test
     void getByClientSuccess() {
         Long clientId = 1L;
-        List<Insurance> insurances = Arrays.asList(new Insurance(), new Insurance());
+        List<Insurance> insurances = Arrays.asList(
+                new Insurance(1L, "Health", InsuranceType.HEALTH, 1000.00, null, Collections.emptyList()),
+                new Insurance(2L, "Home", InsuranceType.HOME, 2000.00, null, Collections.emptyList()));
         when(repository.findInsurancesByClient(clientId)).thenReturn(insurances);
 
         List<Insurance> result = insuranceService.getByClient(clientId);
@@ -64,7 +71,9 @@ class InsuranceServiceTest {
     @Test
     void getByInsurerSuccess() {
         User insurer = new User();
-        List<Insurance> insurances = Arrays.asList(new Insurance(), new Insurance());
+        List<Insurance> insurances = Arrays.asList(
+                new Insurance(1L, "Health", InsuranceType.HEALTH, 1000.00, null, Collections.emptyList()),
+                new Insurance(2L, "Home", InsuranceType.HOME, 2000.00, null, Collections.emptyList()));
         when(repository.findByInsurer(insurer)).thenReturn(insurances);
 
         List<Insurance> result = insuranceService.getByInsurer(insurer);
@@ -76,7 +85,7 @@ class InsuranceServiceTest {
     @Test
     void getOneInsuranceSuccess() {
         Long id = 1L;
-        Insurance insurance = new Insurance();
+        Insurance insurance = new Insurance(1L, "Health", InsuranceType.HEALTH, 1000.00, null, Collections.emptyList());
         when(repository.findById(id)).thenReturn(Optional.of(insurance));
 
         Insurance result = insuranceService.getOne(id);
@@ -87,7 +96,7 @@ class InsuranceServiceTest {
 
     @Test
     void addInsuranceSuccess() {
-        Insurance insurance = new Insurance();
+        Insurance insurance = new Insurance(1L, "Health", InsuranceType.HEALTH, 1000.00, new User(), Collections.emptyList());
         when(repository.save(insurance)).thenReturn(insurance);
 
         Insurance result = insuranceService.add(insurance);
@@ -98,7 +107,7 @@ class InsuranceServiceTest {
 
     @Test
     void updateInsuranceSuccess() {
-        Insurance insurance = new Insurance();
+        Insurance insurance = new Insurance(1L, "Health", InsuranceType.HEALTH, 1000.00, new User(), Collections.emptyList());
         when(repository.save(insurance)).thenReturn(insurance);
 
         Insurance result = insuranceService.update(insurance);
@@ -110,6 +119,8 @@ class InsuranceServiceTest {
     @Test
     void deleteInsuranceSuccess() {
         Long id = 1L;
+        Insurance insurance = new Insurance(id, "Health", InsuranceType.HEALTH, 1000.00, new User(), Collections.emptyList());
+        when(repository.save(insurance)).thenReturn(insurance);
 
         insuranceService.delete(id);
 

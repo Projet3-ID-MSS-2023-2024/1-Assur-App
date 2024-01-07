@@ -23,6 +23,7 @@ import be.helha.assurapp.insurance.repositories.TermRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Profile;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
@@ -35,6 +36,7 @@ import java.util.List;
 public class DataInitializer {
 
     @Bean
+    @Profile("!test")
     @Transactional
     public CommandLineRunner initDatabase(RoleRepository roleRepository,
                                           UserRepository userRepository,

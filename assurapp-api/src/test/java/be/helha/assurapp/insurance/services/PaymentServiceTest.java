@@ -1,5 +1,6 @@
 package be.helha.assurapp.insurance.services;
 
+import be.helha.assurapp.insurance.enums.PaymentStatus;
 import be.helha.assurapp.insurance.models.Payment;
 import be.helha.assurapp.insurance.repositories.PaymentRepository;
 import be.helha.assurapp.insurance.services.impl.PaymentServiceImpl;
@@ -8,6 +9,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.sql.Date;
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
@@ -26,7 +29,10 @@ class PaymentServiceTest {
 
     @Test
     void getAllPaymentsSuccess() {
-        List<Payment> payments = Arrays.asList(new Payment(), new Payment());
+        List<Payment> payments = Arrays.asList(
+                new Payment(1L, 200.00, Date.valueOf(LocalDate.now()), PaymentStatus.COMPLETED),
+                new Payment(2L, 270.00, Date.valueOf(LocalDate.now()), PaymentStatus.PENDING)
+        );
         when(repository.findAll()).thenReturn(payments);
 
         List<Payment> result = paymentService.getAll();
@@ -38,7 +44,7 @@ class PaymentServiceTest {
     @Test
     void getOnePaymentSuccess() {
         Long id = 1L;
-        Payment payment = new Payment();
+        Payment payment = new Payment(1L, 200.00, Date.valueOf(LocalDate.now()), PaymentStatus.COMPLETED);
         when(repository.findById(id)).thenReturn(Optional.of(payment));
 
         Payment result = paymentService.getOne(id);
@@ -50,7 +56,10 @@ class PaymentServiceTest {
     @Test
     void getByClientSuccess() {
         Long clientId = 1L;
-        List<Payment> payments = Arrays.asList(new Payment(), new Payment());
+        List<Payment> payments = Arrays.asList(
+                new Payment(1L, 200.00, Date.valueOf(LocalDate.now()), PaymentStatus.COMPLETED),
+                new Payment(2L, 270.00, Date.valueOf(LocalDate.now()), PaymentStatus.PENDING)
+        );
         when(repository.findPaymentsByClient(clientId)).thenReturn(payments);
 
         List<Payment> result = paymentService.getByClient(clientId);
@@ -62,7 +71,10 @@ class PaymentServiceTest {
     @Test
     void getByInsurerSuccess() {
         Long insurerId = 1L;
-        List<Payment> payments = Arrays.asList(new Payment(), new Payment());
+        List<Payment> payments = Arrays.asList(
+                new Payment(1L, 200.00, Date.valueOf(LocalDate.now()), PaymentStatus.COMPLETED),
+                new Payment(2L, 270.00, Date.valueOf(LocalDate.now()), PaymentStatus.PENDING)
+        );
         when(repository.findPaymentsByInsurer(insurerId)).thenReturn(payments);
 
         List<Payment> result = paymentService.getByInsurer(insurerId);
@@ -73,7 +85,7 @@ class PaymentServiceTest {
 
     @Test
     void addPaymentSuccess() {
-        Payment payment = new Payment();
+        Payment payment = new Payment(1L, 200.00, Date.valueOf(LocalDate.now()), PaymentStatus.COMPLETED);
         when(repository.save(payment)).thenReturn(payment);
 
         Payment result = paymentService.add(payment);
@@ -84,7 +96,7 @@ class PaymentServiceTest {
 
     @Test
     void updatePaymentSuccess() {
-        Payment payment = new Payment();
+        Payment payment = new Payment(1L, 200.00, Date.valueOf(LocalDate.now()), PaymentStatus.COMPLETED);
         when(repository.save(payment)).thenReturn(payment);
 
         Payment result = paymentService.update(payment);
@@ -96,6 +108,8 @@ class PaymentServiceTest {
     @Test
     void deletePaymentSuccess() {
         Long id = 1L;
+        Payment payment = new Payment(1L, 200.00, Date.valueOf(LocalDate.now()), PaymentStatus.COMPLETED);
+        when(repository.save(payment)).thenReturn(payment);
 
         paymentService.delete(id);
 
