@@ -24,7 +24,7 @@ import {AdminManageInsurerComponent} from "./components/admin/admin-manage-insur
 import {AdminManageExpertComponent} from "./components/admin/admin-manage-expert/admin-manage-expert.component";
 import {AdminAddComponent} from "./components/admin/admin-add/admin-add.component";
 import {AdminUpdateComponent} from "./components/admin/admin-update/admin-update.component";
-import {ProfileComponent} from "./components/authentication/profile/profile.component";
+import {ProfileComponent} from "./components/dashboard/profile/profile.component";
 
 export const routes: Routes = [
   { path: "", component: HomeComponent},
@@ -36,7 +36,6 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent},
   { path: 'register', component: RegisterComponent},
   { path: 'activate', component: ActivateAccountComponent},
-  { path: 'profile', component: ProfileComponent},
   { path: 'conditions', component: TermsAndConditionsComponent},
   { path: 'privacy', component: PrivacyPolicyComponent},
   { path: 'dashboard', component: DashboardComponent, children: [
@@ -55,5 +54,6 @@ export const routes: Routes = [
       { path: "administration/experts", component: AdminManageExpertComponent},
       { path: "administration/add", component: AdminAddComponent},
       { path: "administration/update/:id", component: AdminUpdateComponent},
+      { path: "profile", component: ProfileComponent}
     ]},
 ];

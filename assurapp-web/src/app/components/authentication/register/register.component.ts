@@ -65,7 +65,7 @@ export class RegisterComponent implements OnInit{
     this.user.email = this.form.value.email
     this.user.password = this.form.value.password
     this.user.legalId = this.form.value.legalId
-    this.user.address = this.form.value.streetAddress + ", " + this.form.value.city + "," + this.form.value.country
+    this.user.address = this.form.value.streetAddress + "," + this.form.value.city + "," + this.form.value.country
     this.user.phoneNumber = this.form.value.phoneNumber
     console.log(this.user)
     this.authService.register(this.user).subscribe({
