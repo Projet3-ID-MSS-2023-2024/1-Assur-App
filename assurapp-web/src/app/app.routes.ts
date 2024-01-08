@@ -25,6 +25,7 @@ import {AdminManageExpertComponent} from "./components/admin/admin-manage-expert
 import {AdminAddComponent} from "./components/admin/admin-add/admin-add.component";
 import {AdminUpdateComponent} from "./components/admin/admin-update/admin-update.component";
 import {ProfileComponent} from "./components/dashboard/profile/profile.component";
+import {ChangePasswordComponent} from "./components/dashboard/profile/change-password/change-password.component";
 
 export const routes: Routes = [
   { path: "", component: HomeComponent},
@@ -54,6 +55,7 @@ export const routes: Routes = [
       { path: "administration/experts", component: AdminManageExpertComponent},
       { path: "administration/add", component: AdminAddComponent},
       { path: "administration/update/:id", component: AdminUpdateComponent},
-      { path: "profile", component: ProfileComponent}
+      { path: "profile", component: ProfileComponent},
+      { path: "profile/changePassword", component: ChangePasswordComponent}
     ]},
 ];
