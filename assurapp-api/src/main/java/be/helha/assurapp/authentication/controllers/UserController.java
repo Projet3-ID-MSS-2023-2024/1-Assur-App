@@ -70,7 +70,7 @@ public class UserController {
         return userService.addUser(user);
     }
 
-    @PostMapping("usersUpdate")
+    @PutMapping("usersUpdate")
     public User updateUser(@RequestBody User user ){
         return userService.updateUser(user);
     }

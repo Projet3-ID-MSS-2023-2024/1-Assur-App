@@ -3,12 +3,15 @@ import { CommonModule } from '@angular/common';
 import {StyleClassModule} from 'primeng/styleclass';
 import { ClaimService } from '../../../services/claim.service';
 import { Claim } from '../../../interfaces/claim';
-import { ClaimStatus } from '../../../interfaces/claim-status.enum';
+import { ClaimStatus } from '../../../enums/claim-status.enum';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MessageService} from 'primeng/api';
 import { ToastModule } from 'primeng/toast';
 import { MessageModule } from 'primeng/message';
 import { MessagesModule} from 'primeng/messages';
+import {AuthenticationService} from "../../../services/authentication.service";
+import {InsuranceService} from "../../../services/insurance.service";
+import {SubscriptionService} from "../../../services/subscription.service";
 
 @Component({
   selector: 'app-declare-claim',
@@ -20,8 +23,11 @@ import { MessagesModule} from 'primeng/messages';
 })
 export class DeclareClaimComponent implements OnInit{
   claim!: Claim;
-  selectedFile!: File;
-  constructor(private claimService: ClaimService, private messageService: MessageService) { }
+  insurer!: number;
+  constructor(private claimService: ClaimService, private messageService: MessageService, private authService: AuthenticationService, private subscriptionService: SubscriptionService) { }
+  userConnected = this.authService.getUserId();
+
+
 
   ngOnInit(): void {
     this.claim = {
@@ -29,18 +35,13 @@ export class DeclareClaimComponent implements OnInit{
       description: '',
       date: new Date(),
       status: ClaimStatus.PENDING,
-      imageFile: '',
+      client: this.userConnected,
     };
   }
 
-  onFileSelected(event: any){
-    this.selectedFile = event.target.files[0];
-  }
-
   SendDeclaredClaim(){
-    this.claimService.createClaim(this.claim, this.selectedFile).subscribe({
+    this.claimService.createClaim(this.claim).subscribe({
       next: (claim) => {
-        console.log(claim);
         this.messageService.add({severity:'success', summary:'Claim declared', detail:'Your claim has been declared'});
       },
       error: (err) => {

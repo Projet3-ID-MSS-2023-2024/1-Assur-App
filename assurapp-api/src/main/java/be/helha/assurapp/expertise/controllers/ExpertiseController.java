@@ -6,8 +6,13 @@ import be.helha.assurapp.expertise.models.Expertise;
 import be.helha.assurapp.expertise.services.IClaimService;
 import be.helha.assurapp.expertise.services.IExpertiseService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.FileSystems;
 import java.util.List;
 
 @AllArgsConstructor
@@ -28,8 +33,23 @@ public class ExpertiseController {
         return expertiseService.findAll();
     }
 
-    @PostMapping
-    public Long save(@RequestBody Expertise expertise) {
+    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public Long save(@RequestPart Expertise expertise, @RequestPart MultipartFile image) {
+        long timestamp = System.currentTimeMillis();
+        String imageFile = "claim_image_" + timestamp + ".png";
+
+        //Claim claim = new Claim(0L, "ezfz", new Date(), "PENDING", imageFile, null);
+
+
+        try {
+            image.transferTo(new File(FileSystems.getDefault().getPath("..").toAbsolutePath() + "/assurapp-web/src/assets/claim-images/" + imageFile));
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+
+        imageFile = "assets/claim-images/" + imageFile;
+
+        expertise.setImageFile(imageFile);
         expertiseService.save(expertise);
         Claim claim = claimService.findById(expertise.getClaim().getId());
         claim.setExpertise(expertise.getId());

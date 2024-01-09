@@ -31,23 +31,8 @@ public class ClaimController {
         return claimService.findById(id);
     }
 
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public Claim save(@RequestPart Claim claim, @RequestPart MultipartFile image) {
-        long timestamp = System.currentTimeMillis();
-        String imageFile = "claim_image_" + timestamp + ".png";
-
-        //Claim claim = new Claim(0L, "ezfz", new Date(), "PENDING", imageFile, null);
-
-
-        try {
-            image.transferTo(new File(FileSystems.getDefault().getPath("..").toAbsolutePath() + "/assurapp-web/src/assets/claim-images/" + imageFile));
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-
-        imageFile = "assets/claim-images/" + imageFile;
-
-        claim.setImageFile(imageFile);
+    @PostMapping
+    public Claim save(@RequestBody Claim claim){
        return claimService.save(claim);
     }
 

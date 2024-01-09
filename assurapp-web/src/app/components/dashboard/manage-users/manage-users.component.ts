@@ -4,6 +4,7 @@ import { UserService } from '../../../services/user.service';
 import { MessageService } from 'primeng/api';
 import { ConfirmationService } from 'primeng/api';
 import { CommonModule } from '@angular/common';
+import { AuthenticationService } from '../../../services/authentication.service';
 
 
 @Component({
@@ -16,11 +17,15 @@ import { CommonModule } from '@angular/common';
 })
 export class ManageUsersComponent implements OnInit{
 
-  constructor(private userService: UserService, private messageService: MessageService) { }
+  constructor(private userService: UserService, private messageService: MessageService, private authService: AuthenticationService) { }
 
   ngOnInit() {
     this.fetch();
   }
+
+  userId = this.authService.getUserId();
+
+
 
   users: User[] = [];
   data: User[] = [];
@@ -30,7 +35,7 @@ export class ManageUsersComponent implements OnInit{
 
 
   fetch() {
-    const subscription = this.userService.getAllUser().subscribe(
+    const subscription = this.userService.findUserByInsurer(this.userId).subscribe(
       {
         next: (data: any) => {
           console.log(data);

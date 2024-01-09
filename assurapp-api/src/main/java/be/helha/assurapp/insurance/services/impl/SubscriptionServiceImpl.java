@@ -25,6 +25,21 @@ public class SubscriptionServiceImpl implements ISubscriptionService {
     }
 
     @Override
+    public List<Subscription> getByClient(Long id) {
+        return this.repository.findSubscriptionsByClient(id);
+    }
+
+    @Override
+    public List<Subscription> getByInsurer(Long id) {
+        return this.repository.findSubscriptionsByInsurer(id);
+    }
+
+    @Override
+    public Subscription getByPayment(Long id) {
+        return this.repository.findByPaymentsId(id);
+    }
+
+    @Override
     public Subscription add(Subscription subscription) {
         return this.repository.save(subscription);
     }

@@ -1,5 +1,6 @@
 package be.helha.assurapp.expertise.models;
 
+import be.helha.assurapp.authentication.models.User;
 import be.helha.assurapp.expertise.enums.ClaimStatus;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -28,10 +29,14 @@ public class Claim {
     private Date date;
 
     @NotNull
-    private String status;
-
-    private String imageFile;
+    @Enumerated(EnumType.STRING)
+    private ClaimStatus status;
 
     private Long expertise;
+
+    // client
+    private Long client;
+    // insurer
+    private Long insurer;
 
 }

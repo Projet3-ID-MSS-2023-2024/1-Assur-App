@@ -7,11 +7,10 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {InsuranceType} from "../../enums/insurance-type";
 import {AuthenticationService} from "../../services/authentication.service";
 import {Roles} from "../../enums/roles";
-import {SubscriptionService} from "../../services/subscription.service";
-import {Subscription} from "../../interfaces/subscription";
-import {UserService} from "../../services/user.service";
 import {SubscribeComponent} from "./subscribe/subscribe.component";
 import {NgClass} from "@angular/common";
+import {PopupService} from "../../services/popup.service";
+import {PopupType} from "../../enums/popup-type";
 
 @Component({
   selector: 'app-insurances',
@@ -39,6 +38,7 @@ export class InsurancesComponent implements OnInit {
 
   constructor(private insuranceService: InsuranceService,
               private authenticationService: AuthenticationService,
+              private popupService: PopupService,
               private router: Router) {}
 
   ngOnInit() {
@@ -55,7 +55,7 @@ export class InsurancesComponent implements OnInit {
           return uniqueCompanies;
         }, []);
       },
-      error: err => console.error(err)
+      error: err => this.popupService.show("Can't access the API", PopupType.ERROR)
     })
   }
 
@@ -89,10 +89,13 @@ export class InsurancesComponent implements OnInit {
     if (this.authenticationService.isLogged() && this.authenticationService.getUserRole() === Roles.CLIENT) {
       this.insurance = insurance;
       this.hidden = false;
-    } else {
-     setTimeout(() => {
+    } else if (!this.authenticationService.isLogged()) {
+      this.popupService.show("You are not connected. \nYou will be redirected to login page", PopupType.INFO)
+      setTimeout(() => {
        this.router.navigate(['/login'])
-     }, 5000);
+      }, 5000);
+    } else {
+      this.popupService.show("You are not connected as client. \nLogout and retry", PopupType.INFO)
     }
   }
 }

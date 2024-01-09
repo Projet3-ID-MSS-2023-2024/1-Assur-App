@@ -17,9 +17,12 @@ import {Roles} from "../../../enums/roles";
   templateUrl: './sidebar.component.html',
   styleUrl: './sidebar.component.css'
 })
+
 export class SidebarComponent implements OnInit{
+  visible: boolean = false;
   timeBeforeLogout : number = 600;
   interval: number | undefined;
+  
   constructor(private location: Location,
               private authenticationService: AuthenticationService,
               private router: Router) {}
@@ -40,10 +43,12 @@ export class SidebarComponent implements OnInit{
     this.authenticationService.logout();
     setTimeout(() => {
       this.router.navigate(['/']);
-    }, 1000);
+    }, 500);
   }
-
-  protected readonly Roles = Roles;
+  
+  toggle() {
+    this.visible = !this.visible;
+  }
 
   @HostListener('window:keypress', ["$event"])
   @HostListener('window:beforeunload', ["$event"])
@@ -66,4 +71,6 @@ export class SidebarComponent implements OnInit{
   resetTimer(){
     this.timeBeforeLogout = 600;
   }
+ 
+  protected readonly Roles = Roles;
 }

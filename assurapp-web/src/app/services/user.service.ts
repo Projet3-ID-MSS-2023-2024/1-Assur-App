@@ -34,7 +34,7 @@ export class UserService {
     updateUser(user: User): Observable<User> {
       const headers = this.authService.getHeaders();
 
-      return this.http.post<User>(`${environment.api}/usersUpdate`, user, { headers });
+      return this.http.put<User>(`${environment.api}/usersUpdate`, user, { headers });
     }
 
     deleteUser(id: number): Observable<User> {

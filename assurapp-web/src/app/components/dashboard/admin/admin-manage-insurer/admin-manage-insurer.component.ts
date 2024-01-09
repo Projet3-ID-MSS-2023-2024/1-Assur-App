@@ -1,83 +1,49 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UserService } from '../../../services/user.service';
+import { User } from '../../../../interfaces/user';
+import { UserService } from '../../../../services/user.service';
+import {RouterLink} from "@angular/router";
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
 
-import { DialogService, DynamicDialogRef } from 'primeng/dynamicdialog';
-import { AdminAddComponent } from '../admin-add/admin-add.component';
-import { AdminUpdateComponent } from '../admin-update/admin-update.component';
-import { User } from '../../../interfaces/user';
-import { MessageService } from 'primeng/api';
-import { ToastModule } from 'primeng/toast';
-import { ConfirmPopupModule } from 'primeng/confirmpopup';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-import { ConfirmationService } from 'primeng/api';
+
 
 @Component({
   selector: 'app-admin-manage-insurer',
   standalone: true,
-  imports: [CommonModule, TableModule, ButtonModule, DropdownModule, ToastModule,ConfirmPopupModule,ConfirmDialogModule],
+  imports: [CommonModule, TableModule, ButtonModule, DropdownModule,RouterLink],
   templateUrl: './admin-manage-insurer.component.html',
-  styleUrl: './admin-manage-insurer.component.css',
-  providers: [DialogService,MessageService, ConfirmationService]
+  styleUrl: './admin-manage-insurer.component.css'
 })
 export class AdminManageInsurerComponent implements OnInit, OnDestroy {
 
   users: User[] = [];
   data: User[] = [];
-  add: DynamicDialogRef | undefined;
-  update: DynamicDialogRef | undefined;
   current = 1;
   max  = 10;
 
-  constructor(private userService: UserService, private dialogService: DialogService, private messageService: MessageService, private confirmationService: ConfirmationService) { }
+  constructor(private userService: UserService) { }
 
   ngOnInit() {
     this.fetch();
   }
 
   ngOnDestroy() {
-    if (this.add) {
-        this.add.close();
-    }
-
-    if(this.update){
-      this.update.close();
-    }
+  
   }
 
-  showAdd() {
-    this.add = this.dialogService.open(AdminAddComponent, {});
-  }
-
-  showUpdate(user: User) {
-    this.update = this.dialogService.open(AdminUpdateComponent, {
-      data: {
-        user: user
-      }
-    });
-
-    this.update.onClose.subscribe((User: User) => {
-      if (User) {
-          this.messageService.add({ severity: 'info', summary: 'Product Selected', detail: user.name });
-      }
-  });
-  }
-
+  
   deleteUser(id: number): void {
+    if (!confirm("Are you sure to delete this user")) return;
     this.userService.deleteUser(id).subscribe(
       () => {
-        this.messageService.add({ severity: 'success', summary: 'Success', detail: 'User Deleted' });
-
         setTimeout(() => {
           window.location.reload();
-        }, 1000);
+        }, 100);
       },
       (error) => {
         console.error('Erreur lors de la suppression de l\'utilisateur : ', error);
-        this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to delete user' });
       }
     );
   }
@@ -97,7 +63,7 @@ export class AdminManageInsurerComponent implements OnInit, OnDestroy {
           this.getData();
         },
         error: (err: any) => {
-          this.messageService.add({ severity: 'error', summary: 'Error', detail: 'Failed to get all users' });
+          console.log(err);
         }
       }
     )

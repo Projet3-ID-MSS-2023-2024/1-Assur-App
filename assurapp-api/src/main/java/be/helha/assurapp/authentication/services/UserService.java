@@ -128,22 +128,8 @@ public class UserService implements UserDetailsService {
 
     public User addUser(User user) {
 
-        String cypherPassword = this.passwordEncoder.encode(user.getPassword());
-        user.setPassword(cypherPassword);
-
-        if(!user.getEmail().contains("@") && !user.getEmail().contains(".")){ //to be replaced by Email Validator
-            throw new RuntimeException("Invalid format");
-        }
-
-        Optional<User> optionalUser = userRepository.findByEmail(user.getEmail());
-        if (optionalUser.isPresent()){
-            throw new RuntimeException("Used email");
-        }
-
-        activationCodeService.sendCode(user);
-
-        Role userRole = user.getRole();
-        user.setRole(roleRepository.findByLabel(userRole.getLabel()));
+        register(user);
+        user.setVerified(true);
         return userRepository.save(user);
     }
 
