@@ -3,9 +3,11 @@ package be.helha.assurapp.authentication.controllers;
 
 import be.helha.assurapp.authentication.dto.AuthenticationDTO;
 import be.helha.assurapp.authentication.models.User;
+import be.helha.assurapp.authentication.repositories.UserRepository;
 import be.helha.assurapp.authentication.services.ActivationCodeService;
 import be.helha.assurapp.authentication.services.JwtService;
 import be.helha.assurapp.authentication.services.UserService;
+import be.helha.assurapp.insurance.models.Subscription;
 import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.MediaType;
@@ -22,6 +24,7 @@ import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.regex.Pattern;
 
 @Slf4j
@@ -112,7 +115,6 @@ public class UserController {
             throw new RuntimeException(e);
         }
     }
-
     @PostMapping("changePasswordByCode")
     public void changePasswordByCode(@RequestBody Map<String, String> data) throws Exception{
         try {
@@ -120,5 +122,9 @@ public class UserController {
         }catch (Exception e){
             throw new RuntimeException(e);
         }
+    }
+    @PutMapping("anonymize")
+    public void anonymize(@RequestBody Map<String, String> data) throws RuntimeException{
+        userService.anonymizeClient(userService.loadUserByUsername(data.get("username")));
     }
 }

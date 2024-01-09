@@ -7,6 +7,8 @@ import be.helha.assurapp.authentication.repositories.RoleRepository;
 import be.helha.assurapp.authentication.repositories.UserRepository;
 import be.helha.assurapp.authentication.utils.RandomStringGenerator;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -25,6 +27,7 @@ public class UserService implements UserDetailsService {
     private RandomStringGenerator randomStringGenerator;
     private PasswordCodeSender passwordCodeSender;
     public void register(User user) throws RuntimeException{
+
         String cypherPassword = this.passwordEncoder.encode(user.getPassword());
         user.setPassword(cypherPassword);
 
@@ -72,6 +75,30 @@ public class UserService implements UserDetailsService {
         throw new RuntimeException("Incorrect Data");
     }
 
+    public Boolean anonymizeClient(User user) throws RuntimeException{
+
+        if(userRepository.findInsuranceByUser(user.getId()).isEmpty() && user.getRole().getLabel() == RoleList.CLIENT){
+            user.setName("XXXXXX");
+            user.setLastname("XXXXXX");
+            user.setAddress("XXXXX%XXXXXX%XXXXXX");
+            user.setEmail("deletedUser"+user.getId()+"@anonyme.assurapp.com");
+            user.setLegalId("XXXXXXXXXX");
+            user.setPassword(passwordEncoder.encode("rootroot"));
+            user.setPhoneNumber("XXXXXXXXXXXX");
+            userRepository.save(user);
+            return true;
+        }else if(user.getRole().getLabel() != RoleList.CLIENT){
+            throw new RuntimeException("Error: unauthorized request");
+        } else {
+            throw new RuntimeException("Error: you still have subscription");
+        }
+
+
+    }
+
+    public Authentication getAuthentication(){
+        return SecurityContextHolder.getContext().getAuthentication();
+    }
 
     @Override
     public User loadUserByUsername(String username) throws UsernameNotFoundException {

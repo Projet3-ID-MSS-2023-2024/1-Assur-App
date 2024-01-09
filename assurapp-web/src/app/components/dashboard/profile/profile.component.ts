@@ -5,13 +5,15 @@ import {Role} from "../../../interfaces/role";
 import {AuthenticationService} from "../../../services/authentication.service";
 import {UserService} from "../../../services/user.service";
 import {Router, Routes} from "@angular/router";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-profile',
   standalone: true,
   imports: [
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    NgIf
   ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
@@ -90,5 +92,9 @@ export class ProfileComponent implements OnInit{
 
   gotoChangePassword(){
     this.route.navigate(['dashboard/profile/password'])
+  }
+
+  gotoDeleteConfirm(){
+    this.route.navigate(['dashboard/profile/delete'])
   }
 }

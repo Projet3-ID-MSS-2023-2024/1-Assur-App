@@ -26,6 +26,7 @@ import {AdminAddComponent} from "./components/admin/admin-add/admin-add.componen
 import {AdminUpdateComponent} from "./components/admin/admin-update/admin-update.component";
 import {ProfileComponent} from "./components/dashboard/profile/profile.component";
 import {ChangePasswordComponent} from "./components/dashboard/profile/change-password/change-password.component";
+import {ConfirmDeleteComponent} from "./components/dashboard/profile/confirm-delete/confirm-delete.component";
 
 export const routes: Routes = [
   { path: "", component: HomeComponent},
@@ -56,6 +57,7 @@ export const routes: Routes = [
       { path: "administration/add", component: AdminAddComponent},
       { path: "administration/update/:id", component: AdminUpdateComponent},
       { path: "profile", component: ProfileComponent},
-      { path: "profile/changePassword", component: ChangePasswordComponent}
+      { path: "profile/changePassword", component: ChangePasswordComponent},
+      { path: "profile/delete", component: ConfirmDeleteComponent}
     ]},
 ];
