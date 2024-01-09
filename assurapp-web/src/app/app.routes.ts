@@ -24,6 +24,14 @@ import { ManageUsersComponent } from './components/dashboard/manage-users/manage
 import {ForgotPasswordComponent} from "./components/authentication/forgot-password/forgot-password.component";
 import {MailSentComponent} from "./components/authentication/mail-sent/mail-sent.component";
 import {ForgotPasswordFormStepComponent} from "./components/authentication/forgot-password-form-step/forgot-password-form-step.component";
+import {ManageUsersComponent} from "./components/dashboard/manage-users/manage-users.component";
+import {AdminManageInsurerComponent} from "./components/admin/admin-manage-insurer/admin-manage-insurer.component";
+import {AdminManageExpertComponent} from "./components/admin/admin-manage-expert/admin-manage-expert.component";
+import {AdminAddComponent} from "./components/admin/admin-add/admin-add.component";
+import {AdminUpdateComponent} from "./components/admin/admin-update/admin-update.component";
+import {ProfileComponent} from "./components/dashboard/profile/profile.component";
+import {ChangePasswordComponent} from "./components/dashboard/profile/change-password/change-password.component";
+import {ConfirmDeleteComponent} from "./components/dashboard/profile/confirm-delete/confirm-delete.component";
 import {SubscriptionsComponent} from "./components/dashboard/subscriptions/subscriptions.component";
 import {PaymentsComponent} from "./components/dashboard/payments/payments.component";
 import {PaymentComponent} from "./components/dashboard/payments/payment/payment.component";
@@ -43,6 +51,9 @@ export const routes: Routes = [
   { path: 'conditions', component: TermsAndConditionsComponent},
   { path: 'privacy', component: PrivacyPolicyComponent},
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard], data: {roles: [Roles.ADMINISTRATOR, Roles.EXPERT, Roles.INSURER, Roles.CLIENT]}, children: [
+      { path: "profile", component: ProfileComponent},
+      { path: "profile/changePassword", component: ChangePasswordComponent},
+      { path: "profile/delete", component: ConfirmDeleteComponent},
       { path: 'insurances', component: InsurancesDashboardComponent, canActivate: [AuthGuard], data: {roles: [Roles.INSURER, Roles.CLIENT]}},
       { path: 'insurances/clients', component: ManageUsersComponent, canActivate: [AuthGuard], data: {roles: [Roles.INSURER]}},
       { path: 'insurances/add', component: AddInsuranceComponent, canActivate: [AuthGuard], data: {roles: [Roles.INSURER]}},
@@ -56,11 +67,13 @@ export const routes: Routes = [
       { path: "expertises", component: ListExpertiseComponent},
       { path: "expertises/add", component: AddExpertiseComponent},
       { path: "expertises/add/:id", component: AddExpertiseComponent},
+      { path: "administration/add", component: AdminAddComponent},
+      { path: "administration/update/:id", component: AdminUpdateComponent},
       { path: "administration/insurers", component: AdminManageInsurerComponent},
-      { path: "administration/experts", component: AdminManageExpertComponent},
-      { path: "administration/insurers/update/:id", component: AdminUpdateComponent},
-      { path: "administration/experts/update/:id", component: AdminUpdateComponent},
-      { path: "administration/experts/add", component: AdminAddComponent},
       { path: "administration/insurers/add", component: AdminAddComponent},
+      { path: "administration/insurers/update/:id", component: AdminUpdateComponent},
+      { path: "administration/experts", component: AdminManageExpertComponent},
+      { path: "administration/experts/add", component: AdminAddComponent},
+      { path: "administration/experts/update/:id", component: AdminUpdateComponent},
     ]},
 ];

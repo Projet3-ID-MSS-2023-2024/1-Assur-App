@@ -45,7 +45,6 @@ export class ForgotPasswordFormStepComponent implements OnInit{
 
   changePassword(){
     this.password = this.form.value.password
-    console.log(this.email, this.password, this.code)
     this.authService.changeForgottenPassword(this.email, this.password, this.code).subscribe({
       next:() =>{
         this.route.navigate(["./login"])

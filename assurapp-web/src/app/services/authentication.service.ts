@@ -42,6 +42,16 @@ export class AuthenticationService {
     return this.http.post(`${environment.api}/changePasswordByCode`, data)
   }
 
+  changePassword(username: string, newPassword: string, oldPassword: string): Observable<any>{
+    const data = {username, newPassword, oldPassword}
+    return this.http.post(`${environment.api}/changePassword`, data)
+  }
+
+  deleteAccount(username: string){
+    const data = {username}
+    return this.http.put(`${environment.api}/anonymize`, data)
+  }
+
 
   saveToken(token: string){
     localStorage.setItem('bearer', token)
