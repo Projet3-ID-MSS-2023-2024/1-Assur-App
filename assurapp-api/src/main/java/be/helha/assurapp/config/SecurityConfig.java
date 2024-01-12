@@ -1,8 +1,10 @@
 package be.helha.assurapp.config;
 
+import be.helha.assurapp.authentication.enums.RoleList;
 import be.helha.assurapp.authentication.services.JwtFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
@@ -41,7 +43,25 @@ public class SecurityConfig {
         return httpSecurity
                 .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll())
+                .authorizeHttpRequests(authorize ->
+                        // insurance package
+                        authorize
+                                .requestMatchers(HttpMethod.GET, "/api/v1/insurances/**").permitAll()
+                                .requestMatchers(HttpMethod.POST, "/api/v1/insurances/**").hasRole("ROLE_" + RoleList.INSURER)
+                                .requestMatchers(HttpMethod.PUT, "/api/v1/insurances/**").hasRole("ROLE_" + RoleList.INSURER)
+                                .requestMatchers(HttpMethod.DELETE, "/api/v1/insurances/**").hasRole("ROLE_" + RoleList.INSURER)
+
+                                .requestMatchers(HttpMethod.GET, "api/v1/subscriptions/**").hasAnyRole("ROLE_" + RoleList.INSURER, "ROLE_" + RoleList.CLIENT )
+                                .requestMatchers(HttpMethod.POST, "api/v1/subscriptions/**").hasAnyRole("ROLE_" + RoleList.INSURER, "ROLE_" + RoleList.CLIENT )
+                                .requestMatchers(HttpMethod.PUT, "api/v1/subscriptions/**").hasAnyRole("ROLE_" + RoleList.INSURER, "ROLE_" + RoleList.CLIENT )
+                                .requestMatchers(HttpMethod.DELETE, "api/v1/subscriptions/**").hasRole("ROLE_" + RoleList.INSURER)
+
+                                .requestMatchers(HttpMethod.GET, "api/v1/payments/**").hasAnyRole("ROLE_" + RoleList.INSURER, "ROLE_" + RoleList.CLIENT )
+                                .requestMatchers(HttpMethod.POST, "api/v1/payments/**").hasAnyRole("ROLE_" + RoleList.INSURER, "ROLE_" + RoleList.CLIENT )
+                                .requestMatchers(HttpMethod.PUT, "api/v1/payments/**").hasAnyRole("ROLE_" + RoleList.INSURER, "ROLE_" + RoleList.CLIENT )
+                                .requestMatchers(HttpMethod.DELETE, "api/v1/payments/**").hasRole("ROLE_" + RoleList.INSURER)
+
+                                .anyRequest().authenticated())
                 .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .cors(Customizer.withDefaults())
