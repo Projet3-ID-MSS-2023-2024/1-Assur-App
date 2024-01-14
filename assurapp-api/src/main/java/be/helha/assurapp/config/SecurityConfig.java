@@ -39,29 +39,30 @@ public class SecurityConfig {
     }
 
     @Bean
+    @Profile("!test")
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return httpSecurity
                 .cors(Customizer.withDefaults())
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize ->
+                    authorize
                         // insurance package
-                        authorize
-                                .requestMatchers(HttpMethod.GET, "/api/v1/insurances/**").permitAll()
-                                .requestMatchers(HttpMethod.POST, "/api/v1/insurances/**").hasRole("ROLE_" + RoleList.INSURER)
-                                .requestMatchers(HttpMethod.PUT, "/api/v1/insurances/**").hasRole("ROLE_" + RoleList.INSURER)
-                                .requestMatchers(HttpMethod.DELETE, "/api/v1/insurances/**").hasRole("ROLE_" + RoleList.INSURER)
+                        .requestMatchers(HttpMethod.GET, "/api/v1/insurances/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/v1/insurances/**").hasRole(RoleList.INSURER.toString())
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/insurances/**").hasRole(RoleList.INSURER.toString())
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/insurances/**").hasRole(RoleList.INSURER.toString())
 
-                                .requestMatchers(HttpMethod.GET, "api/v1/subscriptions/**").hasAnyRole("ROLE_" + RoleList.INSURER, "ROLE_" + RoleList.CLIENT )
-                                .requestMatchers(HttpMethod.POST, "api/v1/subscriptions/**").hasAnyRole("ROLE_" + RoleList.INSURER, "ROLE_" + RoleList.CLIENT )
-                                .requestMatchers(HttpMethod.PUT, "api/v1/subscriptions/**").hasAnyRole("ROLE_" + RoleList.INSURER, "ROLE_" + RoleList.CLIENT )
-                                .requestMatchers(HttpMethod.DELETE, "api/v1/subscriptions/**").hasRole("ROLE_" + RoleList.INSURER)
+                        .requestMatchers(HttpMethod.GET, "api/v1/subscriptions/**").hasAnyRole(RoleList.INSURER.toString(), RoleList.CLIENT.toString() )
+                        .requestMatchers(HttpMethod.POST, "api/v1/subscriptions/**").hasAnyRole(RoleList.INSURER.toString(), RoleList.CLIENT.toString() )
+                        .requestMatchers(HttpMethod.PUT, "api/v1/subscriptions/**").hasAnyRole(RoleList.INSURER.toString(), RoleList.CLIENT.toString() )
+                        .requestMatchers(HttpMethod.DELETE, "api/v1/subscriptions/**").hasRole(RoleList.INSURER.toString())
 
-                                .requestMatchers(HttpMethod.GET, "api/v1/payments/**").hasAnyRole("ROLE_" + RoleList.INSURER, "ROLE_" + RoleList.CLIENT )
-                                .requestMatchers(HttpMethod.POST, "api/v1/payments/**").hasAnyRole("ROLE_" + RoleList.INSURER, "ROLE_" + RoleList.CLIENT )
-                                .requestMatchers(HttpMethod.PUT, "api/v1/payments/**").hasAnyRole("ROLE_" + RoleList.INSURER, "ROLE_" + RoleList.CLIENT )
-                                .requestMatchers(HttpMethod.DELETE, "api/v1/payments/**").hasRole("ROLE_" + RoleList.INSURER)
+                        .requestMatchers(HttpMethod.GET, "api/v1/payments/**").hasAnyRole(RoleList.INSURER.toString(), RoleList.CLIENT.toString() )
+                        .requestMatchers(HttpMethod.POST, "api/v1/payments/**").hasAnyRole(RoleList.INSURER.toString(), RoleList.CLIENT.toString() )
+                        .requestMatchers(HttpMethod.PUT, "api/v1/payments/**").hasAnyRole(RoleList.INSURER.toString(), RoleList.CLIENT.toString() )
+                        .requestMatchers(HttpMethod.DELETE, "api/v1/payments/**").hasRole(RoleList.INSURER.toString())
 
-                                .anyRequest().authenticated())
+                        .anyRequest().authenticated())
                 .sessionManagement(httpSecuritySessionManagementConfigurer -> httpSecuritySessionManagementConfigurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .cors(Customizer.withDefaults())
