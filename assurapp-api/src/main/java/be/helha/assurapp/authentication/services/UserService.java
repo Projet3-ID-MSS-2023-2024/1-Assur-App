@@ -26,6 +26,12 @@ public class UserService implements UserDetailsService {
     private ActivationCodeService activationCodeService;
     private RandomStringGenerator randomStringGenerator;
     private PasswordCodeSender passwordCodeSender;
+
+    /**
+     * Register a user and attribute the associate role, if no user first user will be admin
+     * @param user
+     * @throws RuntimeException
+     */
     public void register(User user) throws RuntimeException{
 
         String cypherPassword = this.passwordEncoder.encode(user.getPassword());
@@ -43,6 +49,10 @@ public class UserService implements UserDetailsService {
         Role userRole = user.getRole();
         if(userRole.getLabel() != RoleList.ADMINISTRATOR){
             user.setRole(roleRepository.findByLabel(userRole.getLabel()));
+        }
+
+        if(userRepository.findAll().isEmpty()) {
+            user.setRole(roleRepository.findByLabel(RoleList.ADMINISTRATOR));
         }
 
         activationCodeService.sendCode(user);
