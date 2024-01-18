@@ -1,7 +1,9 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {Router, RouterLink} from "@angular/router";
 import {AuthenticationService} from "../../../services/authentication.service";
+import {PopupService} from "../../../services/popup.service";
+import {PopupType} from "../../../enums/popup-type";
 
 @Component({
   selector: 'app-forgot-password',
@@ -17,7 +19,7 @@ import {AuthenticationService} from "../../../services/authentication.service";
 export class ForgotPasswordComponent {
   mail:string = "";
   return:string = "";
-  constructor(private authService: AuthenticationService, private route: Router) {
+  constructor(private authService: AuthenticationService, private route: Router, private popService: PopupService) {
   }
   sendMail(){
     console.log(this.mail)
@@ -25,7 +27,7 @@ export class ForgotPasswordComponent {
       next: () =>{
         this.route.navigate(["./mail"])
       },
-      error: () => this.return = "This mail address may not exist please check your input, if that persist contact us at support@assurapp.com"
+      error: () => this.popService.show( "This mail address may not exist please check your input, if that persist contact us at support@assurapp.com",PopupType.ERROR)
       }
     )
   }
