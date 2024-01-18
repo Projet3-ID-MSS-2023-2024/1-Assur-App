@@ -23,6 +23,30 @@ public class ClaimServiceImpl implements IClaimService {
     }
 
     @Override
+    public List<Claim> findClaimByExpert(Long id) {
+        return claimRepository.findClaimByExpert(id);
+    }
+    @Override
+    public List<Claim> findClaimByClient(Long id) {
+        return claimRepository.findClaimByClient(id);
+    }
+
+    @Override
+    public List<Claim> findClaimByInsurer(Long id) {
+        return claimRepository.findClaimByInsurer(id);
+    }
+
+    @Override
+    public List<Claim> findPendingClaimByInsurer(Long id) {
+        return claimRepository.findPendingClaimByInsurer(id);
+    }
+
+    @Override
+    public List<Claim> findClaimByStatus(String status) {
+        return claimRepository.findClaimByStatus(status);
+    }
+
+    @Override
     public Claim findById(Long id) {
         return claimRepository.findById(id).orElse(null);
     }

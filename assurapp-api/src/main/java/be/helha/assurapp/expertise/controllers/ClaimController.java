@@ -26,6 +26,30 @@ public class ClaimController {
         return claimService.findAll();
     }
 
+    @GetMapping("/user/{id}")
+    public List<Claim> findByUserId(@PathVariable Long id) {
+        return claimService.findClaimByClient(id);
+    }
+    @GetMapping("/expert/{id}")
+    public List<Claim> findByExpertId(@PathVariable Long id) {
+        return claimService.findClaimByExpert(id);
+    }
+
+    @GetMapping("/insurer/{id}")
+    public List<Claim> findByInsurerId(@PathVariable Long id) {
+        return claimService.findClaimByInsurer(id);
+    }
+
+    @GetMapping("/insurer/{id}/pending")
+    public List<Claim> findPendingByInsurerId(@PathVariable Long id) {
+        return claimService.findPendingClaimByInsurer(id);
+    }
+
+    @GetMapping("/status/{status}")
+    public List<Claim> findByStatus(@PathVariable String status) {
+        return claimService.findClaimByStatus(status);
+    }
+
     @GetMapping("/{id}")
     public Claim findById(@PathVariable Long id) {
         return claimService.findById(id);
