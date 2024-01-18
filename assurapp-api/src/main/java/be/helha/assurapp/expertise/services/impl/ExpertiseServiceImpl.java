@@ -28,6 +28,15 @@ public class ExpertiseServiceImpl implements IExpertiseService {
     }
 
     @Override
+    public List<Expertise> findExpertiseByExpert(Long id) {
+        return expertiseRepository.findExpertiseByExpert(id);
+    }
+
+    @Override
+    public List<Expertise> findExpertiseByInsurer(Long id) {
+        return expertiseRepository.findExpertiseByInsurer(id);
+    }
+    @Override
     public Expertise save(Expertise expertise) {
         return expertiseRepository.save(expertise);
     }

@@ -2,6 +2,8 @@ package be.helha.assurapp.expertise.models;
 
 import be.helha.assurapp.authentication.models.User;
 import be.helha.assurapp.expertise.enums.ClaimStatus;
+import be.helha.assurapp.insurance.models.Insurance;
+import be.helha.assurapp.insurance.models.Subscription;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -32,11 +34,10 @@ public class Claim {
     @Enumerated(EnumType.STRING)
     private ClaimStatus status;
 
-    private Long expertise;
+    @ManyToOne
+    private User client;
 
-    // client
-    private Long client;
-    // insurer
-    private Long insurer;
+    @ManyToOne
+    private User expert;
 
 }

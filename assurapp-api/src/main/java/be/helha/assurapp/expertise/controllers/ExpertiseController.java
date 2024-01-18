@@ -33,28 +33,33 @@ public class ExpertiseController {
         return expertiseService.findAll();
     }
 
+
+
+    @GetMapping("/expert/{id}")
+    public List<Expertise> findExpertiseByExpert(@PathVariable Long id) {
+        return expertiseService.findExpertiseByExpert(id);
+    }
+
+    @GetMapping("/insurer/{id}")
+    public List<Expertise>findExpertiseByInsurer(@PathVariable Long id){
+    	return expertiseService.findExpertiseByInsurer(id);
+    }
+
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public Long save(@RequestPart Expertise expertise, @RequestPart MultipartFile image) {
+    public Expertise save(@RequestPart Expertise expertise, @RequestPart MultipartFile image) {
         long timestamp = System.currentTimeMillis();
-        String imageFile = "claim_image_" + timestamp + ".png";
-
-        //Claim claim = new Claim(0L, "ezfz", new Date(), "PENDING", imageFile, null);
-
+        String imageFile = "expertise_" + timestamp + ".png";
 
         try {
-            image.transferTo(new File(FileSystems.getDefault().getPath("..").toAbsolutePath() + "/assurapp-web/src/assets/claim-images/" + imageFile));
+            image.transferTo(new File(FileSystems.getDefault().getPath("..").toAbsolutePath() + "/assurapp-web/src/assets/expertises/" + imageFile));
         } catch (IOException e){
             e.printStackTrace();
         }
 
-        imageFile = "assets/claim-images/" + imageFile;
+        imageFile = "assets/expertises/" + imageFile;
 
         expertise.setImageFile(imageFile);
-        expertiseService.save(expertise);
-        Claim claim = claimService.findById(expertise.getClaim().getId());
-        claim.setExpertise(expertise.getId());
-        claimService.update(claim);
-        return claim.getExpertise();
+        return expertiseService.save(expertise);
     }
 
     @PutMapping

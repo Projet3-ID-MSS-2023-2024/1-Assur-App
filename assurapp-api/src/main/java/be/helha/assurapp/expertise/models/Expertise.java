@@ -1,5 +1,6 @@
 package be.helha.assurapp.expertise.models;
 
+import be.helha.assurapp.authentication.models.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -32,5 +33,6 @@ public class Expertise {
     private Claim claim;
 
     //add expert
-
+    @ManyToOne
+    private User expert;
 }

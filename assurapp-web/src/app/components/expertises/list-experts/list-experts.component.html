@@ -1,0 +1,102 @@
+<div class="fixed top-0 bottom-0 start-0 end-0 h-full w-full mx-auto bg-[#000000CC]">
+  <div class="max-w-2xl mx-auto mt-48">
+    <div class="mt-7 bg-white border border-gray-200 rounded-xl shadow-sm dark:bg-slate-900 dark:border-gray-700">
+      <div class="flex flex-col bg-white border shadow-sm rounded-xl pointer-events-auto dark:bg-gray-800 dark:border-gray-700 dark:shadow-slate-700/[.7]">
+        <div class="flex justify-between items-center py-3 px-4 border-b dark:border-gray-700">
+          <h3 class="font-bold text-gray-800 dark:text-white">
+            Modal title
+          </h3>
+          <button (click)="close()" type="button" class="flex justify-center items-center w-7 h-7 text-sm font-semibold rounded-full border border-transparent text-gray-800 hover:bg-gray-100 disabled:opacity-50 disabled:pointer-events-none dark:text-white dark:hover:bg-gray-700 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" data-hs-overlay="#hs-medium-modal">
+            <span class="sr-only">Close</span>
+            <svg class="flex-shrink-0 w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+          </button>
+        </div>
+
+        <!-- Table Section -->
+        <div class="max-w-[85rem] px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+          <!-- Card -->
+          <div class="flex flex-col">
+            <div class="-m-1.5 overflow-x-auto">
+              <div class="p-1.5 min-w-full inline-block align-middle">
+                <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden dark:bg-slate-900 dark:border-gray-700">
+                  <!-- Table -->
+                  <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+                    <thead class="bg-gray-50 dark:bg-slate-800">
+                    <tr>
+                      <th scope="col" class="ps-6 py-3 text-start">
+                      </th>
+
+                      <th scope="col" class="ps-6 lg:ps-3 xl:ps-0 pe-6 py-3 text-start">
+                        <div class="flex items-center gap-x-2">
+                    <span class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                      ID
+                    </span>
+                        </div>
+                      </th>
+
+                      <th scope="col" class="px-6 py-3 text-start">
+                        <div class="flex items-center gap-x-2">
+                    <span class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                      Role
+                    </span>
+                        </div>
+                      </th>
+
+                      <th scope="col" class="px-6 py-3 text-start">
+                        <div class="flex items-center gap-x-2">
+                    <span class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+                      Email
+                    </span>
+                        </div>
+                      </th>
+                      <th scope="col" class="px-6 py-3 text-end"></th>
+                    </tr>
+                    </thead>
+
+                    <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+                    <tr *ngFor="let user of users; index as i;">
+
+                      <td class="h-px w-px whitespace-nowrap">
+
+                      </td>
+                      <td class="h-px w-px whitespace-nowrap">
+                        <div class="ps-6 lg:ps-3 xl:ps-0 pe-6 py-3">
+                          <div class="flex items-center gap-x-3">
+                            <div class="grow">
+                              <span class="block text-sm font-semibold text-gray-800 dark:text-gray-200">{{ user.id }}</span>
+                            </div>
+                          </div>
+                        </div>
+                      </td>
+                      <td class="h-px w-72 whitespace-nowrap">
+                        <div class="px-6 py-3">
+                          <span class="block text-sm font-semibold text-gray-800 dark:text-gray-200">{{ user.name }}</span>
+                        </div>
+                      </td>
+                      <td class="h-px w-px whitespace-nowrap">
+                        <div class="px-6 py-3">
+                          <div class="flex items-center gap-x-3">
+                            <span class="block text-sm font-semibold text-gray-800 dark:text-gray-200">{{ user.email }}</span>
+                          </div>
+                        </div>
+                      </td>
+                      <td>
+                        <div class="px-6 py-1.5">
+                          <button (click)="asignExpertToAClaim(user.id)" type="button" class="me-2 py-2 px-2 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+                            Choose
+                          </button>
+                        </div>
+                      </td>
+                    </tr>
+                    </tbody>
+                  </table>
+                  <!-- End Table -->
+              </div>
+                <div class="flex justify-end items-center gap-x-2 py-3 px-4 border-t dark:border-gray-700">
+                  <button (click)="close()" type="button" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600" data-hs-overlay="#hs-medium-modal">
+                    Close
+                  </button>
+                </div>
+    </div>
+  </div>
+</div>

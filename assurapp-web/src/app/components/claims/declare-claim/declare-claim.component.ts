@@ -12,6 +12,10 @@ import { MessagesModule} from 'primeng/messages';
 import {AuthenticationService} from "../../../services/authentication.service";
 import {InsuranceService} from "../../../services/insurance.service";
 import {SubscriptionService} from "../../../services/subscription.service";
+import {Subscription} from "../../../interfaces/subscription";
+import {PopupType} from "../../../enums/popup-type";
+import {PopupService} from "../../../services/popup.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-declare-claim',
@@ -24,10 +28,11 @@ import {SubscriptionService} from "../../../services/subscription.service";
 export class DeclareClaimComponent implements OnInit{
   claim!: Claim;
   insurer!: number;
-  constructor(private claimService: ClaimService, private messageService: MessageService, private authService: AuthenticationService, private subscriptionService: SubscriptionService) { }
+  subscriptions!: Subscription[];
+  subscriptionId!: number;
+  loading = false;
+  constructor(private popupService: PopupService,private claimService: ClaimService,private authService: AuthenticationService, private subscriptionService: SubscriptionService, private router: Router) { }
   userConnected = this.authService.getUserId();
-
-
 
   ngOnInit(): void {
     this.claim = {
@@ -37,18 +42,43 @@ export class DeclareClaimComponent implements OnInit{
       status: ClaimStatus.PENDING,
       client: this.userConnected,
     };
-  }
-
-  SendDeclaredClaim(){
-    this.claimService.createClaim(this.claim).subscribe({
-      next: (claim) => {
-        this.messageService.add({severity:'success', summary:'Claim declared', detail:'Your claim has been declared'});
+    this.subscriptionService.getSubscriptionByClient(this.userConnected).subscribe({
+      next: (subscription) => {
+        this.subscriptions = subscription;
       },
       error: (err) => {
         console.log(err);
-        this.messageService.add({severity:'error', summary:'Error', detail:'Your claim has not been declared'});
       },
     });
   }
+
+  SendDeclaredClaim(){
+    this.loading = true;
+    let newSubscription = this.subscriptions.find((subscription) => subscription.id == this.subscriptionId);
+    if (newSubscription != null) {
+      this.claim.client = newSubscription.client;
+    this.claim.date = new Date(this.claim.date);
+    this.claimService.createClaim(this.claim).subscribe({
+      next: (claim) => {
+        this.claim = claim;
+          // @ts-ignore
+        newSubscription.claims.push(this.claim);
+          // @ts-ignore
+        this.subscriptionService.updateSubscription(newSubscription).subscribe({
+            next: () => {
+          this.popupService.show("Claim added", PopupType.INFO);
+              setTimeout(() => {
+                this.loading = false;
+
+                this.router.navigate(['/dashboard/expertises']);
+              }, 2000);
+        },
+            error: () => this.popupService.show("Can't access to API", PopupType.ERROR)
+          });
+      },
+      error: () => this.popupService.show("Can't access to API", PopupType.ERROR)
+    });
+    }
+    }
 
 }
