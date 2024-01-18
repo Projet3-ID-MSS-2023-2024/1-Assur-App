@@ -2,11 +2,17 @@ name: AssurApp Dev
 environment: development
 server:
   port: 8000
+  tomcat:
+    max-http-form-post-size: 100MB
 spring:
   mail:
     port: 9025
     host: localhost
-
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+  
   datasource:
     url: jdbc:postgresql://localhost:5432/assurapp
     username: assurapp
