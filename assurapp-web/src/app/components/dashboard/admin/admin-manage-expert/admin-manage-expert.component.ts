@@ -6,6 +6,8 @@ import { RouterLink } from "@angular/router";
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { DropdownModule } from 'primeng/dropdown';
+import { PopupService } from '../../../../services/popup.service';
+import { PopupType } from '../../../../enums/popup-type';
 
 
 @Component({
@@ -22,7 +24,7 @@ export class AdminManageExpertComponent implements OnInit {
   current = 1;
   max  = 10;
 
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private popupService: PopupService) { }
 
   ngOnInit() {
     this.fetch();
@@ -43,7 +45,7 @@ export class AdminManageExpertComponent implements OnInit {
           this.getData();
         },
         error: (err: any) => {
-          console.log(err);
+          this.popupService.show("Can't access to API", PopupType.ERROR)
         }
       }
     )
@@ -54,12 +56,13 @@ export class AdminManageExpertComponent implements OnInit {
     if (!confirm("Are you sure to delete this user")) return;
     this.userService.deleteUser(id).subscribe(
       () => {
+        this.popupService.show("The user was successfully deleted", PopupType.SUCCESS)
         setTimeout(() => {
           window.location.reload();
-        }, 10);
+        }, 2000);
       },
       (error) => {
-        console.error('Erreur lors de la suppression de l\'utilisateur : ', error);
+        this.popupService.show("Unable to delete user, he still has claims", PopupType.ERROR)
       }
     );
   }

@@ -5,6 +5,8 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angul
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { Validators } from '@angular/forms';
+import { PopupService } from '../../../../services/popup.service';
+import { PopupType } from '../../../../enums/popup-type';
 
 
 @Component({
@@ -20,11 +22,13 @@ export class AdminUpdateComponent implements OnInit  {
   id!: number;
   added: boolean = false;
   error: boolean = false;
+  selectedRole!: string;
 
-  constructor(private userService: UserService,private router: Router,private route: ActivatedRoute, private formBuilder: FormBuilder) { }
+  constructor(private userService: UserService,private router: Router,private route: ActivatedRoute, private formBuilder: FormBuilder, private popupService: PopupService) { }
 
 
   ngOnInit(): void {
+
 
     this.id = this.route.snapshot.params['id'];
  
@@ -37,7 +41,8 @@ export class AdminUpdateComponent implements OnInit  {
       password: ['', Validators.required],
       confirmpassword: ['', Validators.required]
     });
-
+    
+    this.checkRole(this.selectedRole);
     this.fetch();
 
   }
@@ -49,6 +54,16 @@ export class AdminUpdateComponent implements OnInit  {
     })
   }
 
+  checkRole(role: string) {
+    const currentUrl = this.router.url;
+
+    if (currentUrl.includes('/insurers')) {
+      this.selectedRole = 'INSURER';
+    } else if (currentUrl.includes('/experts')) {
+      this.selectedRole = 'EXPERT';
+    }
+    
+  }
 
   init(data: any) {
     this.id = data.id;
@@ -68,6 +83,7 @@ export class AdminUpdateComponent implements OnInit  {
     this.userService.updateUser(this.adminUserUpdate.value).subscribe({
       next: data => {
         this.added = true;
+        this.popupService.show("The user has been successfully updated", PopupType.SUCCESS)
         setTimeout(() => {
           const currentUrl = this.router.url;
 
@@ -76,10 +92,10 @@ export class AdminUpdateComponent implements OnInit  {
           } else {
             this.router.navigate(['/dashboard/administration/insurers']);
           }
-        },1000);
+        },100);
       },
       error: err => {
-        this.error = true
+        this.popupService.show("User has not been updated", PopupType.ERROR)
       }
     })
   }
