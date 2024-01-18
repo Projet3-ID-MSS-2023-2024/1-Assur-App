@@ -18,7 +18,7 @@ public interface ClaimRepository extends JpaRepository<Claim, Long>{
     List<Claim> findClaimByClient(@Param("id") Long id);
 
     // find claims by insurer id
-    @Query("SELECT c FROM Claim c WHERE c.client.id IN (SELECT s.client.id FROM Subscription s WHERE s.insurance.id IN (SELECT i.id FROM Insurance i WHERE i.insurer.id = :id))")
+    @Query("SELECT c FROM Claim c WHERE c.client.id IN (SELECT s.client.id FROM Subscription s WHERE s.insurance.id IN (SELECT i.id FROM Insurance i WHERE i.insurer.id = :id))ORDER BY c.id ASC")
     List<Claim> findClaimByInsurer(@Param("id") Long id);
 
 

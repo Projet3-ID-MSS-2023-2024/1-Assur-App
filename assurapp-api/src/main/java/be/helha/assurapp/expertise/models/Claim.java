@@ -37,4 +37,7 @@ public class Claim {
     @ManyToOne
     private User client;
 
+    @ManyToOne
+    private User expert;
+
 }

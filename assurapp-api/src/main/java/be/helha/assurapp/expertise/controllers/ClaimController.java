@@ -62,7 +62,7 @@ public class ClaimController {
 
 
     @PutMapping
-    public Claim update(Claim claim) {
+    public Claim update(@RequestBody Claim claim) {
         return claimService.update(claim);
     }
 
