@@ -33,9 +33,16 @@ public class ExpertiseController {
         return expertiseService.findAll();
     }
 
+
+
     @GetMapping("/expert/{id}")
     public List<Expertise> findExpertiseByExpert(@PathVariable Long id) {
         return expertiseService.findExpertiseByExpert(id);
+    }
+
+    @GetMapping("/insurer/{id}")
+    public List<Expertise>findExpertiseByInsurer(@PathVariable Long id){
+    	return expertiseService.findExpertiseByInsurer(id);
     }
 
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
