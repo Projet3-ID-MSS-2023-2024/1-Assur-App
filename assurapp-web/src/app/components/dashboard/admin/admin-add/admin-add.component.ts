@@ -4,6 +4,8 @@ import { UserService} from "../../../../services/user.service";
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
+import { PopupService } from '../../../../services/popup.service';
+import { PopupType } from '../../../../enums/popup-type';
 @Component({
   selector: 'app-admin-add',
   standalone: true,
@@ -18,7 +20,7 @@ export class AdminAddComponent implements OnInit{
   added: boolean = false;
   error: boolean = false;
 
-  constructor(private userService: UserService,private router: Router,private route: ActivatedRoute, private formBuilder: FormBuilder) { }
+  constructor(private userService: UserService,private router: Router,private route: ActivatedRoute, private formBuilder: FormBuilder, private popupService: PopupService) { }
 
 
   ngOnInit(): void {
@@ -30,7 +32,6 @@ export class AdminAddComponent implements OnInit{
       password: ['', Validators.required],
       confirmpassword: ['', Validators.required]
     });
-
   }
 
 
@@ -38,11 +39,10 @@ export class AdminAddComponent implements OnInit{
       const subscription = this.userService.createUser(this.user).subscribe(
         {
           next: (data: any) => {
-            console.log(data);
             subscription.unsubscribe();
           },
           error: (err: any) => {
-            console.log(err);
+            this.popupService.show("Can't access to API", PopupType.ERROR)
           }
         }
       )
@@ -54,6 +54,7 @@ export class AdminAddComponent implements OnInit{
         this.userService.createUser(this.adminAddUser.value).subscribe({
           next: data => {
             this.added = true;
+            this.popupService.show("The user has been successfully added", PopupType.SUCCESS)
             setTimeout(() => {
               const currentUrl = this.router.url;
   
@@ -65,14 +66,14 @@ export class AdminAddComponent implements OnInit{
             }, 1000);
           },
           error: err => {
-            this.error = true;
+            this.popupService.show("Please complete all fields correctly", PopupType.ERROR)
           }
         });
       } else {
-        this.error = true;
+        this.popupService.show("Password do not match", PopupType.ERROR)
       }
     } else {
-      this.error = true;
+      this.popupService.show("Please complete all fields", PopupType.ERROR)
     }
   }
 

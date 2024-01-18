@@ -112,7 +112,7 @@
           <label for="Role" class="block text-sm font-medium text-gray-500 mt-2.5">
             Role
           </label>
-          <select id="role" name="role" formControlName="role" class="mt-1 p-3 w-full border rounded-md bg-gray-100 text-gray-800 focus:outline-none focus:ring focus:border-blue-500">
+          <select ngModelOption  [(ngModel)]="selectedRole" id="role" name="role" formControlName="role" class="mt-1 p-3 w-full border rounded-md bg-gray-100 text-gray-800 focus:outline-none focus:ring focus:border-blue-500">
             <option id="insurer" name="INSURER" value="INSURER" >INSURER</option>
             <option id="expert" name="EXPERT" value="EXPERT">EXPERT</option>
           </select>
@@ -124,6 +124,3 @@
       </form>
     </div>
   </div>
-  
-
-
