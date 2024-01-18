@@ -14,6 +14,9 @@ export class AuthenticationService {
   constructor(private http: HttpClient) {}
 
   register(user: User): Observable<User> {
+
+    const header = this.getHeaders()
+
     return this.http.post<User>(`${environment.api}/register`, user);
   }
 
@@ -44,12 +47,14 @@ export class AuthenticationService {
 
   changePassword(username: string, newPassword: string, oldPassword: string): Observable<any>{
     const data = {username, newPassword, oldPassword}
-    return this.http.post(`${environment.api}/changePassword`, data)
+    const headers = this.getHeaders()
+    return this.http.post(`${environment.api}/changePassword`, data, {headers})
   }
 
   deleteAccount(username: string){
     const data = {username}
-    return this.http.put(`${environment.api}/anonymize`, data)
+    const headers = this.getHeaders()
+    return this.http.put(`${environment.api}/anonymize`, data, {headers})
   }
 
 

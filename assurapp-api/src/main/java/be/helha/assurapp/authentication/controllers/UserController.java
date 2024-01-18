@@ -36,6 +36,7 @@ public class UserController {
     private UserService userService;
     private JwtService jwtService;
     private ActivationCodeService activationCodeService;
+    private UserRepository userRepository;
 
     @PostMapping("register")
     public void register(@RequestBody User user){
@@ -91,15 +92,17 @@ public class UserController {
             throw new RuntimeException(); //To be replaced
         }
         if(userService.loadUserByUsername(userData.get("username")).getActivationCode() == Integer.parseInt(userData.get("code"))){
-            userService.loadUserByUsername(userData.get("username")).setVerified(true);
-            userService.addUser(userService.loadUserByUsername(userData.get("username")));//To be replaced by CRUD fct
+            User user = userService.loadUserByUsername(userData.get("username"));
+            user.setVerified(true);
+            userRepository.save(user);
         }
     }
 
     @PostMapping("changeActivationCode")
     public void changeActivationCode(@RequestBody Map<String, String> userData){
-        activationCodeService.sendCode(userService.loadUserByUsername(userData.get("username")));
-        userService.addUser(userService.loadUserByUsername(userData.get("username")));
+        User user = userService.loadUserByUsername(userData.get("username"));
+        activationCodeService.sendCode(user);
+        userRepository.save(user);
     }
 
     @PostMapping("generatepwdCode")
@@ -126,5 +129,10 @@ public class UserController {
     @PutMapping("anonymize")
     public void anonymize(@RequestBody Map<String, String> data) throws RuntimeException{
         userService.anonymizeClient(userService.loadUserByUsername(data.get("username")));
+    }
+
+    @GetMapping("auth")
+    public Authentication getAuth(){
+        return userService.getAuthentication();
     }
 }

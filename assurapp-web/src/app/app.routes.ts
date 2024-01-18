@@ -46,6 +46,7 @@ export const routes: Routes = [
   { path: 'conditions', component: TermsAndConditionsComponent},
   { path: 'privacy', component: PrivacyPolicyComponent},
   { path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard], data: {roles: [Roles.ADMINISTRATOR, Roles.EXPERT, Roles.INSURER, Roles.CLIENT]}, children: [
+      { path: "", component: ProfileComponent},
       { path: "profile", component: ProfileComponent},
       { path: "profile/changePassword", component: ChangePasswordComponent},
       { path: "profile/delete", component: ConfirmDeleteComponent},
@@ -69,6 +70,6 @@ export const routes: Routes = [
       { path: "administration/insurers/update/:id", component: AdminUpdateComponent},
       { path: "administration/experts", component: AdminManageExpertComponent},
       { path: "administration/experts/add", component: AdminAddComponent},
-      { path: "administration/experts/update/:id", component: AdminUpdateComponent},
+      { path: "administration/experts/update/:id", component: AdminUpdateComponent}
     ]},
 ];

@@ -67,7 +67,8 @@ public class UserService implements UserDetailsService {
     }
 
     public Boolean changePassword(User user, String newPassword, String oldPassword) throws Exception{
-        if(this.passwordEncoder.matches(oldPassword, user.getPassword())){
+        String authEmail = getAuthentication().getName();
+        if(this.passwordEncoder.matches(oldPassword, user.getPassword()) && user.getEmail().equals(authEmail)){
             user.setPassword(this.passwordEncoder.encode(newPassword));
             userRepository.save(user);
             return true;
@@ -86,8 +87,8 @@ public class UserService implements UserDetailsService {
     }
 
     public Boolean anonymizeClient(User user) throws RuntimeException{
-
-        if(userRepository.findInsuranceByUser(user.getId()).isEmpty() && user.getRole().getLabel() == RoleList.CLIENT){
+        String authEmail = getAuthentication().getName();
+        if(userRepository.findInsuranceByUser(user.getId()).isEmpty() && user.getRole().getLabel() == RoleList.CLIENT && user.getEmail().equals(authEmail)){
             user.setName("XXXXXX");
             user.setLastname("XXXXXX");
             user.setAddress("XXXXX%XXXXXX%XXXXXX");

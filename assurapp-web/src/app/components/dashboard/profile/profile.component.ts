@@ -91,7 +91,7 @@ export class ProfileComponent implements OnInit{
   }
 
   gotoChangePassword(){
-    this.route.navigate(['dashboard/profile/password'])
+    this.route.navigate(['dashboard/profile/changePassword'])
   }
 
   gotoDeleteConfirm(){

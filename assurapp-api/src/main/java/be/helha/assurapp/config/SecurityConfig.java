@@ -47,7 +47,17 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize ->
                     authorize
+                        // auth package
                         .requestMatchers(HttpMethod.POST, "/api/v1/register/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/v1/login/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/v1/verifyAccount/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/v1/changeActivationCode/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/v1/generatepwdCode/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/v1/changePasswordByCode/**").permitAll()
+                        // user package
+                        .requestMatchers(HttpMethod.POST, "/api/v1/users/**").hasRole(RoleList.ADMINISTRATOR.toString())
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/users/**").hasRole(RoleList.ADMINISTRATOR.toString())
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/users/**").hasRole(RoleList.ADMINISTRATOR.toString())
                         // insurance package
                         .requestMatchers(HttpMethod.GET, "/api/v1/insurances/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/insurances/**").hasRole(RoleList.INSURER.toString())
