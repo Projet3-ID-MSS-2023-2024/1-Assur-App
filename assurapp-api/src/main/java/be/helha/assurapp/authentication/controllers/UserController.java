@@ -87,7 +87,7 @@ public class UserController {
     }
 
     @PostMapping("verifyAccount")
-    public void verify(@RequestBody Map<String, String> userData){
+    public void verify(@RequestBody Map<String, String> userData) throws Exception{
         if (userData.get("code").isEmpty() || userData.get("username").isEmpty()){
             throw new RuntimeException(); //To be replaced
         }
@@ -95,6 +95,8 @@ public class UserController {
             User user = userService.loadUserByUsername(userData.get("username"));
             user.setVerified(true);
             userRepository.save(user);
+        } else {
+            throw new Exception();
         }
     }
 

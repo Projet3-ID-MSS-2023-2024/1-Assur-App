@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Route, Router} from "@angular/router";
 import {AuthenticationService} from "../../../services/authentication.service";
 import {AbstractControl, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
+import {PopupService} from "../../../services/popup.service";
+import {PopupType} from "../../../enums/popup-type";
 
 @Component({
   selector: 'app-forgot-password-form-step',
@@ -20,7 +22,7 @@ export class ForgotPasswordFormStepComponent implements OnInit{
   datas? : string[];
   error: string="";
 
-  constructor(private aRoute: ActivatedRoute, private route: Router, private authService : AuthenticationService) {
+  constructor(private aRoute: ActivatedRoute, private route: Router, private authService : AuthenticationService, private popService: PopupService) {
     this.form = new FormGroup({
         password: new FormControl('', [Validators.required]),
         confirmPassword: new FormControl('', [Validators.required])
@@ -50,7 +52,7 @@ export class ForgotPasswordFormStepComponent implements OnInit{
         this.route.navigate(["./login"])
       },
       error:()=>{
-        this.error = "Incorrect data please verify the link you pasted"
+        this.popService.show( "This mail address may not exist please check your input, if that persist contact us at support@assurapp.com", PopupType.ERROR)
       }
     })
   }
