@@ -18,7 +18,7 @@
             </div>
 
             <div>
-              <div class="inline-flex gap-x-2">
+              <div class="inline-flex gap-x-2" *ngIf="showButtonToAddClaim">
                 <a routerLink="/dashboard/claims/add" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
                   <svg class="flex-shrink-0 w-3 h-3" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                     <path d="M2.63452 7.50001L13.6345 7.5M8.13452 13V2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -107,7 +107,7 @@
                 </div>
               </td>
               <td class="h-px w-px whitespace-nowrap">
-                <div class="px-6 py-1.5" *ngIf="showButtonToAddExpertise">
+                <div class="px-6 py-1.5" *ngIf="ifAlreadyExpertise(claim.status) && showButtonToAddExpertise">
                   <button routerLink="/dashboard/expertises/add/{{claim.id}}" type="button" class="me-2 py-2 px-2 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
                     <svg class="flex-shrink-0 w-3 h-3" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                       <path d="M2.63452 7.50001L13.6345 7.5M8.13452 13V2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -115,7 +115,7 @@
                     Add Expertise
                   </button>
                 </div>
-                <div class="px-6 py-1.5" *ngIf="ifAlreadyAsign(claim.status)">
+                <div class="px-6 py-1.5" *ngIf="ifAlreadyAsign(claim.status) && showButtonToAssignExpert">
                   <button (click)="showModal(claim.id)" type="button" class="me-2 py-2 px-2 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
                     <svg class="flex-shrink-0 w-3 h-3" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none">
                       <path d="M2.63452 7.50001L13.6345 7.5M8.13452 13V2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>

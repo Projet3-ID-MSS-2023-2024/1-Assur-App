@@ -47,7 +47,7 @@ ngOnInit() {
     // @ts-ignore
     this.expertSelected = this.users.find(user => user.id === id);
     this.claimSelected.expert = this.expertSelected;
-    this.claimSelected.status = ClaimStatus.PROGRESS;
+    this.claimSelected.status = ClaimStatus.ASSIGNED;
     this.claimService.updateClaim(this.claimSelected).subscribe({
       next: (claim) => {
         this.popupService.show('Expertise assigned to the claim', PopupType.SUCCESS);

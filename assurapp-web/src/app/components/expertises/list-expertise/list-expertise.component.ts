@@ -1,39 +1,45 @@
 import {Component, OnInit} from '@angular/core';
-import {NgForOf} from "@angular/common";
+import {NgForOf, NgIf} from "@angular/common";
 import {Router, RouterLink} from "@angular/router";
 import {Expertise} from "../../../interfaces/expertise";
 import {ExpertiseService} from "../../../services/expertise.service";
-import {Claim} from "../../../interfaces/claim";
 import {ClaimStatus} from "../../../enums/claim-status.enum";
 import {AuthenticationService} from "../../../services/authentication.service";
+import {ClaimService} from "../../../services/claim.service";
+import { Claim } from '../../../interfaces/claim';
 
 @Component({
   selector: 'app-list-expertise',
   standalone: true,
-    imports: [
-        NgForOf,
-        RouterLink
-    ],
+  imports: [
+    NgForOf,
+    RouterLink,
+    NgIf
+  ],
   templateUrl: './list-expertise.component.html',
   styleUrl: './list-expertise.component.css'
 })
-export class ListExpertiseComponent implements OnInit{
+export class ListExpertiseComponent implements OnInit {
   expertises: Expertise[] = [];
   expertiseLenght!: number;
   currentPage: number = 1;
   itemsPerPage: number = 10;
+  claimId!: number;
 
-  constructor(private expertiseService: ExpertiseService, private router: Router, private AuthService: AuthenticationService) { }
+  constructor(private expertiseService: ExpertiseService, private router: Router, private AuthService: AuthenticationService, private claimService: ClaimService) {
+  }
 
   userRole = this.AuthService.getUserRole()
   userId = this.AuthService.getUserId()
+  showButtonApprovedAndRefused = false;
 
   ngOnInit() {
     if (this.userRole == "CLIENT") {
       this.expertiseService.getExpertises().subscribe({
         next: (expertises) => {
           this.expertises = expertises;
-          this.expertiseLenght = expertises.length??0;
+          this.expertiseLenght = expertises.length ?? 0;
+          this.showButtonApprovedAndRefused = false;
         },
         error: (err) => {
           console.log(err);
@@ -43,7 +49,8 @@ export class ListExpertiseComponent implements OnInit{
       this.expertiseService.getExpertiseByExpert(this.AuthService.getUserId()).subscribe({
         next: (expertises) => {
           this.expertises = expertises;
-          this.expertiseLenght = expertises.length??0;
+          this.expertiseLenght = expertises.length ?? 0;
+          this.showButtonApprovedAndRefused = false;
         },
         error: (err) => {
           console.log(err);
@@ -53,7 +60,8 @@ export class ListExpertiseComponent implements OnInit{
       this.expertiseService.getExpertiseByInsurer(this.userId).subscribe({
         next: (expertises) => {
           this.expertises = expertises;
-          this.expertiseLenght = expertises.length??0;
+          this.expertiseLenght = expertises.length ?? 0;
+          this.showButtonApprovedAndRefused = true;
         },
         error: (err) => {
           console.log(err);
@@ -62,6 +70,35 @@ export class ListExpertiseComponent implements OnInit{
     }
 
   }
+
+
+  IsNeededApprovisation(status: ClaimStatus) {
+    return status == ClaimStatus.PROGRESS;
+  }
+
+  Approve(claim: Claim){
+    claim.status = ClaimStatus.APPROVED;
+    this.claimService.updateClaim(claim).subscribe({
+      next: (claim) => {
+        this.ngOnInit();
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+    }
+
+  Refuse(claim: Claim){
+    claim.status = ClaimStatus.REFUSED;
+    this.claimService.updateClaim(claim).subscribe({
+      next: (claim) => {
+        this.ngOnInit();
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+    }
 
   calculateItemsToShow(): Expertise[] {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
@@ -83,6 +120,8 @@ export class ListExpertiseComponent implements OnInit{
         return "inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-800/30 dark:text-red-500";
       case ClaimStatus.PENDING:
         return "inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-800/30 dark:text-yellow-500";
+      case ClaimStatus.ASSIGNED:
+        return "inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-teal-100 text-teal-800 dark:bg-blue-800/30 dark:text-blue-500";
       case ClaimStatus.PROGRESS:
         return "inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-teal-100 text-teal-800 dark:bg-teal-800/30 dark:text-teal-500";
       case ClaimStatus.CLOSED:

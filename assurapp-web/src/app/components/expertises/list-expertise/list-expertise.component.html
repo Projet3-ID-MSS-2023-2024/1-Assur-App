@@ -111,6 +111,26 @@
                   </div>
                 </div>
               </td>
+              <td class="h-px w-px whitespace-nowrap">
+                <div class="inline-flex" *ngIf="IsNeededApprovisation(expertise.claim.status) && showButtonApprovedAndRefused">
+                  <div class="px-6 py-1.5">
+                    <button (click)="Approve(expertise.claim)" type="button" class="me-2 py-2 px-2 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-green-600 text-white hover:bg-green-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="m4.5 12.75 6 6 9-13.5" />
+                      </svg>
+                      Approve
+                    </button>
+                  </div>
+                  <div class="px-6 py-1.5" >
+                    <button (click)="Refuse(expertise.claim)" type="button" class="me-2 py-2 px-2 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-red-600 text-white hover:bg-red-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+                      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
+                      </svg>
+                      Refuse
+                    </button>
+                  </div>
+                </div>
+              </td>
             </tr>
             </tbody>
           </table>
