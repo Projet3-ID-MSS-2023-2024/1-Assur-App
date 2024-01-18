@@ -222,14 +222,22 @@ public class DataInitializer {
             subscriptions.add(new Subscription(2L, Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now().plusMonths(6)), true, users.get(1), insurances.get(1), Collections.emptyList(), Collections.emptyList()));
             subscriptions.add(new Subscription(3L, Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now().plusMonths(12)), false, users.get(1), insurances.get(2), Collections.emptyList(), Collections.emptyList()));
 
-            claims.add(new Claim(1L, "Crash clio 4",  Date.valueOf(LocalDate.now()), ClaimStatus.PROGRESS, users.get(1), users.get(2)));
-            claims.add(new Claim(2L, "Crash Citroen C3",  Date.valueOf(LocalDate.now().plusDays(12)), ClaimStatus.PENDING, users.get(1), null));
-            claims.add(new Claim(3L, "Crash Peugeut 206",  Date.valueOf(LocalDate.now().plusDays(16)), ClaimStatus.APPROVED, users.get(1), users.get(2)));
+            claims.add(new Claim(1L, "Crash clio 4",  Date.valueOf(LocalDate.now()), ClaimStatus.APPROVED, users.get(1), users.get(2)));
+            claims.add(new Claim(2L, "Crash Citroen C3",  Date.valueOf(LocalDate.now().plusDays(12)), ClaimStatus.REFUSED, users.get(1), users.get(2)));
+            claims.add(new Claim(3L, "Crash Peugeut 206",  Date.valueOf(LocalDate.now().plusDays(16)), ClaimStatus.PENDING, users.get(1), null));
+            claims.add(new Claim(4L, "Crash Renault",  Date.valueOf(LocalDate.now().plusDays(18)), ClaimStatus.ASSIGNED, users.get(1), users.get(2)));
+            claims.add(new Claim(5L, "Crash Mercedes",  Date.valueOf(LocalDate.now().plusDays(20)), ClaimStatus.PROGRESS, users.get(1), users.get(2)));
+            claims.add(new Claim(6L, "Crash Audi",  Date.valueOf(LocalDate.now().plusDays(22)), ClaimStatus.CLOSED, users.get(1), users.get(2)));
+            claims.add(new Claim(7L, "Crash Skoda",  Date.valueOf(LocalDate.now().plusDays(24)), ClaimStatus.CANCELLED, users.get(1), users.get(2)));
 
 
             expertises.add(new Expertise(1L, "Front side", Date.valueOf(LocalDate.now()), 700.00, "assets/expertises/clio.jpg", claims.get(0), users.get(2)));
             expertises.add(new Expertise(2L, "Wheel damage", Date.valueOf(LocalDate.now().plusDays(13)), 1200.00, "assets/expertises/citroen.jpg",claims.get(1) , users.get(2)));
-            expertises.add(new Expertise(3L, "Hood damage", Date.valueOf(LocalDate.now().plusDays(18)), 700.00, "assets/expertises/peugeot.jpg",claims.get(2) , users.get(2)));
+            expertises.add(new Expertise(3L, "Hood damage", Date.valueOf(LocalDate.now().plusDays(18)), 700.00, "assets/expertises/peugeot.jpg",claims.get(3) , users.get(2)));
+            expertises.add(new Expertise(4L, "Front side", Date.valueOf(LocalDate.now().plusDays(20)), 700.00, "assets/expertises/citroen.jpg",claims.get(4) , users.get(2)));
+            expertises.add(new Expertise(5L, "Front side", Date.valueOf(LocalDate.now().plusDays(22)), 700.00, "assets/expertises/peugeot.jpg",claims.get(5) , users.get(2)));
+            expertises.add(new Expertise(6L, "Front side", Date.valueOf(LocalDate.now().plusDays(24)), 700.00, "assets/expertises/clio.jpg",claims.get(6) , users.get(2)));
+
 
             payments.add(new Payment(1L, 220.80, Date.valueOf(LocalDate.now()), PaymentStatus.COMPLETED));
             payments.add(new Payment(2L, 332.89, Date.valueOf(LocalDate.now().plusDays(1)), PaymentStatus.COMPLETED));
@@ -244,6 +252,7 @@ public class DataInitializer {
             expertiseRepository.saveAll(expertises);
             paymentRepository.saveAll(payments);
             subscriptions.get(0).setPayments(payments);
+            subscriptions.get(0).setClaims(claims);
             subscriptionRepository.saveAll(subscriptions);
         };
     }

@@ -10,7 +10,7 @@ import java.util.List;
 public interface ClaimRepository extends JpaRepository<Claim, Long>{
 
     // query to find claim by expert id
-    @Query("SELECT c FROM Claim c WHERE c.id IN (SELECT e.claim.id FROM Expertise e WHERE e.expert.id = :id)")
+    @Query("SELECT c FROM Claim c WHERE c.expert.id = :id ORDER BY c.id ASC")
     List<Claim> findClaimByExpert(@Param("id") Long id);
 
     // query to find claim by client id
