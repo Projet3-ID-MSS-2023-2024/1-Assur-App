@@ -9,4 +9,5 @@ export interface Claim {
   date: Date;
   status: ClaimStatus;
   client: User;
+  expert?: User;
 }

@@ -4,11 +4,16 @@ import {Claim} from "../../../interfaces/claim";
 import {NgClass, CommonModule} from "@angular/common";
 import {RouterLink} from "@angular/router";
 import {ClaimStatus} from "../../../enums/claim-status.enum";
+import {AuthenticationService} from "../../../services/authentication.service";
+import {SubscribeComponent} from "../../insurances/subscribe/subscribe.component";
+import {ListExpertsComponent} from "../../expertises/list-experts/list-experts.component";
+import {Observable, subscribeOn} from "rxjs";
+import {ReactiveFormsModule} from "@angular/forms";
 
 @Component({
   selector: 'app-list-claims',
   standalone: true,
-  imports: [CommonModule, RouterLink, NgClass],
+  imports: [CommonModule, RouterLink, NgClass, SubscribeComponent, ListExpertsComponent, ReactiveFormsModule],
   templateUrl: './list-claims.component.html',
   styleUrl: './list-claims.component.css'
 })
@@ -17,18 +22,66 @@ export class ListClaimsComponent implements OnInit {
   claimslenght!: number;
   currentPage: number = 1;
   itemsPerPage: number = 10
-  constructor(private claimService: ClaimService) { }
+  constructor(private claimService: ClaimService, private AuthService: AuthenticationService) { }
+  userRole = this.AuthService.getUserRole();
+  userId = this.AuthService.getUserId();
+  showButtonToAddExpertise = true;
+  hidden: boolean = true;
+  claimSelected!: Claim;
+
+
 
   ngOnInit() {
-    this.claimService.getClaims().subscribe({
-      next: (claims) => {
-        this.claims = claims;
-        this.claimslenght = claims.length??0;
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
+    if (this.userRole == "CLIENT") {
+      this.claimService.getClaimsByClient(this.userId).subscribe({
+        next: (claims) => {
+          this.claims = claims;
+          this.claimslenght = claims.length??0;
+          this.showButtonToAddExpertise = false;
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    } else if (this.userRole == "EXPERT") {
+      this.claimService.getClaimsByExpert(this.userId).subscribe({
+        next: (claims) => {
+          this.claims = claims;
+          this.claimslenght = claims.length??0;
+          this.showButtonToAddExpertise = false;
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    } else if (this.userRole == "ADMIN") {
+      this.claimService.getClaims().subscribe({
+        next: (claims) => {
+          this.claims = claims;
+          this.claimslenght = claims.length??0;
+          this.showButtonToAddExpertise = false;
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    } else if (this.userRole == "INSURER") {
+      this.claimService.getClaimByInsurer(this.userId).subscribe({
+        next: (claims) => {
+          this.claims = claims;
+          this.claimslenght = claims.length??0;
+          this.showButtonToAddExpertise = false;
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    }
+
+  }
+
+  ifAlreadyAsign(status: ClaimStatus){
+   return status == ClaimStatus.PENDING;
   }
 
   calculateItemsToShow(): Claim[] {
@@ -42,6 +95,7 @@ export class ListClaimsComponent implements OnInit {
       this.currentPage = newPage;
     }
   }
+
 
   getColor(status: ClaimStatus): string {
     switch (status){
@@ -62,4 +116,8 @@ export class ListClaimsComponent implements OnInit {
     }
   }
 
+  showModal(id: number){
+    this.hidden = false;
+    this.claimSelected = this.claims.find(claim => claim.id === id)??{} as Claim;
+  }
 }

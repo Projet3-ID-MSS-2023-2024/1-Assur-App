@@ -17,13 +17,27 @@ export class ClaimService {
     return this.http.get<Claim[]>(`${environment.api}/claims`);
   }
 
-// getClaimsByClient(id: number): Observable<Claim[]> {
-//     return this.http.get<Claim[]>(`${environment.api}/claims/client/${id}`);
-//   }
+  getClaimsByClient(id: number): Observable<Claim[]> {
+      return this.http.get<Claim[]>(`${environment.api}/claims/user/${id}`);
+  }
+
+  getClaimsByExpert(id: number): Observable<Claim[]> {
+      return this.http.get<Claim[]>(`${environment.api}/claims/expert/${id}`);
+  }
 
   getClaimById(id: number): Observable<Claim> {
     const headers = this.AuthService.getHeaders();
     return this.http.get<Claim>(`${environment.api}/claims/${id}`, {headers});
+  }
+
+  getClaimByInsurer(id: number): Observable<Claim[]> {
+    const headers = this.AuthService.getHeaders();
+    return this.http.get<Claim[]>(`${environment.api}/claims/insurer/${id}`, {headers});
+  }
+
+  getClaimByStatus(status: string): Observable<Claim[]> {
+    const headers = this.AuthService.getHeaders();
+    return this.http.get<Claim[]>(`${environment.api}/claims/status/${status}`, {headers});
   }
 
   createClaim(claim: Claim): Observable<Claim> {

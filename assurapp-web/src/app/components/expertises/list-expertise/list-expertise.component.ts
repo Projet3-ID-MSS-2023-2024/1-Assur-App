@@ -1,10 +1,11 @@
 import {Component, OnInit} from '@angular/core';
 import {NgForOf} from "@angular/common";
-import {RouterLink} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {Expertise} from "../../../interfaces/expertise";
 import {ExpertiseService} from "../../../services/expertise.service";
 import {Claim} from "../../../interfaces/claim";
 import {ClaimStatus} from "../../../enums/claim-status.enum";
+import {AuthenticationService} from "../../../services/authentication.service";
 
 @Component({
   selector: 'app-list-expertise',
@@ -22,18 +23,44 @@ export class ListExpertiseComponent implements OnInit{
   currentPage: number = 1;
   itemsPerPage: number = 10;
 
-  constructor(private expertiseService: ExpertiseService) { }
+  constructor(private expertiseService: ExpertiseService, private router: Router, private AuthService: AuthenticationService) { }
+
+  userRole = this.AuthService.getUserRole()
+  userId = this.AuthService.getUserId()
 
   ngOnInit() {
-    this.expertiseService.getExpertises().subscribe({
-      next: (expertises) => {
-        this.expertises = expertises;
-        this.expertiseLenght = expertises.length??0;
-      },
-      error: (err) => {
-        console.log(err);
-      },
-    });
+    if (this.userRole == "CLIENT") {
+      this.expertiseService.getExpertises().subscribe({
+        next: (expertises) => {
+          this.expertises = expertises;
+          this.expertiseLenght = expertises.length??0;
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    } else if (this.userRole == "EXPERT") {
+      this.expertiseService.getExpertiseByExpert(this.AuthService.getUserId()).subscribe({
+        next: (expertises) => {
+          this.expertises = expertises;
+          this.expertiseLenght = expertises.length??0;
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    } else if (this.userRole == "INSURER") {
+      this.expertiseService.getExpertiseByInsurer(this.userId).subscribe({
+        next: (expertises) => {
+          this.expertises = expertises;
+          this.expertiseLenght = expertises.length??0;
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    }
+
   }
 
   calculateItemsToShow(): Expertise[] {
