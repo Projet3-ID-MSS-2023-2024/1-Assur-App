@@ -24,11 +24,6 @@ import { ManageUsersComponent } from './components/dashboard/manage-users/manage
 import {ForgotPasswordComponent} from "./components/authentication/forgot-password/forgot-password.component";
 import {MailSentComponent} from "./components/authentication/mail-sent/mail-sent.component";
 import {ForgotPasswordFormStepComponent} from "./components/authentication/forgot-password-form-step/forgot-password-form-step.component";
-import {ManageUsersComponent} from "./components/dashboard/manage-users/manage-users.component";
-import {AdminManageInsurerComponent} from "./components/admin/admin-manage-insurer/admin-manage-insurer.component";
-import {AdminManageExpertComponent} from "./components/admin/admin-manage-expert/admin-manage-expert.component";
-import {AdminAddComponent} from "./components/admin/admin-add/admin-add.component";
-import {AdminUpdateComponent} from "./components/admin/admin-update/admin-update.component";
 import {ProfileComponent} from "./components/dashboard/profile/profile.component";
 import {ChangePasswordComponent} from "./components/dashboard/profile/change-password/change-password.component";
 import {ConfirmDeleteComponent} from "./components/dashboard/profile/confirm-delete/confirm-delete.component";

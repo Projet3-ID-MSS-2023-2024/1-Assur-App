@@ -47,6 +47,7 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(authorize ->
                     authorize
+                        .requestMatchers(HttpMethod.POST, "/api/v1/register/**").permitAll()
                         // insurance package
                         .requestMatchers(HttpMethod.GET, "/api/v1/insurances/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/insurances/**").hasRole(RoleList.INSURER.toString())
