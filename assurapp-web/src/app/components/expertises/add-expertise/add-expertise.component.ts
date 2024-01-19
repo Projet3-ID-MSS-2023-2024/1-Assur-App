@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {CommonModule} from "@angular/common";
 import {FormsModule} from "@angular/forms";
 import {PaginatorModule} from "primeng/paginator";
@@ -13,6 +13,7 @@ import {UserService} from "../../../services/user.service";
 import {AuthenticationService} from "../../../services/authentication.service";
 import {PopupService} from "../../../services/popup.service";
 import {PopupType} from "../../../enums/popup-type";
+import {ClaimStatus} from "../../../enums/claim-status.enum";
 
 @Component({
   selector: 'app-add-expertise',
@@ -67,10 +68,12 @@ export class AddExpertiseComponent implements OnInit{
 
   addExpertise() {
     this.loading = true;
+    this.claim.status = ClaimStatus.PROGRESS;
     this.expertiseService.addExpertise(this.expertise, this.selectedFile).subscribe({
       next: (expertise) => {
         this.popupService.show("Expertise added", PopupType.INFO)
-
+        this.claimService.updateClaim(this.claim).subscribe({
+        });
         setTimeout(() => {
           this.loading = false;
 

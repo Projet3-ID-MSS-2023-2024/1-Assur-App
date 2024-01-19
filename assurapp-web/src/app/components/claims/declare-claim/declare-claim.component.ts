@@ -70,7 +70,7 @@ export class DeclareClaimComponent implements OnInit{
               setTimeout(() => {
                 this.loading = false;
 
-                this.router.navigate(['/dashboard/expertises']);
+                this.router.navigate(['/dashboard/claims']);
               }, 2000);
         },
             error: () => this.popupService.show("Can't access to API", PopupType.ERROR)
