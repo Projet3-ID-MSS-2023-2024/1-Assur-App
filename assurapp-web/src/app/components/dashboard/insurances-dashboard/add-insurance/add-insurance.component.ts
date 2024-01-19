@@ -7,6 +7,7 @@ import {UserService} from "../../../../services/user.service";
 import {NgClass} from "@angular/common";
 import {PopupService} from "../../../../services/popup.service";
 import {PopupType} from "../../../../enums/popup-type";
+import {AuthenticationService} from "../../../../services/authentication.service";
 
 @Component({
   selector: 'app-add-insurance',
@@ -22,6 +23,7 @@ export class AddInsuranceComponent {
   types:InsuranceType[] = Object.values(InsuranceType);
   insuranceForm: FormGroup;
   constructor(private insuranceService: InsuranceService,
+              private authenticationService: AuthenticationService,
               private userService: UserService,
               private popupService: PopupService,
               private formBuilder: FormBuilder,
@@ -57,7 +59,7 @@ export class AddInsuranceComponent {
   }
 
   onSubmit() {
-    this.userService.getUserById(0).subscribe({
+    this.userService.getUserById(this.authenticationService.getUserId()).subscribe({
       next: data => {
         this.insuranceForm.value.insurer = data;
         this.insuranceService.addInsurance(this.insuranceForm.value).subscribe({

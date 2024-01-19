@@ -52,7 +52,6 @@ public class InsuranceController {
             terms.add(this.termService.add(term));
         }
         insurance.setTerms(terms);
-        insurance.setInsurer(repository.findById(insurance.getInsurer().getId()).get());
         return this.service.add(insurance);
     }
 
