@@ -11,6 +11,7 @@ import {Subscription} from "../../../interfaces/subscription";
 import {PopupType} from "../../../enums/popup-type";
 import {PopupService} from "../../../services/popup.service";
 import {PaginatorModule} from "primeng/paginator";
+import {InvoiceService} from "../../../services/invoice.service";
 
 @Component({
   selector: 'app-payments',
@@ -37,6 +38,7 @@ export class PaymentsComponent implements OnInit {
 
   constructor(private authenticationService: AuthenticationService,
               private popupService: PopupService,
+              private invoiceService: InvoiceService,
               private paymentService: PaymentService,
               private subscriptionService: SubscriptionService) {}
 
@@ -141,6 +143,11 @@ export class PaymentsComponent implements OnInit {
     return this.current > 1;
   }
 
+  invoice(subscription: Subscription, payment: Payment) {
+    this.invoiceService.download(subscription.client, subscription.insurance, payment, subscription.startDate, subscription.endDate);
+  }
+
   protected readonly PaymentStatus = PaymentStatus;
   protected readonly Roles = Roles;
+
 }
