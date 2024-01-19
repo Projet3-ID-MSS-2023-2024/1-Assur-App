@@ -88,10 +88,19 @@ export class ListExpertiseComponent implements OnInit {
     });
     }
 
-  Refuse(claim: Claim){
+  Refuse(claim: Claim, expertise: Expertise){
     claim.status = ClaimStatus.REFUSED;
     this.claimService.updateClaim(claim).subscribe({
       next: (claim) => {
+        this.ngOnInit();
+      },
+      error: (err) => {
+        console.log(err);
+      },
+    });
+
+    this.expertiseService.deleteExpertise(expertise.id).subscribe({
+      next: (expertise) => {
         this.ngOnInit();
       },
       error: (err) => {

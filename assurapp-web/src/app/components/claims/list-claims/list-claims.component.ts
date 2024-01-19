@@ -85,7 +85,7 @@ export class ListClaimsComponent implements OnInit {
   }
 
   ifAlreadyExpertise(status: ClaimStatus){
-    return !(status == ClaimStatus.PROGRESS) && !(status == ClaimStatus.APPROVED) && !(status == ClaimStatus.CANCELLED) && !(status == ClaimStatus.CLOSED) && !(status == ClaimStatus.REFUSED);
+    return !(status == ClaimStatus.PROGRESS) && !(status == ClaimStatus.APPROVED) && !(status == ClaimStatus.CANCELLED) && !(status == ClaimStatus.CLOSED);
   }
 
   calculateItemsToShow(): Claim[] {
