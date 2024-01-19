@@ -136,6 +136,12 @@
                         <button [disabled]="payment.status === PaymentStatus.COMPLETED" routerLink="/dashboard/payments/add/{{subscription(payment.id).id}}" type="button" class="me-2 py-2 px-8 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
                           Pay
                         </button>
+                        @if (payment.status === PaymentStatus.COMPLETED){
+                        <button (click)="invoice(subscription(payment.id), payment)" type="button" class="me-2 py-2 px-4 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+                          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="flex-shrink-0 w-4 h-4"><path _ngcontent-ng-c1995335119="" d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline _ngcontent-ng-c1995335119="" points="7 10 12 15 17 10"></polyline><line _ngcontent-ng-c1995335119="" x1="12" x2="12" y1="15" y2="3"></line></svg>
+                          Invoice
+                        </button>
+                        }
                       } @else if (role === Roles.INSURER) {
                         <button (click)="remind(payment)" [disabled]="payment.status === PaymentStatus.COMPLETED" type="button" class="me-2 py-2 px-8 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
                           Remind
