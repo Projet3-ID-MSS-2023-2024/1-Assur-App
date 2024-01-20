@@ -60,4 +60,14 @@ export class ClaimService {
     return this.http.post<Claim>(`${environment.api}/claims/notifyExpert`, claim, {headers});
   }
 
+  notifyValidation(claim: Claim): Observable<Claim> {
+    const headers = this.AuthService.getHeaders();
+    return this.http.post<Claim>(`${environment.api}/claims/notifyApproved`, claim, {headers});
+  }
+
+  notifyRefused(claim: Claim): Observable<Claim> {
+    const headers = this.AuthService.getHeaders();
+    return this.http.post<Claim>(`${environment.api}/claims/notifyRefused`, claim, {headers});
+  }
+
 }

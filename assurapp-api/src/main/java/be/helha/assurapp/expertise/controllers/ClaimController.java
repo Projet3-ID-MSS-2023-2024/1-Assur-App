@@ -107,4 +107,68 @@ public class ClaimController {
     }
 
 
+    @PostMapping("/notifyApproved")
+    public Claim notifyApproved(@RequestBody Claim claim) {
+        Claim c = this.claimService.findById(claim.getId());
+
+        User client = c.getClient();
+
+        String message = String.format("""
+        Dear %s,
+
+        We are pleased to inform you that your claim with the following details has been approved:
+
+        Claim Details:
+
+        Claim ID: %s
+        Description: %s
+        Approval Date: %s
+
+        If you have any further instructions or need to take any actions, please review the details and respond accordingly.
+        Thank you for choosing our services.
+
+        Best regards,
+        %s""",
+                client.getName() + ' ' + client.getLastname().toUpperCase(),
+                c.getId(),
+                c.getDescription(),
+                c.getDate(),
+
+                client.getName() + ' ' + client.getLastname());
+
+        this.emailSender.send(client.getEmail(), "noreply@example.com", "Claim Approval Notification", message);
+        return c;
+    }
+
+    @PostMapping("/notifyRefused")
+    public Claim notifyRefused(@RequestBody Claim claim) {
+        Claim c = this.claimService.findById(claim.getId());
+
+        User expert = c.getExpert();
+
+        String message = String.format("""
+        Dear %s,
+
+        We regret to inform you that the claim associated with the following details has been refused:
+
+        Claim Details:
+
+    Claim ID: %s
+    Description: %s
+    Refusal Date: %s
+  If you have any questions or concerns regarding this refusal, please review the details and contact us for further clarification.
+  We appreciate your understanding and cooperation.
+  Best regards,%s""",
+                expert.getName() + ' ' + expert.getLastname().toUpperCase(),
+                c.getId(),
+                c.getDescription(),
+                c.getDate(),
+
+                expert.getName() + ' ' + expert.getLastname());
+
+        this.emailSender.send(expert.getEmail(), "noreply@example.com", "Claim Refusal Notification", message);
+        return c;
+    }
+
+
 }

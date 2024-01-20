@@ -7,6 +7,8 @@ import {ClaimStatus} from "../../../enums/claim-status.enum";
 import {AuthenticationService} from "../../../services/authentication.service";
 import {ClaimService} from "../../../services/claim.service";
 import { Claim } from '../../../interfaces/claim';
+import { PopupService } from '../../../services/popup.service';
+import { PopupType } from '../../../enums/popup-type';
 
 @Component({
   selector: 'app-list-expertise',
@@ -26,7 +28,7 @@ export class ListExpertiseComponent implements OnInit {
   itemsPerPage: number = 10;
   claimId!: number;
 
-  constructor(private expertiseService: ExpertiseService, private router: Router, private AuthService: AuthenticationService, private claimService: ClaimService) {
+  constructor(private expertiseService: ExpertiseService, private router: Router, private AuthService: AuthenticationService, private claimService: ClaimService, private popupService: PopupService) {
   }
 
   userRole = this.AuthService.getUserRole()
@@ -81,9 +83,11 @@ export class ListExpertiseComponent implements OnInit {
     this.claimService.updateClaim(claim).subscribe({
       next: (claim) => {
         this.ngOnInit();
+        this.popupService.show("The claim has been validated", PopupType.SUCCESS)
+        this.notifyApproved(claim);
       },
       error: (err) => {
-        console.log(err);
+        this.popupService.show("The claim could not be validated", PopupType.ERROR)
       },
     });
     }
@@ -93,9 +97,11 @@ export class ListExpertiseComponent implements OnInit {
     this.claimService.updateClaim(claim).subscribe({
       next: (claim) => {
         this.ngOnInit();
+        this.popupService.show("The claim was refused", PopupType.SUCCESS)
+        this.notifyRefused(claim);
       },
       error: (err) => {
-        console.log(err);
+        this.popupService.show("The claim could not be refused", PopupType.ERROR)
       },
     });
 
@@ -107,6 +113,28 @@ export class ListExpertiseComponent implements OnInit {
         console.log(err);
       },
     });
+    }
+
+    notifyApproved(claim: Claim){
+      this.claimService.notifyValidation(claim).subscribe({
+        next: (claim) => {
+          this.ngOnInit();
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
+    }
+
+    notifyRefused(claim: Claim){
+      this.claimService.notifyRefused(claim).subscribe({
+        next: (claim) => {
+          this.ngOnInit();
+        },
+        error: (err) => {
+          console.log(err);
+        },
+      });
     }
 
   calculateItemsToShow(): Expertise[] {
