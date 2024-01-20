@@ -45,20 +45,8 @@ public class ExpertiseController {
     	return expertiseService.findExpertiseByInsurer(id);
     }
 
-    @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public Expertise save(@RequestPart Expertise expertise, @RequestPart MultipartFile image) {
-        long timestamp = System.currentTimeMillis();
-        String imageFile = "expertise_" + timestamp + ".png";
-
-        try {
-            image.transferTo(new File(FileSystems.getDefault().getPath("..").toAbsolutePath() + "/assurapp-web/src/assets/expertises/" + imageFile));
-        } catch (IOException e){
-            e.printStackTrace();
-        }
-
-        imageFile = "assets/expertises/" + imageFile;
-
-        expertise.setImageFile(imageFile);
+    @PostMapping
+    public Expertise save(@RequestBody Expertise expertise) {
         return expertiseService.save(expertise);
     }
 
