@@ -235,7 +235,6 @@ public class DataInitializer {
 
             expertises.add(new Expertise(1L, "Front side", Date.valueOf(LocalDate.now()), 700.00, "assets/expertises/clio.jpg", claims.get(0), users.get(2)));
             expertises.add(new Expertise(2L, "Wheel damage", Date.valueOf(LocalDate.now().plusDays(13)), 1200.00, "assets/expertises/citroen.jpg",claims.get(1) , users.get(2)));
-            expertises.add(new Expertise(3L, "Hood damage", Date.valueOf(LocalDate.now().plusDays(18)), 700.00, "assets/expertises/peugeot.jpg",claims.get(3) , users.get(2)));
             expertises.add(new Expertise(4L, "Front side", Date.valueOf(LocalDate.now().plusDays(20)), 700.00, "assets/expertises/citroen.jpg",claims.get(4) , users.get(2)));
             expertises.add(new Expertise(5L, "Front side", Date.valueOf(LocalDate.now().plusDays(22)), 700.00, "assets/expertises/peugeot.jpg",claims.get(5) , users.get(2)));
             expertises.add(new Expertise(6L, "Front side", Date.valueOf(LocalDate.now().plusDays(24)), 700.00, "assets/expertises/clio.jpg",claims.get(6) , users.get(2)));
