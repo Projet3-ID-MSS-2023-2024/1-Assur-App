@@ -14,9 +14,9 @@ spring:
       max-request-size: 100MB
   
   datasource:
-    url: jdbc:postgresql://localhost:5432/assurapp
+    url: jdbc:postgresql://dpg-cmm349i1hbls73cdk9l0-a.frankfurt-postgres.render.com:5432/assurapp
     username: assurapp
-    password: assurapp
+    password: sEsFTleotIYhVszggWvugVbTSxuSpWGn
     driver-class-name: org.postgresql.Driver
   jpa:
     show-sql: false

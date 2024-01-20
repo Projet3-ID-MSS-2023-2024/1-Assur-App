@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>be.helha</groupId>
-    <artifactId>assurapp-api</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
-    <name>assurapp-api</name>
-    <description>assurapp-api</description>
+    <artifactId>assurapp</artifactId>
+    <version>1.0.0</version>
+    <name>assurapp</name>
+    <description>assurapp</description>
     <properties>
         <java.version>17</java.version>
     </properties>
