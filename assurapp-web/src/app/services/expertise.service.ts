@@ -27,13 +27,8 @@ export class ExpertiseService {
     return this.http.get<Expertise[]>(`${environment.api}/expertises/insurer/${id}`);
   }
 
-  addExpertise(expertise: Expertise, image: File): Observable<Expertise> {
-    const formData = new FormData();
-    formData.append('expertise', new Blob([JSON.stringify(expertise)], {
-      type: 'application/json'
-    }));
-    formData.append('image', image);
-    return this.http.post<Expertise>(`${environment.api}/expertises`, formData);
+  addExpertise(expertise: Expertise): Observable<Expertise> {
+    return this.http.post<Expertise>(`${environment.api}/expertises`, expertise);
   }
 
   updateExpertise(expertise: Expertise): Observable<Expertise> {

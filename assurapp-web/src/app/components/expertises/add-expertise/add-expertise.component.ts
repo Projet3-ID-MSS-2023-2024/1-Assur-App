@@ -14,6 +14,9 @@ import {AuthenticationService} from "../../../services/authentication.service";
 import {PopupService} from "../../../services/popup.service";
 import {PopupType} from "../../../enums/popup-type";
 import {ClaimStatus} from "../../../enums/claim-status.enum";
+import firebase from "firebase/compat";
+import {FirebaseService} from "../../../services/firebase.service";
+import {v4 as uuidv4} from 'uuid';
 
 @Component({
   selector: 'app-add-expertise',
@@ -29,7 +32,7 @@ export class AddExpertiseComponent implements OnInit{
   expertise!: Expertise;
   loading = false;
 
-  constructor(private popupService: PopupService, private authService: AuthenticationService, private userService: UserService, private router: Router, private activatedRoute: ActivatedRoute, private claimService: ClaimService, private expertiseService: ExpertiseService) {
+  constructor(private fireBaseService: FirebaseService,private popupService: PopupService, private authService: AuthenticationService, private userService: UserService, private router: Router, private activatedRoute: ActivatedRoute, private claimService: ClaimService, private expertiseService: ExpertiseService) {
   }
   ngOnInit() {
     const id = this.activatedRoute.snapshot.paramMap.get('id');
@@ -64,12 +67,16 @@ export class AddExpertiseComponent implements OnInit{
 
   onFileSelected(event: any){
     this.selectedFile = event.target.files[0];
+
+    this.fireBaseService.uploadFile(this.selectedFile, uuidv4()).then((url) => {
+      this.expertise.imageFile = url;
+    });
   }
 
   addExpertise() {
     this.loading = true;
     this.claim.status = ClaimStatus.PROGRESS;
-    this.expertiseService.addExpertise(this.expertise, this.selectedFile).subscribe({
+    this.expertiseService.addExpertise(this.expertise).subscribe({
       next: (expertise) => {
         this.popupService.show("Expertise added", PopupType.INFO)
         this.claimService.updateClaim(this.claim).subscribe({
