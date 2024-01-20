@@ -55,4 +55,9 @@ export class ClaimService {
     return this.http.delete<Claim>(`${environment.api}/claims/${id}`, {headers});
   }
 
+  notifyExpert(claim: Claim): Observable<Claim> {
+    const headers = this.AuthService.getHeaders();
+    return this.http.post<Claim>(`${environment.api}/claims/notifyExpert`, claim, {headers});
+  }
+
 }

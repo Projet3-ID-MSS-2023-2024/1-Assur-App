@@ -1,7 +1,9 @@
 package be.helha.assurapp.expertise.controllers;
 
+import be.helha.assurapp.authentication.models.User;
 import be.helha.assurapp.expertise.models.Claim;
 import be.helha.assurapp.expertise.services.IClaimService;
+import be.helha.assurapp.utils.EmailSender;
 import lombok.AllArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -20,6 +22,7 @@ import java.util.List;
 public class ClaimController {
 
     private IClaimService claimService;
+    private EmailSender emailSender;
 
     @GetMapping
     public List<Claim> findAll() {
@@ -70,5 +73,38 @@ public class ClaimController {
     public void deleteById(@PathVariable Long id) {
         claimService.deleteById(id);
     }
+
+    @PostMapping("/notifyExpert")
+    public Claim notifyExpert(@RequestBody Claim claim) {
+
+        Claim c = this.claimService.findById(claim.getId());
+
+        User expert = c.getExpert();
+
+        String message = String.format("""
+        Dear %s,
+
+        You have been assigned as the expert for the following claim:
+
+        Claim Details:
+
+    Claim ID: %s
+    Description: %s
+    Assignment Date: %s
+  Please review the details and provide your expert evaluation and recommendations at your earliest convenience.
+  If you have any questions or need additional information, feel free to contact us.
+  Thank you for your expertise and cooperation.
+  Best regards,%s""",
+                expert.getName() + ' ' + expert.getLastname().toUpperCase(),
+                c.getId(),
+                c.getDescription(),
+                c.getDate(),
+
+                expert.getName() + ' ' + expert.getLastname());
+
+        this.emailSender.send(expert.getEmail(), "noreply@example.com", "Claim Assignment Notification", message);
+        return c;
+    }
+
 
 }
