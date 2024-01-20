@@ -18,21 +18,23 @@ import {Subscription} from "rxjs";
 })
 export class NavbarComponent implements OnInit{
   isLogged:boolean = false;
-  timeBeforeLogout : number = 900;
-  interval: number | undefined;
+  timeBeforeLogout !: number;
+  interval!: any;
   subscribe !: Subscription;
   visible: boolean = false;
 
   constructor(private authService: AuthenticationService, private route: Router) {}
 
   ngOnInit(): void {
+    this.timeBeforeLogout = 1800;
     this.isLogged = this.authService.isLogged();
     this.startTimer()
   }
 
   logout(){
     this.authService.logout();
-    location.reload()
+    clearInterval(this.interval)
+    this.route.navigate(['/']);
   }
 
 
@@ -48,14 +50,13 @@ export class NavbarComponent implements OnInit{
       if(this.timeBeforeLogout > 0){
         this.timeBeforeLogout--;
       } else if(this.timeBeforeLogout == 0 && this.isLogged){
-        this.authService.logout()
-        location.reload()
+        this.logout()
       }
     }, 1000)
   }
 
   resetTimer(){
-    this.timeBeforeLogout = 900;
+    this.timeBeforeLogout = 1800;
   }
 
   toggle() {
