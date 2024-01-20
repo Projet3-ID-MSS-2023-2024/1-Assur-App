@@ -28,8 +28,9 @@ class _ClaimsPageState extends State<ClaimsPage> {
   Future<void> fetch() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int? id = prefs.getInt('id');
+    String? token = prefs.getString('token');
     final Uri uri = Uri.parse('http://127.0.0.1:8000/api/v1/claims/expert/$id');
-    final response = await http.get(uri);
+    final response = await http.get(uri, headers: {  "Authorization": "Bearer $token"});
     if (response.statusCode == 200) {
       claims = json.decode(response.body);
     } else {
@@ -66,8 +67,8 @@ class _ClaimsPageState extends State<ClaimsPage> {
                   child: ListTile(
                     title: Text(claims[index]['description']),
                     subtitle: Text(claims[index]['date']),
-                    trailing: claims[index]['status'] == 'PENDING' ?  const Text("Expertise") : null,
-                    onTap: ()  =>  claims[index]['status'] == 'PENDING' ?  add(claims[index]['id']) : null,
+                    trailing: claims[index]['status'] == 'ASSIGNED' ?  const Text("Expertise") : null,
+                    onTap: ()  =>  claims[index]['status'] == 'ASSIGNED' ?  add(claims[index]['id']) : null,
                   ),
                 ),
               );

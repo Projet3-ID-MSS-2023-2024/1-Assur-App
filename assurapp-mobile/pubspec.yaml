@@ -11,11 +11,16 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
-  http: ^1.2.0
-  jwt_decode: ^0.3.1
   shared_preferences: ^2.2.2
-  image_picker: ^1.0.7
+  http: ^1.2.0
   http_parser: ^4.0.2
+  jwt_decode: ^0.3.1
+  image_picker: ^1.0.7
+  uuid: ^4.3.3
+  firebase_core: ^2.24.2
+  firebase_storage: ^11.6.0
+  path: ^1.8.3
+  intl: ^0.19.0
 
 dev_dependencies:
   flutter_test:
@@ -26,7 +31,7 @@ dev_dependencies:
 flutter_launcher_icons:
   android: true
   ios: true
-  image_path: "assets/images/images.png"
+  image_path: "assets/images/assurapp.png"
 
 flutter:
   uses-material-design: true
