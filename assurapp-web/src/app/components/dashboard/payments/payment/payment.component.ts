@@ -3,11 +3,12 @@ import {SubscriptionService} from "../../../../services/subscription.service";
 import {PaymentService} from "../../../../services/payment.service";
 import {Subscription} from "../../../../interfaces/subscription";
 import {ActivatedRoute, Router} from "@angular/router";
-import {CurrencyPipe, DatePipe} from "@angular/common";
+import {CurrencyPipe, DatePipe, NgClass} from "@angular/common";
 import {Payment} from "../../../../interfaces/payment";
 import {PaymentStatus} from "../../../../enums/payment-status";
 import {PopupService} from "../../../../services/popup.service";
 import {PopupType} from "../../../../enums/popup-type";
+import {InvoiceService} from "../../../../services/invoice.service";
 
 declare var paypal: any;
 
@@ -17,6 +18,7 @@ declare var paypal: any;
   imports: [
     CurrencyPipe,
     DatePipe,
+    NgClass,
   ],
   templateUrl: './payment.component.html',
   styleUrl: './payment.component.css'
@@ -31,6 +33,7 @@ export class PaymentComponent implements OnInit {
   payment!: Payment;
   constructor(private subscriptionService: SubscriptionService,
               private paymentService: PaymentService,
+              private invoiceService: InvoiceService,
               private popupService: PopupService,
               private ngZone: NgZone,
               private route: ActivatedRoute,
@@ -135,5 +138,13 @@ export class PaymentComponent implements OnInit {
   getAmount(): number {
     this.amountForDuration();
     return this.amount;
+  }
+
+  downlaod() {
+    this.invoiceService.download(this.subscription.client, this.subscription.insurance, this.payment, this.subscription.startDate, this.subscription.endDate);
+  }
+
+  print() {
+    this.invoiceService.print(this.subscription.client, this.subscription.insurance, this.payment, this.subscription.startDate, this.subscription.endDate);
   }
 }

@@ -59,6 +59,15 @@
                 Name
               </label>
               <input type="name" id="name" formControlName="name" class="mt-1 p-2 w-full border rounded-md bg-gray-200 text-black"  required/>
+
+              <span *ngIf="adminAddUser.get('name')?.invalid && adminAddUser.get('name')?.touched" class="flex w-full max-w-sm overflow-hidden bg-white rounded-b-lg shadow-md dark:bg-gray-800">
+                <div class="px-4 py-1 -mx-2">
+                    <p class="text-xs text-red-600 dark:text-red-300">
+                      The name is required
+                    </p>
+                </div>
+              </span>
+
             </div>
           </div>
   
@@ -68,15 +77,32 @@
                 LastName
               </label>
               <input type="lastname" id="lastname" formControlName="lastname" class="mt-1 p-2 w-full border rounded-md bg-gray-200 text-black"  required/>
+            
+
+            <span *ngIf="adminAddUser.get('lastname')?.invalid && adminAddUser.get('lastname')?.touched" class="flex w-full max-w-sm overflow-hidden bg-white rounded-b-lg shadow-md dark:bg-gray-800">
+              <div class="px-4 py-1 -mx-2">
+                  <p class="text-xs text-red-600 dark:text-red-300">
+                    The LastName is required
+                  </p>
+              </div>
+            </span>
             </div>
           </div>
   
           <div class="sm:col-span-12">
-            <div class="mb-4">
-              <label for="email" class="block text-sm font-medium text-gray-500 mt-2.5">
-                Email
-              </label>
-              <input type="email" id="email" formControlName="email" class="mt-1 p-2 w-full border rounded-md bg-gray-200 text-black"  required/>
+              <div class="mb-4">
+                <label for="email" class="block text-sm font-medium text-gray-500 mt-2.5">
+                  Email
+                </label>
+                <input type="email" id="email" formControlName="email" class="mt-1 p-2 w-full border rounded-md bg-gray-200 text-black"  required/>
+
+              <span *ngIf="adminAddUser.get('email')?.invalid && adminAddUser.get('email')?.touched" class="flex w-full max-w-sm overflow-hidden bg-white rounded-b-lg shadow-md dark:bg-gray-800">
+                <div class="px-4 py-1 -mx-2">
+                    <p class="text-xs text-red-600 dark:text-red-300">
+                      The email is required
+                    </p>
+                </div>
+              </span>
             </div>
           </div>
   
@@ -89,6 +115,15 @@
                 <option [value]="'INSURER'" [selected]="adminAddUser.get('role')?.value === 'INSURER'">INSURER</option>
                 <option [value]="'EXPERT'" [selected]="adminAddUser.get('role')?.value === 'EXPERT'">EXPERT</option>
               </select>
+            
+
+              <span *ngIf="adminAddUser.get('role')?.invalid && adminAddUser.get('role')?.touched" class="flex w-full max-w-sm overflow-hidden bg-white rounded-b-lg shadow-md dark:bg-gray-800">
+                <div class="px-4 py-1 -mx-2">
+                    <p class="text-xs text-red-600 dark:text-red-300">
+                      The role is required
+                    </p>
+                </div>
+              </span>
             </div>
           </div>
 
@@ -98,6 +133,15 @@
               Password
             </label>
             <input type="password" formControlName="password" class="mt-1 p-2 w-full border rounded-md bg-gray-200 text-black"  required/>
+
+            <span *ngIf="adminAddUser.get('password')?.invalid && adminAddUser.get('password')?.touched" class="flex w-full max-w-sm overflow-hidden bg-white rounded-b-lg shadow-md dark:bg-gray-800">
+              <div class="px-4 py-1 -mx-2">
+                  <p class="text-xs text-red-600 dark:text-red-300">
+                    The password is required
+                  </p>
+              </div>
+            </span>
+
           </div>
   
           <div class="sm:col-span-6">
@@ -105,6 +149,15 @@
               Confirm Password
             </label>
             <input type="password" formControlName="confirmpassword" class="mt-1 p-2 w-full border rounded-md bg-gray-200 text-black"  required/>
+
+            <span *ngIf="adminAddUser.get('password')?.invalid && adminAddUser.get('password')?.touched" class="flex w-full max-w-sm overflow-hidden bg-white rounded-b-lg shadow-md dark:bg-gray-800">
+              <div class="px-4 py-1 -mx-2">
+                  <p class="text-xs text-red-600 dark:text-red-300">
+                    The confirm password is required
+                  </p>
+              </div>
+            </span>
+
           </div>
 
           

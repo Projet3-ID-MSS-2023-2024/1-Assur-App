@@ -39,12 +39,10 @@ export class SubscribeComponent implements OnInit {
 
   ngOnInit() {
     this.userService.getUserById(this.authenticationService.getUserId()).subscribe({
-      next: data => this.client = data,
-      error: () => this.popupService.show("Can't reach the API for current user", PopupType.ERROR)
+      next: data => this.client = data
     });
     this.insuranceService.getInsurancesByClient(this.authenticationService.getUserId()).subscribe({
-      next: data => this.insurances = data,
-      error: () => this.popupService.show("Can't reach the API for the selected insurance", PopupType.ERROR)
+      next: data => this.insurances = data
     })
   }
 

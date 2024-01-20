@@ -50,6 +50,7 @@ ngOnInit() {
     this.claimSelected.status = ClaimStatus.ASSIGNED;
     this.claimService.updateClaim(this.claimSelected).subscribe({
       next: (claim) => {
+        this.notifyExpert(this.claimSelected);
         this.popupService.show('Expertise assigned to the claim', PopupType.SUCCESS);
         this.hide = true;
         this.hideChange.emit(this.hide);
@@ -61,6 +62,16 @@ ngOnInit() {
       },
     });
     }
+
+    notifyExpert(claim: Claim) {
+      this.claimService.notifyExpert(claim).subscribe({
+        next: (claim) => {
+        },
+        error: (err) => {
+          this.popupService.show('Error : Expert not notified', PopupType.ERROR);
+        },
+      });
+   }
 
   close(): void {
     this.hide = true;

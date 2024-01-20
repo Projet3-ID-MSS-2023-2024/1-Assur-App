@@ -11,20 +11,6 @@ services:
       - 5431:5432
       - 5432:5432
       - 5433:5432
-  assurapp-kc:
-    image: keycloak/keycloak:22.0
-    container_name: assurapp-kc
-    command: ["start-dev"]
-    environment:
-      - KEYCLOAK_DATABASE_HOST=assurapp-db
-      - KEYCLOAK_DATABASE_NAME=assurapp
-      - KEYCLOAK_DATABASE_USER=assurapp
-      - KEYCLOAK_DATABASE_PASSWORD=assurapp
-      - KEYCLOAK_ADMIN=assurapp
-      - KEYCLOAK_ADMIN_PASSWORD=assurapp
-      - KEYCLOAK_DATABASE_SCHEMA=kc-db
-    ports:
-      - 8080:8080
   assurapp-smtp:
     container_name: assurapp-smtp
     image: rnwood/smtp4dev:v3

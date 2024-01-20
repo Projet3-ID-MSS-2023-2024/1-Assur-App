@@ -55,7 +55,7 @@ export class InsurancesComponent implements OnInit {
           return uniqueCompanies;
         }, []);
       },
-      error: err => this.popupService.show("Can't access the API", PopupType.ERROR)
+      error: () => this.popupService.show("Can't access the API", PopupType.ERROR)
     })
   }
 
@@ -93,7 +93,7 @@ export class InsurancesComponent implements OnInit {
       this.popupService.show("You are not connected. \nYou will be redirected to login page", PopupType.INFO)
       setTimeout(() => {
        this.router.navigate(['/login'])
-      }, 5000);
+      }, 2000);
     } else {
       this.popupService.show("You are not connected as client. \nLogout and retry", PopupType.INFO)
     }
