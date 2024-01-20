@@ -1,8 +1,7 @@
 import {Component, HostListener, OnInit} from '@angular/core';
 import {NgClass, NgOptimizedImage, Location, NgIf} from "@angular/common";
-import {Router, RouterLink} from "@angular/router";
+import {Event, Router, RouterLink} from "@angular/router";
 import {AuthenticationService} from "../../../services/authentication.service";
-import {InsuranceType} from "../../../enums/insurance-type";
 import {Roles} from "../../../enums/roles";
 
 @Component({
@@ -20,14 +19,17 @@ import {Roles} from "../../../enums/roles";
 
 export class SidebarComponent implements OnInit{
   visible: boolean = false;
-  timeBeforeLogout : number = 600;
-  interval: number | undefined;
-  
+  timeBeforeLogout!: number;
+  interval!: any;
+  logged!: boolean;
+
   constructor(private location: Location,
               private authenticationService: AuthenticationService,
               private router: Router) {}
 
   ngOnInit(): void {
+      this.timeBeforeLogout = 600;
+      this.logged = this.authenticationService.isLogged();
       this.startTimer()
     }
 
@@ -41,11 +43,10 @@ export class SidebarComponent implements OnInit{
 
   logout(){
     this.authenticationService.logout();
-    setTimeout(() => {
-      this.router.navigate(['/']);
-    }, 500);
+    clearInterval(this.interval)
+    this.router.navigate(['/']);
   }
-  
+
   toggle() {
     this.visible = !this.visible;
   }
@@ -61,9 +62,8 @@ export class SidebarComponent implements OnInit{
     this.interval = setInterval(()=>{
       if(this.timeBeforeLogout > 0){
         this.timeBeforeLogout--;
-      } else if(this.timeBeforeLogout == 0 && this.authenticationService.isLogged()){
-        this.authenticationService.logout()
-        location.reload()
+      } else if(this.timeBeforeLogout == 0 && this.logged){
+        this.logout()
       }
     }, 1000)
   }
@@ -71,6 +71,7 @@ export class SidebarComponent implements OnInit{
   resetTimer(){
     this.timeBeforeLogout = 600;
   }
- 
+
   protected readonly Roles = Roles;
+
 }
