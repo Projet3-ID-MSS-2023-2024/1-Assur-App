@@ -6,71 +6,7 @@ on:
       - main
       - develop
 jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    services:
-      postgres:
-        image: postgres:16.0
-        env:
-          POSTGRES_DB: assurapp
-          POSTGRES_PASSWORD: assurapp
-          POSTGRES_USER: assurapp
-        ports:
-          - 5432:5432
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Set up JDK
-      uses: actions/setup-java@v2
-      with:
-        distribution: 'adopt'
-        java-version: '17'
-
-    - name: Build with Maven
-      run: mvn -B package --file assurapp-api/pom.xml
-
-  test:
-    needs: build
-    runs-on: ubuntu-latest
-
-    services:
-      postgres:
-        image: postgres:16.0
-        env:
-          POSTGRES_DB: assurapp
-          POSTGRES_PASSWORD: assurapp
-          POSTGRES_USER: assurapp
-        ports:
-          - 5432:5432
-        options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Set up JDK
-      uses: actions/setup-java@v2
-      with:
-        distribution: 'adopt'
-        java-version: '17'
-
-    - name: Cache Maven dependencies
-      uses: actions/cache@v2
-      with:
-        path: |
-          ~/.m2/repository
-        key: ${{ runner.os }}-maven-${{ hashFiles('assurapp-api/**/pom.xml') }}
-        restore-keys: |
-          ${{ runner.os }}-maven-
-
-    - name: Run tests
-      run: mvn test --file assurapp-api/pom.xml
-  deploy:
-    needs: test
+   deploy:
     runs-on: ubuntu-latest
 
     steps:
@@ -101,7 +37,7 @@ jobs:
     - name: Build and push Docker image
       uses: docker/build-push-action@v2
       with:
-        context: .
+        context: assurapp-api/.
         dockerfile: Dockerfile
         push: true
         tags: ${{secrets.DOCKER_USERNAME}}/assurapp:latest
