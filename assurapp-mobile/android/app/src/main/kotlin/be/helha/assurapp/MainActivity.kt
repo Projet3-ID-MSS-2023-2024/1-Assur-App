@@ -1,4 +1,4 @@
-package com.example.assurapp_mobile
+package be.helha.assurapp
 
 import io.flutter.embedding.android.FlutterActivity
 

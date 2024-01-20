@@ -48,8 +48,9 @@ class _ProfilePageState extends State<ProfilePage> {
   Future<void> fill() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     int? id = prefs.getInt('id');
+    String? token = prefs.getString('token');
     final Uri uri = Uri.parse('http://127.0.0.1:8000/api/v1/users/$id');
-    final response = await http.get(uri);
+    final response = await http.get(uri, headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer $token'});
     if (response.statusCode == 200) {
       user = json.decode(response.body);
 
@@ -77,10 +78,13 @@ class _ProfilePageState extends State<ProfilePage> {
     user['phoneNumber'] = phoneController.text;
     if (passwordController.text == passwordCController.text) user['password'] = passwordController.text;
 
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? token = prefs.getString('token');
+
     final Uri uri = Uri.parse('http://127.0.0.1:8000/api/v1/usersUpdate');
 
     final String data = json.encode(user);
-    final response = await http.put(uri, headers: {'Content-Type': 'application/json',}, body: data,);
+    final response = await http.put(uri, headers: {'Content-Type': 'application/json', 'Authorization': 'Bearer $token'}, body: data,);
 
     if (response.statusCode == 200) {
       ScaffoldMessenger.of(context).showSnackBar(

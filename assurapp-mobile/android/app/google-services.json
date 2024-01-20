@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "410320759113",
+    "project_id": "assurapp-a7675",
+    "storage_bucket": "assurapp-a7675.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:410320759113:android:dd1b610555fdc75ead9298",
+        "android_client_info": {
+          "package_name": "be.helha.assurapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXoqkEF858lnJvjVHZAOZG2L_WHImf_qs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
