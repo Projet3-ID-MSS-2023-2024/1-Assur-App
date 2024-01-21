@@ -77,7 +77,6 @@ export class ListClaimsComponent implements OnInit {
         },
       });
     }
-
   }
 
   ifAlreadyAsign(status: ClaimStatus){
