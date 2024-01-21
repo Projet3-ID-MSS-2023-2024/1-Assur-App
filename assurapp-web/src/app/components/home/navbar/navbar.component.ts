@@ -34,7 +34,7 @@ export class NavbarComponent implements OnInit{
   logout(){
     this.authService.logout();
     clearInterval(this.interval)
-    this.route.navigate(['/']);
+    location.reload();
   }
 
 
