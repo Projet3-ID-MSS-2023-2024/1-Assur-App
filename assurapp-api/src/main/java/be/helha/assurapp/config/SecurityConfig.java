@@ -59,7 +59,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PUT, "/api/v1/users/**").hasRole(RoleList.ADMINISTRATOR.toString())
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/users/**").hasRole(RoleList.ADMINISTRATOR.toString())
                             // expert package
-                        .requestMatchers(HttpMethod.GET, "/api/v1/expertises/**").hasRole(RoleList.EXPERT.toString())
+                        .requestMatchers(HttpMethod.GET, "/api/v1/expertises/**").hasAnyRole(RoleList.EXPERT.toString(), RoleList.INSURER.toString())
                         .requestMatchers(HttpMethod.POST, "/api/v1/expertises/**").hasRole(RoleList.EXPERT.toString())
                         .requestMatchers(HttpMethod.PUT, "/api/v1/expertises/**").hasRole(RoleList.EXPERT.toString())
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/expertises/**").hasAnyRole(RoleList.EXPERT.toString(), RoleList.INSURER.toString())
