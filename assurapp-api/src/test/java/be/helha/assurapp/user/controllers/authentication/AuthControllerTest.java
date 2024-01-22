@@ -13,9 +13,9 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.security.core.Authentication;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
@@ -68,6 +68,33 @@ public class AuthControllerTest {
         }catch(Exception e){
             assertFalse(false);
         }
+    }
+
+    @Test
+    void verifyAccountSuccess(){
+        User user = new User();
+        Optional<Role> roleOptional = roleRepository.findById(2L);
+        if (roleOptional.isPresent()){
+            Role role = roleOptional.get();
+            user.setRole(role);
+        }
+
+        user.setName("user");
+        user.setLastname("test");
+        user.setEmail("user@test.com");
+        user.setPassword("rootroot");
+        user.setVerified(false);
+        user.setActivationCode(123456);
+        userRepository.save(user);
+        Map<String, String> userData = new HashMap<>();
+        userData.put("username","user@test.com");
+        userData.put("code", "123456");
+        try{
+            userController.verify(userData);
+        } catch (Exception e){
+            fail();
+        }
+        assertEquals(123456, user.getActivationCode());
     }
 
 }
