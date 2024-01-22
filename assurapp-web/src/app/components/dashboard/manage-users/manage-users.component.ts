@@ -38,7 +38,6 @@ export class ManageUsersComponent implements OnInit{
     const subscription = this.userService.findUserByInsurer(this.userId).subscribe(
       {
         next: (data: any) => {
-          console.log(data);
           this.users = data;
           this.getData();
         },
@@ -85,5 +84,5 @@ isPrev(): boolean {
 
 
 /* -------------------- */
-  
+
 }

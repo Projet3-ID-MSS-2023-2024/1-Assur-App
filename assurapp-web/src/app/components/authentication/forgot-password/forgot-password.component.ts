@@ -22,7 +22,6 @@ export class ForgotPasswordComponent {
   constructor(private authService: AuthenticationService, private route: Router, private popService: PopupService) {
   }
   sendMail(){
-    console.log(this.mail)
     this.authService.sendForgotPasswordMail(this.mail).subscribe({
       next: () =>{
         this.route.navigate(["./mail"])

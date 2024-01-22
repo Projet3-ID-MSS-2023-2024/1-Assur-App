@@ -7,7 +7,6 @@ import {ClaimStatus} from "../../../enums/claim-status.enum";
 import {AuthenticationService} from "../../../services/authentication.service";
 import {SubscribeComponent} from "../../insurances/subscribe/subscribe.component";
 import {ListExpertsComponent} from "../../expertises/list-experts/list-experts.component";
-import {Observable, subscribeOn} from "rxjs";
 import {ReactiveFormsModule} from "@angular/forms";
 
 @Component({
@@ -44,9 +43,6 @@ export class ListClaimsComponent implements OnInit {
           this.showButtonToAddClaim = true;
           this.showButtonApprovedAndRefused = false;
         },
-        error: (err) => {
-          console.log(err);
-        },
       });
     } else if (this.userRole == "EXPERT") {
       this.claimService.getClaimsByExpert(this.userId).subscribe({
@@ -58,9 +54,6 @@ export class ListClaimsComponent implements OnInit {
           this.showButtonToAddClaim = false;
           this.showButtonApprovedAndRefused = false;
         },
-        error: (err) => {
-          console.log(err);
-        },
       });
     } else if (this.userRole == "INSURER") {
       this.claimService.getClaimByInsurer(this.userId).subscribe({
@@ -71,9 +64,6 @@ export class ListClaimsComponent implements OnInit {
           this.showButtonToAssignExpert = true;
           this.showButtonToAddClaim = false;
           this.showButtonApprovedAndRefused = true;
-        },
-        error: (err) => {
-          console.log(err);
         },
       });
     }
@@ -107,15 +97,15 @@ export class ListClaimsComponent implements OnInit {
       case ClaimStatus.REFUSED:
         return "inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-800/30 dark:text-red-500";
       case ClaimStatus.PENDING:
-        return "inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-800/30 dark:text-yellow-500";
+        return "inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-teal-100 text-teal-800 dark:bg-yellow-800/30 dark:text-yellow-500";
         case ClaimStatus.ASSIGNED:
           return "inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-teal-100 text-teal-800 dark:bg-teal-800/30 dark:text-teal-500";
       case ClaimStatus.PROGRESS:
         return "inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-teal-100 text-teal-800 dark:bg-teal-800/30 dark:text-teal-500";
       case ClaimStatus.CLOSED:
-        return "inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-gray-50 text-gray-500 dark:bg-white/[.05] dark:text-white";
+        return "inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-red-50 text-red-500 dark:bg-white/[.05] dark:text-white";
       case ClaimStatus.CANCELLED:
-        return "inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-gray-50 text-gray-500 dark:bg-white/[.05] dark:text-white";
+        return "inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-red-50 text-red-500 dark:bg-white/[.05] dark:text-white";
       default:
         return "py-1 px-1.5 inline-flex items-center gap-x-1 text-xs bg-red-100 text-red-800 font-medium rounded-full";
     }

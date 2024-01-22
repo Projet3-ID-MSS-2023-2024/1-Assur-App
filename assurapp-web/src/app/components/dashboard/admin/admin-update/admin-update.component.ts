@@ -31,7 +31,7 @@ export class AdminUpdateComponent implements OnInit  {
 
 
     this.id = this.route.snapshot.params['id'];
- 
+
     this.adminUserUpdate = this.formBuilder.group({
       id: [this.id],
       name: ['', Validators.required],
@@ -41,7 +41,7 @@ export class AdminUpdateComponent implements OnInit  {
       password: ['', Validators.required],
       confirmpassword: ['', Validators.required]
     });
-    
+
     this.checkRole(this.selectedRole);
     this.fetch();
 
@@ -50,7 +50,6 @@ export class AdminUpdateComponent implements OnInit  {
   fetch(){
     this.userService.getUserById(this.id).subscribe({
       next: data => this.init(data),
-      error: err => console.error(err)
     })
   }
 
@@ -62,12 +61,12 @@ export class AdminUpdateComponent implements OnInit  {
     } else if (currentUrl.includes('/experts')) {
       this.selectedRole = 'EXPERT';
     }
-    
+
   }
 
   init(data: any) {
     this.id = data.id;
-  
+
     this.adminUserUpdate = this.formBuilder.group({
       id: [data.id],
       name: [data.name, Validators.required],

@@ -43,9 +43,7 @@ export class ListExpertiseComponent implements OnInit {
           this.expertiseLenght = expertises.length ?? 0;
           this.showButtonApprovedAndRefused = false;
         },
-        error: (err) => {
-          console.log(err);
-        },
+
       });
     } else if (this.userRole == "EXPERT") {
       this.expertiseService.getExpertiseByExpert(this.AuthService.getUserId()).subscribe({
@@ -54,9 +52,6 @@ export class ListExpertiseComponent implements OnInit {
           this.expertiseLenght = expertises.length ?? 0;
           this.showButtonApprovedAndRefused = false;
         },
-        error: (err) => {
-          console.log(err);
-        },
       });
     } else if (this.userRole == "INSURER") {
       this.expertiseService.getExpertiseByInsurer(this.userId).subscribe({
@@ -64,9 +59,6 @@ export class ListExpertiseComponent implements OnInit {
           this.expertises = expertises;
           this.expertiseLenght = expertises.length ?? 0;
           this.showButtonApprovedAndRefused = true;
-        },
-        error: (err) => {
-          console.log(err);
         },
       });
     }
@@ -109,9 +101,6 @@ export class ListExpertiseComponent implements OnInit {
       next: (expertise) => {
         this.ngOnInit();
       },
-      error: (err) => {
-        console.log(err);
-      },
     });
     }
 
@@ -120,9 +109,6 @@ export class ListExpertiseComponent implements OnInit {
         next: (claim) => {
           this.ngOnInit();
         },
-        error: (err) => {
-          console.log(err);
-        },
       });
     }
 
@@ -130,9 +116,6 @@ export class ListExpertiseComponent implements OnInit {
       this.claimService.notifyRefused(claim).subscribe({
         next: (claim) => {
           this.ngOnInit();
-        },
-        error: (err) => {
-          console.log(err);
         },
       });
     }
@@ -156,15 +139,15 @@ export class ListExpertiseComponent implements OnInit {
       case ClaimStatus.REFUSED:
         return "inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-red-100 text-red-800 dark:bg-red-800/30 dark:text-red-500";
       case ClaimStatus.PENDING:
-        return "inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800 dark:bg-yellow-800/30 dark:text-yellow-500";
+        return "inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-teal-100 text-teal-800 dark:bg-yellow-800/30 dark:text-yellow-500";
       case ClaimStatus.ASSIGNED:
         return "inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-teal-100 text-teal-800 dark:bg-blue-800/30 dark:text-blue-500";
       case ClaimStatus.PROGRESS:
         return "inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-teal-100 text-teal-800 dark:bg-teal-800/30 dark:text-teal-500";
       case ClaimStatus.CLOSED:
-        return "inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-gray-50 text-gray-500 dark:bg-white/[.05] dark:text-white";
+        return "inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-red-50 text-red-500 dark:bg-white/[.05] dark:text-white";
       case ClaimStatus.CANCELLED:
-        return "inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-gray-50 text-gray-500 dark:bg-white/[.05] dark:text-white";
+        return "inline-flex items-center gap-x-1.5 py-1.5 px-3 rounded-full text-xs font-medium bg-red-50 text-red-500 dark:bg-white/[.05] dark:text-white";
       default:
         return "py-1 px-1.5 inline-flex items-center gap-x-1 text-xs bg-red-100 text-red-800 font-medium rounded-full";
     }

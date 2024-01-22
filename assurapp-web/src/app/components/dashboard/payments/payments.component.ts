@@ -67,7 +67,6 @@ export class PaymentsComponent implements OnInit {
           this.payments = data;
           this.getData();
         },
-        error: err => console.error(err)
       })
       this.subscriptionService.getSubscriptionByInsurer(this.authenticationService.getUserId()).subscribe({
         next: data => this.subscriptions = data,
