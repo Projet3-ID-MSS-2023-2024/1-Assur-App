@@ -39,13 +39,7 @@ export class ShowClaimComponent implements OnInit{
                   next: (claim) => {
                     this.claim = claim;
                   },
-                  error: (err) => {
-                    console.log(err);
-                  },
                 });
-        },
-        error: (err) => {
-          console.log(err);
         },
       });
       }

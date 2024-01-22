@@ -10,7 +10,6 @@ import { ToastModule } from 'primeng/toast';
 import { MessageModule } from 'primeng/message';
 import { MessagesModule} from 'primeng/messages';
 import {AuthenticationService} from "../../../services/authentication.service";
-import {InsuranceService} from "../../../services/insurance.service";
 import {SubscriptionService} from "../../../services/subscription.service";
 import {Subscription} from "../../../interfaces/subscription";
 import {PopupType} from "../../../enums/popup-type";
@@ -46,9 +45,7 @@ export class DeclareClaimComponent implements OnInit{
       next: (subscription) => {
         this.subscriptions = subscription;
       },
-      error: (err) => {
-        console.log(err);
-      },
+
     });
   }
 

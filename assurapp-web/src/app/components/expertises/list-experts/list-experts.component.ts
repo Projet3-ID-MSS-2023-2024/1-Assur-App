@@ -37,9 +37,6 @@ ngOnInit() {
       // @ts-ignore
       this.users = users.filter(user => user.role?.label === 'EXPERT');
     },
-    error: (err) => {
-      console.log(err);
-    },
   });
   }
 
@@ -56,8 +53,6 @@ ngOnInit() {
         this.hideChange.emit(this.hide);
       },
       error: (err) => {
-        console.log(err);
-        console.log(this.claimSelected);
         this.popupService.show('Error : Expertise not assigned to the claim', PopupType.ERROR);
       },
     });

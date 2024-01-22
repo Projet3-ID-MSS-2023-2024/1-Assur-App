@@ -52,13 +52,7 @@ export class AddExpertiseComponent implements OnInit{
                 expert: user,
               };
             },
-            error: (err) => {
-              console.log(err);
-            },
           });
-        },
-        error: (err) => {
-          console.log(err);
         },
       });
       }

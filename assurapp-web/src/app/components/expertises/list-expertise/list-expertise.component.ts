@@ -43,9 +43,7 @@ export class ListExpertiseComponent implements OnInit {
           this.expertiseLenght = expertises.length ?? 0;
           this.showButtonApprovedAndRefused = false;
         },
-        error: (err) => {
-          console.log(err);
-        },
+
       });
     } else if (this.userRole == "EXPERT") {
       this.expertiseService.getExpertiseByExpert(this.AuthService.getUserId()).subscribe({
@@ -54,9 +52,6 @@ export class ListExpertiseComponent implements OnInit {
           this.expertiseLenght = expertises.length ?? 0;
           this.showButtonApprovedAndRefused = false;
         },
-        error: (err) => {
-          console.log(err);
-        },
       });
     } else if (this.userRole == "INSURER") {
       this.expertiseService.getExpertiseByInsurer(this.userId).subscribe({
@@ -64,9 +59,6 @@ export class ListExpertiseComponent implements OnInit {
           this.expertises = expertises;
           this.expertiseLenght = expertises.length ?? 0;
           this.showButtonApprovedAndRefused = true;
-        },
-        error: (err) => {
-          console.log(err);
         },
       });
     }
@@ -109,9 +101,6 @@ export class ListExpertiseComponent implements OnInit {
       next: (expertise) => {
         this.ngOnInit();
       },
-      error: (err) => {
-        console.log(err);
-      },
     });
     }
 
@@ -120,9 +109,6 @@ export class ListExpertiseComponent implements OnInit {
         next: (claim) => {
           this.ngOnInit();
         },
-        error: (err) => {
-          console.log(err);
-        },
       });
     }
 
@@ -130,9 +116,6 @@ export class ListExpertiseComponent implements OnInit {
       this.claimService.notifyRefused(claim).subscribe({
         next: (claim) => {
           this.ngOnInit();
-        },
-        error: (err) => {
-          console.log(err);
         },
       });
     }

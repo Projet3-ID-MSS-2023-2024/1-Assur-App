@@ -7,7 +7,6 @@ import {ClaimStatus} from "../../../enums/claim-status.enum";
 import {AuthenticationService} from "../../../services/authentication.service";
 import {SubscribeComponent} from "../../insurances/subscribe/subscribe.component";
 import {ListExpertsComponent} from "../../expertises/list-experts/list-experts.component";
-import {Observable, subscribeOn} from "rxjs";
 import {ReactiveFormsModule} from "@angular/forms";
 
 @Component({
@@ -44,9 +43,6 @@ export class ListClaimsComponent implements OnInit {
           this.showButtonToAddClaim = true;
           this.showButtonApprovedAndRefused = false;
         },
-        error: (err) => {
-          console.log(err);
-        },
       });
     } else if (this.userRole == "EXPERT") {
       this.claimService.getClaimsByExpert(this.userId).subscribe({
@@ -58,9 +54,6 @@ export class ListClaimsComponent implements OnInit {
           this.showButtonToAddClaim = false;
           this.showButtonApprovedAndRefused = false;
         },
-        error: (err) => {
-          console.log(err);
-        },
       });
     } else if (this.userRole == "INSURER") {
       this.claimService.getClaimByInsurer(this.userId).subscribe({
@@ -71,9 +64,6 @@ export class ListClaimsComponent implements OnInit {
           this.showButtonToAssignExpert = true;
           this.showButtonToAddClaim = false;
           this.showButtonApprovedAndRefused = true;
-        },
-        error: (err) => {
-          console.log(err);
         },
       });
     }
