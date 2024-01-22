@@ -43,7 +43,7 @@ export class ExpertiseService {
   }
 
   deleteExpertise(id: number): Observable<Expertise> {
-
-    return this.http.delete<Expertise>(`${environment.api}/expertises/${id}`);
+    const headers = this.AuthService.getHeaders();
+    return this.http.delete<Expertise>(`${environment.api}/expertises/${id}`, {headers});
   }
 }
