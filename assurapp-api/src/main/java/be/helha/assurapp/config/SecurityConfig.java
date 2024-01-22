@@ -58,19 +58,16 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/v1/users/**").hasRole(RoleList.ADMINISTRATOR.toString())
                         .requestMatchers(HttpMethod.PUT, "/api/v1/users/**").hasRole(RoleList.ADMINISTRATOR.toString())
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/users/**").hasRole(RoleList.ADMINISTRATOR.toString())
-                            // expert package
+                        // expert package
                         .requestMatchers(HttpMethod.GET, "/api/v1/expertises/**").hasAnyRole(RoleList.EXPERT.toString(), RoleList.INSURER.toString())
                         .requestMatchers(HttpMethod.POST, "/api/v1/expertises/**").hasRole(RoleList.EXPERT.toString())
                         .requestMatchers(HttpMethod.PUT, "/api/v1/expertises/**").hasRole(RoleList.EXPERT.toString())
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/expertises/**").hasAnyRole(RoleList.EXPERT.toString(), RoleList.INSURER.toString())
-                            // claim package
+                        // claim package
                         .requestMatchers(HttpMethod.GET, "/api/v1/claims/**").hasAnyRole(RoleList.EXPERT.toString(), RoleList.INSURER.toString(), RoleList.CLIENT.toString())
                         .requestMatchers(HttpMethod.POST, "/api/v1/claims/**").hasAnyRole(RoleList.EXPERT.toString(), RoleList.INSURER.toString(), RoleList.CLIENT.toString())
                         .requestMatchers(HttpMethod.PUT, "/api/v1/claims/**").hasAnyRole(RoleList.EXPERT.toString(), RoleList.INSURER.toString(), RoleList.CLIENT.toString())
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/claims/**").hasAnyRole(RoleList.EXPERT.toString(), RoleList.INSURER.toString(), RoleList.CLIENT.toString())
-
-
-
                         // insurance package
                         .requestMatchers(HttpMethod.GET, "/api/v1/insurances/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/insurances/**").hasRole(RoleList.INSURER.toString())
