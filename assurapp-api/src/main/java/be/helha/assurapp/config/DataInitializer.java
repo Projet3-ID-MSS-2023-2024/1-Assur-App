@@ -28,6 +28,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.sql.Date;
 import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -47,6 +48,7 @@ public class DataInitializer {
                                           ExpertiseRepository expertiseRepository,
                                           PaymentRepository paymentRepository) {
         return args -> {
+            final String password = "$2a$10$TQETsi01Zxo7r6IG5rVgQONQJeKjOLQRvzjkxAGi7qjU1Zy02VblG";
             List<Role> roles = new ArrayList<>();
             List<User> users = new ArrayList<>();
             List<Term> terms = new ArrayList<>();
@@ -61,12 +63,36 @@ public class DataInitializer {
             roles.add(new Role(3L, RoleList.EXPERT));
             roles.add(new Role(4L, RoleList.INSURER));
 
-            users.add(new User(1L, "Administrator", "Administrator", "admin@assurapp.com", "$2a$10$TQETsi01Zxo7r6IG5rVgQONQJeKjOLQRvzjkxAGi7qjU1Zy02VblG", roles.get(0), 123456, true, null, "1234 Elm Street Citytown%Stateville 56789%Countryland", "4378.9021-456-78", "0400 000000"));
-            users.add(new User(2L, "Client", "Client", "client@assurapp.com", "$2a$10$TQETsi01Zxo7r6IG5rVgQONQJeKjOLQRvzjkxAGi7qjU1Zy02VblG", roles.get(1), 123456, true, null, "1234 Elm Street Citytown%Stateville 56789%Countryland", "4378.9021-456-78", "0400 000000"));
-            users.add(new User(3L, "Expert", "Expert", "expert@assurapp.com", "$2a$10$TQETsi01Zxo7r6IG5rVgQONQJeKjOLQRvzjkxAGi7qjU1Zy02VblG", roles.get(2), 123456, true, null, "1234 Elm Street Citytown%Stateville 56789%Countryland", "4378.9021-456-78", "0400 000000"));
-            users.add(new User(4L, "Guardian", "Lite", "insurer@guardianlite.com", "$2a$10$TQETsi01Zxo7r6IG5rVgQONQJeKjOLQRvzjkxAGi7qjU1Zy02VblG", roles.get(3), 123456, true, null, "1234 Elm Street Citytown%Stateville 56789%Countryland", "4378.9021-456-78", "0400 000000"));
-            users.add(new User(5L, "Voyager", "Protect", "insurer@voyagerprotect.com", "$2a$10$TQETsi01Zxo7r6IG5rVgQONQJeKjOLQRvzjkxAGi7qjU1Zy02VblG", roles.get(3), 123456, true, null, "1234 Elm Street Citytown%Stateville 56789%Countryland", "4378.9021-456-78", "0400 000000"));
-            users.add(new User(6L, "Peak", "Secure", "insurer@peaksecure.com", "$2a$10$TQETsi01Zxo7r6IG5rVgQONQJeKjOLQRvzjkxAGi7qjU1Zy02VblG", roles.get(3), 123456, true, null, "1234 Elm Street Citytown%Stateville 56789%Countryland", "4378.9021-456-78", "0400 000000"));
+            users.add(new User(1L, "Sarah", "Johnson", "admin@assurapp.com", password, roles.get(0), 123456, true, null, "42 Avenue Louise%Brussels 1000%Belgium", "1234-5678-901-234", "+1 123 4567890"));
+            users.add(new User(2L, "Alex", "Rodriguez", "client@assurapp.com", password, roles.get(1), 123456, true, null, "56 Rue de la Paix%Paris 75001%France", "2345-6789-012-345", "+32 123 456789"));
+            users.add(new User(3L, "Emily", "Carter", "expert@assurapp.com", password, roles.get(2), 123456, true, null, "78 Keizersgracht%Amsterdam 1012%Netherlands", "3456-7890-123-456", "+33 123 456789"));
+            users.add(new User(4L, "Guardian", "Lite", "insurer@guardianlite.com", password, roles.get(3), 123456, true, null, "90 Unter den Linden%Berlin 10115%Germany", "4567-8901-234-567", "+31 123 456789"));
+            users.add(new User(5L, "Voyager", "Protect", "insurer@voyagerprotect.com", password, roles.get(3), 123456, true, null, "12 Calle de Alcalá%Madrid 28001%Spain", "5678-9012-345-678", "+34 123 456789"));
+            users.add(new User(6L, "Peak", "Secure", "insurer@peaksecure.com", password, roles.get(3), 123456, true, null, "34 Via del Corso%Rome 00184%Italy", "6789-0123-456-789", "+39 123 456789"));
+            users.add(new User(7L, "John", "Doe", "john.doe@gmail.com", password, roles.get(1), 123456, true, null, "45 Oxford Street%London W1A 1AA%England", "7890-1234-567-890", "+44 123 456789"));
+            users.add(new User(8L, "Jane", "Doe", "jane.doe@gmail.com", password, roles.get(1), 123456, true, null, "67 Avenue Louise%Brussels 1000%Belgium", "8901-2345-678-901", "+32 123 456789"));
+            users.add(new User(9L, "Alice", "Smith", "alice.smith@gmail.com", password, roles.get(1), 123456, true, null, "34 Rue de Rivoli%Paris 75002%France", "9012-3456-789-012", "+33 123 456789"));
+            users.add(new User(10L, "Bob", "Johnson", "bob.johnson@gmail.com", password, roles.get(1), 123456, true, null, "56 Herengracht%Amsterdam 1013%Netherlands", "0123-4567-890-123", "+31 123 456789"));
+            users.add(new User(11L, "Eva", "Miller", "eva.miller@gmail.com", password, roles.get(1), 123456, true, null, "78 Kurfürstendamm%Berlin 10116%Germany", "1234-5678-901-234", "+49 123 456789"));
+            users.add(new User(12L, "David", "Williams", "david.williams@gmail.com", password, roles.get(1), 123456, true, null, "90 Gran Via%Madrid 28002%Spain", "2345-6789-012-345", "+34 123 456789"));
+            users.add(new User(13L, "Grace", "Taylor", "grace.taylor@gmail.com", password, roles.get(1), 123456, true, null, "12 Via del Babuino%Rome 00185%Italy", "3456-7890-123-456", "+39 123 456789"));
+            users.add(new User(14L, "Michael", "Brown", "michael.brown@gmail.com", password, roles.get(1), 123456, true, null, "34 Regent Street%London W1A 1AB%England", "4567-8901-234-567", "+44 123 456789"));
+            users.add(new User(15L, "Olivia", "Davis", "olivia.davis@gmail.com", password, roles.get(1), 123456, true, null, "56 Avenue Louise%Brussels 1000%Belgium", "5678-9012-345-678", "+32 123 456789"));
+            users.add(new User(16L, "Ryan", "Jones", "ryan.jones@gmail.com", password, roles.get(1), 123456, true, null, "78 Rue Saint-Honoré%Paris 75003%France", "6789-0123-456-789", "+33 123 456789"));
+            users.add(new User(17L, "Sophie", "Clark", "sophie.clark@gmail.com", password, roles.get(1), 123456, true, null, "90 Keizersgracht%Amsterdam 1014%Netherlands", "7890-1234-567-890", "+31 123 456789"));
+            users.add(new User(18L, "Andrew", "Baker", "andrew.baker@gmail.com", password, roles.get(1), 123456, true, null, "12 Unter den Linden%Berlin 10117%Germany", "8901-2345-678-901", "+49 123 456789"));
+            users.add(new User(19L, "Emma", "Ward", "emma.ward@gmail.com", password, roles.get(1), 123456, true, null, "34 Paseo del Prado%Madrid 28003%Spain", "9012-3456-789-012", "+34 123 456789"));
+            users.add(new User(20L, "Jack", "Fisher", "jack.fisher@gmail.com", password, roles.get(1), 123456, true, null, "56 Via Condotti%Rome 00186%Italy", "0123-4567-890-123", "+39 123 456789"));
+            users.add(new User(21L, "Isabella", "Moore", "isabella.moore@gmail.com", password, roles.get(1), 123456, true, null, "78 Friedrichstraße%Berlin 10118%Germany", "1234-5678-901-234", "+49 123 456789"));
+            users.add(new User(22L, "Jacob", "Turner", "jacob.turner@gmail.com", password, roles.get(2), 123456, true, null, "90 Rue Royale%Brussels 1000%Belgium", "2345-6789-012-345", "+32 123 456789"));
+            users.add(new User(23L, "Ava", "Hill", "ava.hill@gmail.com", password, roles.get(2), 123456, true, null, "12 Baker Street%London W1A 1AC%England", "3456-7890-123-456", "+44 123 456789"));
+            users.add(new User(24L, "William", "Campbell", "william.campbell@gmail.com", password, roles.get(2), 123456, true, null, "34 Damstraat%Amsterdam 1015%Netherlands", "4567-8901-234-567", "+31 123 456789"));
+            users.add(new User(25L, "Mia", "Russell", "mia.russell@gmail.com", password, roles.get(2), 123456, true, null, "56 Kurfürstendamm%Berlin 10119%Germany", "5678-9012-345-678", "+49 123 456789"));
+            users.add(new User(26L, "Ethan", "Carter", "ethan.carter@gmail.com", password, roles.get(2), 123456, true, null, "78 Gran Via%Madrid 28004%Spain", "6789-0123-456-789", "+34 123 456789"));
+            users.add(new User(27L, "Liam", "Anderson", "liam.anderson@gmail.com", password, roles.get(0), 123456, true, null, "90 Via del Corso%Rome 00187%Italy", "7890-1234-567-890", "+39 123 456789"));
+            users.add(new User(28L, "Emma", "White", "emma.white@gmail.com", password, roles.get(0), 123456, true, null, "12 Regent Street%London W1A 1AD%England", "8901-2345-678-901", "+44 123 456789"));
+            users.add(new User(29L, "Noah", "Taylor", "noah.taylor@gmail.com", password, roles.get(0), 123456, true, null, "34 Avenue Louise%Brussels 1000%Belgium", "9012-3456-789-012", "+32 123 456789"));
+            users.add(new User(30L, "Olivia", "Brown", "olivia.brown@gmail.com", password, roles.get(0), 123456, true, null, "56 Rue du Faubourg Saint-Antoine%Paris 75005%France", "0123-4567-890-123", "+33 123 456789"));
 
             terms.add(new Term(1L, "Premium", "15 per month"));
             terms.add(new Term(2L, "Coverage", "Covers natural and accidental death"));
@@ -77,7 +103,6 @@ public class DataInitializer {
             terms.add(new Term(7L, "Premium", "30 per month"));
             terms.add(new Term(8L, "Coverage", "Covers critical illnesses and terminal illnesses"));
             terms.add(new Term(9L, "Benefit", "Early payout option for critical illness"));
-            // HEALTH Insurance Plans
             terms.add(new Term(10L, "Premium", "40 per month"));
             terms.add(new Term(11L, "Coverage", "Covers general health check-ups and hospitalization"));
             terms.add(new Term(12L, "Deductible", "$200 deductible for each claim"));
@@ -96,7 +121,6 @@ public class DataInitializer {
             terms.add(new Term(25L, "Premium", "50 per month"));
             terms.add(new Term(26L, "Coverage", "Covers all risks, including high-value items and accidental damage"));
             terms.add(new Term(27L, "Deductible", "1000 deductible for high-value claims"));
-            // TRAVEL Insurance Plans
             terms.add(new Term(28L, "Premium", "15 per trip"));
             terms.add(new Term(29L, "Coverage", "Covers trip cancellations, lost baggage, and medical emergencies"));
             terms.add(new Term(30L, "Deductible", "No deductible for emergency claims"));
@@ -106,7 +130,6 @@ public class DataInitializer {
             terms.add(new Term(34L, "Premium", "40 per trip"));
             terms.add(new Term(35L, "Coverage", "Comprehensive coverage including emergency evacuation and repatriation"));
             terms.add(new Term(36L, "Deductible", "No deductible for evacuation claims"));
-            // PET Insurance Plans
             terms.add(new Term(37L, "Premium", "10 per month"));
             terms.add(new Term(38L, "Coverage", "Covers basic veterinary visits and vaccinations"));
             terms.add(new Term(39L, "Deductible", "50 deductible for each vet visit"));
@@ -125,7 +148,6 @@ public class DataInitializer {
             terms.add(new Term(52L, "Premium", "150 per month"));
             terms.add(new Term(53L, "Coverage", "Covers commercial vehicles, equipment breakdowns, and workers' compensation"));
             terms.add(new Term(54L, "Deductible", "750 deductible for equipment claims"));
-            // LIABILITY Insurance Plans
             terms.add(new Term(55L, "Premium", "20 per month"));
             terms.add(new Term(56L, "Coverage", "Covers personal injury and property damage liability"));
             terms.add(new Term(57L, "Deductible", "No deductible for liability claims"));
@@ -135,7 +157,6 @@ public class DataInitializer {
             terms.add(new Term(61L, "Premium", "40 per month"));
             terms.add(new Term(62L, "Coverage", "Covers all forms of liability including slander and libel"));
             terms.add(new Term(63L, "Deductible", "1000 deductible for slander/libel claims"));
-            // DISABILITY Insurance Plans
             terms.add(new Term(64L, "Premium", "15 per month"));
             terms.add(new Term(65L, "Coverage", "Covers short-term disability due to illness or injury"));
             terms.add(new Term(66L, "Benefit", "Pays 60% of salary for up to 6 months"));
@@ -145,7 +166,6 @@ public class DataInitializer {
             terms.add(new Term(70L, "Premium", "20 per month"));
             terms.add(new Term(71L, "Coverage", "Covers disability due to accidents, excludes pre-existing conditions"));
             terms.add(new Term(72L, "Benefit", "Lump-sum payment based on injury severity"));
-            // RENTERS Insurance Plans
             terms.add(new Term(73L, "Premium", "10 per month"));
             terms.add(new Term(74L, "Coverage", "Covers personal property against theft and damage"));
             terms.add(new Term(75L, "Deductible", "200 deductible for property claims"));
@@ -220,29 +240,168 @@ public class DataInitializer {
             insurances.add(new Insurance(35L, "Third-Party Liability Car Insurance", InsuranceType.CAR, 17000.00, users.get(4), terms.subList(102, 105)));
             insurances.add(new Insurance(36L, "All-Inclusive Car Insurance Premium", InsuranceType.CAR, 35000.00, users.get(5), terms.subList(105, 108)));
 
-            subscriptions.add(new Subscription(1L, Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now().plusMonths(3)), true, users.get(1), insurances.get(0), Collections.emptyList(), Collections.emptyList()));
-            subscriptions.add(new Subscription(2L, Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now().plusMonths(6)), true, users.get(1), insurances.get(1), Collections.emptyList(), Collections.emptyList()));
-            subscriptions.add(new Subscription(3L, Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now().plusMonths(12)), false, users.get(1), insurances.get(2), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(1L, Date.valueOf(LocalDate.of(2022, 1, 1)), Date.valueOf(LocalDate.of(2022, 4, 1)), true, users.get(1), insurances.get(0), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(2L, Date.valueOf(LocalDate.of(2022, 2, 1)), Date.valueOf(LocalDate.of(2022, 8, 1)), true, users.get(1), insurances.get(3), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(3L, Date.valueOf(LocalDate.of(2022, 3, 1)), Date.valueOf(LocalDate.of(2023, 1, 1)), true, users.get(1), insurances.get(6), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(4L, Date.valueOf(LocalDate.of(2022, 4, 1)), Date.valueOf(LocalDate.of(2024, 1, 1)), true, users.get(1), insurances.get(9), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(5L, Date.valueOf(LocalDate.of(2022, 5, 1)), Date.valueOf(LocalDate.of(2026, 1, 1)), true, users.get(1), insurances.get(12), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(6L, Date.valueOf(LocalDate.of(2022, 6, 1)), Date.valueOf(LocalDate.of(2028, 1, 1)), true, users.get(1), insurances.get(15), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(7L, Date.valueOf(LocalDate.of(2022, 7, 1)), Date.valueOf(LocalDate.of(2031, 1, 1)), true, users.get(1), insurances.get(18), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(8L, Date.valueOf(LocalDate.of(2022, 8, 1)), Date.valueOf(LocalDate.of(2025, 1, 1)), true, users.get(1), insurances.get(21), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(9L, Date.valueOf(LocalDate.of(2022, 9, 1)), Date.valueOf(LocalDate.of(2029, 1, 1)), true, users.get(1), insurances.get(24), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(10L, Date.valueOf(LocalDate.of(2022, 10, 1)), Date.valueOf(LocalDate.of(2023, 4, 1)), true, users.get(1), insurances.get(27), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(11L, Date.valueOf(LocalDate.of(2022, 11, 1)), Date.valueOf(LocalDate.of(2023, 7, 1)), true, users.get(1), insurances.get(31), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(12L, Date.valueOf(LocalDate.of(2022, 12, 1)), Date.valueOf(LocalDate.of(2024, 10, 1)), true, users.get(1), insurances.get(31), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(13L, Date.valueOf(LocalDate.of(2015, 1, 1)), Date.valueOf(LocalDate.of(2015, 4, 1)), true, users.get(6), insurances.get(1), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(14L, Date.valueOf(LocalDate.of(2015, 2, 1)), Date.valueOf(LocalDate.of(2015, 8, 1)), true, users.get(6), insurances.get(4), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(15L, Date.valueOf(LocalDate.of(2015, 3, 1)), Date.valueOf(LocalDate.of(2016, 1, 1)), true, users.get(6), insurances.get(7), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(16L, Date.valueOf(LocalDate.of(2015, 4, 1)), Date.valueOf(LocalDate.of(2017, 1, 1)), true, users.get(6), insurances.get(10), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(17L, Date.valueOf(LocalDate.of(2015, 5, 1)), Date.valueOf(LocalDate.of(2019, 1, 1)), true, users.get(6), insurances.get(13), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(18L, Date.valueOf(LocalDate.of(2015, 6, 1)), Date.valueOf(LocalDate.of(2021, 1, 1)), true, users.get(6), insurances.get(16), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(19L, Date.valueOf(LocalDate.of(2015, 7, 1)), Date.valueOf(LocalDate.of(2024, 1, 1)), true, users.get(6), insurances.get(19), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(20L, Date.valueOf(LocalDate.of(2015, 8, 1)), Date.valueOf(LocalDate.of(2018, 1, 1)), true, users.get(6), insurances.get(22), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(21L, Date.valueOf(LocalDate.of(2015, 9, 1)), Date.valueOf(LocalDate.of(2022, 1, 1)), true, users.get(6), insurances.get(25), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(22L, Date.valueOf(LocalDate.of(2015, 10, 1)), Date.valueOf(LocalDate.of(2016, 4, 1)), true, users.get(6), insurances.get(28), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(23L, Date.valueOf(LocalDate.of(2015, 11, 1)), Date.valueOf(LocalDate.of(2016, 7, 1)), true, users.get(6), insurances.get(31), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(24L, Date.valueOf(LocalDate.of(2015, 12, 1)), Date.valueOf(LocalDate.of(2017, 10, 1)), true, users.get(6), insurances.get(34), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(25L, Date.valueOf(LocalDate.of(2015, 1, 1)), Date.valueOf(LocalDate.of(2015, 4, 1)), true, users.get(7), insurances.get(2), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(26L, Date.valueOf(LocalDate.of(2015, 2, 1)), Date.valueOf(LocalDate.of(2015, 8, 1)), true, users.get(7), insurances.get(5), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(27L, Date.valueOf(LocalDate.of(2015, 3, 1)), Date.valueOf(LocalDate.of(2016, 1, 1)), true, users.get(7), insurances.get(8), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(28L, Date.valueOf(LocalDate.of(2015, 4, 1)), Date.valueOf(LocalDate.of(2017, 1, 1)), true, users.get(7), insurances.get(11), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(29L, Date.valueOf(LocalDate.of(2015, 5, 1)), Date.valueOf(LocalDate.of(2019, 1, 1)), true, users.get(7), insurances.get(14), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(30L, Date.valueOf(LocalDate.of(2015, 6, 1)), Date.valueOf(LocalDate.of(2021, 1, 1)), true, users.get(7), insurances.get(17), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(31L, Date.valueOf(LocalDate.of(2015, 7, 1)), Date.valueOf(LocalDate.of(2024, 1, 1)), true, users.get(7), insurances.get(20), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(32L, Date.valueOf(LocalDate.of(2015, 8, 1)), Date.valueOf(LocalDate.of(2018, 1, 1)), true, users.get(7), insurances.get(23), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(33L, Date.valueOf(LocalDate.of(2015, 9, 1)), Date.valueOf(LocalDate.of(2022, 1, 1)), true, users.get(7), insurances.get(26), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(34L, Date.valueOf(LocalDate.of(2015, 10, 1)), Date.valueOf(LocalDate.of(2016, 4, 1)), true, users.get(7), insurances.get(29), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(35L, Date.valueOf(LocalDate.of(2015, 11, 1)), Date.valueOf(LocalDate.of(2016, 7, 1)), true, users.get(7), insurances.get(32), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(36L, Date.valueOf(LocalDate.of(2015, 12, 1)), Date.valueOf(LocalDate.of(2017, 10, 1)), true, users.get(7), insurances.get(35), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(37L, Date.valueOf(LocalDate.of(2015, 1, 1)), Date.valueOf(LocalDate.of(2015, 4, 1)), true, users.get(8), insurances.get(2), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(38L, Date.valueOf(LocalDate.of(2015, 2, 1)), Date.valueOf(LocalDate.of(2015, 8, 1)), true, users.get(8), insurances.get(5), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(39L, Date.valueOf(LocalDate.of(2015, 3, 1)), Date.valueOf(LocalDate.of(2016, 1, 1)), true, users.get(8), insurances.get(8), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(40L, Date.valueOf(LocalDate.of(2015, 4, 1)), Date.valueOf(LocalDate.of(2017, 1, 1)), true, users.get(8), insurances.get(11), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(41L, Date.valueOf(LocalDate.of(2015, 5, 1)), Date.valueOf(LocalDate.of(2019, 1, 1)), true, users.get(8), insurances.get(14), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(42L, Date.valueOf(LocalDate.of(2015, 6, 1)), Date.valueOf(LocalDate.of(2021, 1, 1)), true, users.get(8), insurances.get(17), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(43L, Date.valueOf(LocalDate.of(2015, 7, 1)), Date.valueOf(LocalDate.of(2024, 1, 1)), true, users.get(8), insurances.get(20), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(44L, Date.valueOf(LocalDate.of(2015, 8, 1)), Date.valueOf(LocalDate.of(2018, 1, 1)), true, users.get(8), insurances.get(23), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(45L, Date.valueOf(LocalDate.of(2015, 9, 1)), Date.valueOf(LocalDate.of(2022, 1, 1)), true, users.get(8), insurances.get(26), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(46L, Date.valueOf(LocalDate.of(2015, 10, 1)), Date.valueOf(LocalDate.of(2016, 4, 1)), true, users.get(8), insurances.get(29), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(47L, Date.valueOf(LocalDate.of(2015, 11, 1)), Date.valueOf(LocalDate.of(2016, 7, 1)), true, users.get(8), insurances.get(32), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(48L, Date.valueOf(LocalDate.of(2015, 12, 1)), Date.valueOf(LocalDate.of(2017, 10, 1)), true, users.get(8), insurances.get(35), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(49L, Date.valueOf(LocalDate.of(2015, 1, 1)), Date.valueOf(LocalDate.of(2015, 4, 1)), true, users.get(9), insurances.get(4), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(50L, Date.valueOf(LocalDate.of(2015, 2, 1)), Date.valueOf(LocalDate.of(2015, 8, 1)), true, users.get(9), insurances.get(7), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(51L, Date.valueOf(LocalDate.of(2015, 3, 1)), Date.valueOf(LocalDate.of(2016, 1, 1)), true, users.get(9), insurances.get(10), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(52L, Date.valueOf(LocalDate.of(2015, 4, 1)), Date.valueOf(LocalDate.of(2017, 1, 1)), true, users.get(9), insurances.get(13), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(53L, Date.valueOf(LocalDate.of(2015, 5, 1)), Date.valueOf(LocalDate.of(2019, 1, 1)), true, users.get(9), insurances.get(16), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(54L, Date.valueOf(LocalDate.of(2015, 6, 1)), Date.valueOf(LocalDate.of(2021, 1, 1)), true, users.get(9), insurances.get(19), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(55L, Date.valueOf(LocalDate.of(2015, 7, 1)), Date.valueOf(LocalDate.of(2024, 1, 1)), true, users.get(9), insurances.get(22), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(56L, Date.valueOf(LocalDate.of(2015, 8, 1)), Date.valueOf(LocalDate.of(2018, 1, 1)), true, users.get(9), insurances.get(25), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(57L, Date.valueOf(LocalDate.of(2015, 9, 1)), Date.valueOf(LocalDate.of(2022, 1, 1)), true, users.get(9), insurances.get(28), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(58L, Date.valueOf(LocalDate.of(2015, 10, 1)), Date.valueOf(LocalDate.of(2016, 4, 1)), true, users.get(9), insurances.get(31), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(59L, Date.valueOf(LocalDate.of(2015, 11, 1)), Date.valueOf(LocalDate.of(2016, 7, 1)), true, users.get(9), insurances.get(34), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(60L, Date.valueOf(LocalDate.of(2015, 12, 1)), Date.valueOf(LocalDate.of(2017, 10, 1)), true, users.get(9), insurances.get(0), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(61L, Date.valueOf(LocalDate.of(2015, 1, 1)), Date.valueOf(LocalDate.of(2015, 4, 1)), true, users.get(10), insurances.get(3), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(62L, Date.valueOf(LocalDate.of(2015, 2, 1)), Date.valueOf(LocalDate.of(2015, 8, 1)), true, users.get(10), insurances.get(6), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(63L, Date.valueOf(LocalDate.of(2015, 3, 1)), Date.valueOf(LocalDate.of(2016, 1, 1)), true, users.get(10), insurances.get(9), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(64L, Date.valueOf(LocalDate.of(2015, 4, 1)), Date.valueOf(LocalDate.of(2017, 1, 1)), true, users.get(10), insurances.get(12), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(65L, Date.valueOf(LocalDate.of(2015, 5, 1)), Date.valueOf(LocalDate.of(2019, 1, 1)), true, users.get(10), insurances.get(15), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(66L, Date.valueOf(LocalDate.of(2015, 6, 1)), Date.valueOf(LocalDate.of(2021, 1, 1)), true, users.get(10), insurances.get(18), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(67L, Date.valueOf(LocalDate.of(2015, 7, 1)), Date.valueOf(LocalDate.of(2024, 1, 1)), true, users.get(10), insurances.get(21), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(68L, Date.valueOf(LocalDate.of(2015, 8, 1)), Date.valueOf(LocalDate.of(2018, 1, 1)), true, users.get(10), insurances.get(24), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(69L, Date.valueOf(LocalDate.of(2015, 9, 1)), Date.valueOf(LocalDate.of(2022, 1, 1)), true, users.get(10), insurances.get(27), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(70L, Date.valueOf(LocalDate.of(2015, 10, 1)), Date.valueOf(LocalDate.of(2016, 4, 1)), true, users.get(10), insurances.get(30), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(71L, Date.valueOf(LocalDate.of(2015, 11, 1)), Date.valueOf(LocalDate.of(2016, 7, 1)), true, users.get(10), insurances.get(33), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(72L, Date.valueOf(LocalDate.of(2015, 12, 1)), Date.valueOf(LocalDate.of(2017, 10, 1)), true, users.get(10), insurances.get(35), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(73L, Date.valueOf(LocalDate.of(2015, 1, 1)), Date.valueOf(LocalDate.of(2015, 4, 1)), true, users.get(11), insurances.get(3), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(74L, Date.valueOf(LocalDate.of(2015, 2, 1)), Date.valueOf(LocalDate.of(2015, 8, 1)), true, users.get(11), insurances.get(6), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(75L, Date.valueOf(LocalDate.of(2015, 3, 1)), Date.valueOf(LocalDate.of(2016, 1, 1)), true, users.get(11), insurances.get(9), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(76L, Date.valueOf(LocalDate.of(2015, 4, 1)), Date.valueOf(LocalDate.of(2017, 1, 1)), true, users.get(11), insurances.get(12), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(77L, Date.valueOf(LocalDate.of(2015, 5, 1)), Date.valueOf(LocalDate.of(2019, 1, 1)), true, users.get(11), insurances.get(15), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(78L, Date.valueOf(LocalDate.of(2015, 6, 1)), Date.valueOf(LocalDate.of(2021, 1, 1)), true, users.get(11), insurances.get(18), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(79L, Date.valueOf(LocalDate.of(2015, 7, 1)), Date.valueOf(LocalDate.of(2024, 1, 1)), true, users.get(11), insurances.get(21), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(80L, Date.valueOf(LocalDate.of(2015, 8, 1)), Date.valueOf(LocalDate.of(2018, 1, 1)), true, users.get(11), insurances.get(24), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(81L, Date.valueOf(LocalDate.of(2015, 9, 1)), Date.valueOf(LocalDate.of(2022, 1, 1)), true, users.get(11), insurances.get(27), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(82L, Date.valueOf(LocalDate.of(2015, 10, 1)), Date.valueOf(LocalDate.of(2016, 4, 1)), true, users.get(11), insurances.get(30), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(83L, Date.valueOf(LocalDate.of(2015, 11, 1)), Date.valueOf(LocalDate.of(2016, 7, 1)), true, users.get(11), insurances.get(33), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(84L, Date.valueOf(LocalDate.of(2015, 12, 1)), Date.valueOf(LocalDate.of(2017, 10, 1)), true, users.get(11), insurances.get(35), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(85L, Date.valueOf(LocalDate.of(2015, 1, 1)), Date.valueOf(LocalDate.of(2015, 4, 1)), true, users.get(12), insurances.get(3), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(86L, Date.valueOf(LocalDate.of(2015, 2, 1)), Date.valueOf(LocalDate.of(2015, 8, 1)), true, users.get(12), insurances.get(6), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(87L, Date.valueOf(LocalDate.of(2015, 3, 1)), Date.valueOf(LocalDate.of(2016, 1, 1)), true, users.get(12), insurances.get(9), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(88L, Date.valueOf(LocalDate.of(2015, 4, 1)), Date.valueOf(LocalDate.of(2017, 1, 1)), true, users.get(12), insurances.get(12), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(89L, Date.valueOf(LocalDate.of(2015, 5, 1)), Date.valueOf(LocalDate.of(2019, 1, 1)), true, users.get(12), insurances.get(15), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(90L, Date.valueOf(LocalDate.of(2015, 6, 1)), Date.valueOf(LocalDate.of(2021, 1, 1)), true, users.get(12), insurances.get(18), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(91L, Date.valueOf(LocalDate.of(2015, 7, 1)), Date.valueOf(LocalDate.of(2024, 1, 1)), true, users.get(12), insurances.get(21), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(92L, Date.valueOf(LocalDate.of(2015, 8, 1)), Date.valueOf(LocalDate.of(2018, 1, 1)), true, users.get(12), insurances.get(24), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(93L, Date.valueOf(LocalDate.of(2015, 9, 1)), Date.valueOf(LocalDate.of(2022, 1, 1)), true, users.get(12), insurances.get(27), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(94L, Date.valueOf(LocalDate.of(2015, 10, 1)), Date.valueOf(LocalDate.of(2016, 4, 1)), true, users.get(12), insurances.get(30), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(95L, Date.valueOf(LocalDate.of(2015, 11, 1)), Date.valueOf(LocalDate.of(2016, 7, 1)), true, users.get(12), insurances.get(33), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(96L, Date.valueOf(LocalDate.of(2015, 12, 1)), Date.valueOf(LocalDate.of(2017, 10, 1)), true, users.get(12), insurances.get(35), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(97L, Date.valueOf(LocalDate.of(2015, 1, 1)), Date.valueOf(LocalDate.of(2015, 4, 1)), true, users.get(13), insurances.get(3), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(98L, Date.valueOf(LocalDate.of(2015, 2, 1)), Date.valueOf(LocalDate.of(2015, 8, 1)), true, users.get(13), insurances.get(6), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(99L, Date.valueOf(LocalDate.of(2015, 3, 1)), Date.valueOf(LocalDate.of(2016, 1, 1)), true, users.get(13), insurances.get(9), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(100L, Date.valueOf(LocalDate.of(2015, 4, 1)), Date.valueOf(LocalDate.of(2017, 1, 1)), true, users.get(13), insurances.get(12), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(101L, Date.valueOf(LocalDate.of(2015, 5, 1)), Date.valueOf(LocalDate.of(2019, 1, 1)), true, users.get(13), insurances.get(15), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(102L, Date.valueOf(LocalDate.of(2015, 6, 1)), Date.valueOf(LocalDate.of(2021, 1, 1)), true, users.get(13), insurances.get(18), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(103L, Date.valueOf(LocalDate.of(2015, 7, 1)), Date.valueOf(LocalDate.of(2024, 1, 1)), true, users.get(13), insurances.get(21), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(104L, Date.valueOf(LocalDate.of(2015, 8, 1)), Date.valueOf(LocalDate.of(2018, 1, 1)), true, users.get(13), insurances.get(24), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(105L, Date.valueOf(LocalDate.of(2015, 9, 1)), Date.valueOf(LocalDate.of(2022, 1, 1)), true, users.get(13), insurances.get(27), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(106L, Date.valueOf(LocalDate.of(2015, 10, 1)), Date.valueOf(LocalDate.of(2016, 4, 1)), true, users.get(13), insurances.get(30), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(107L, Date.valueOf(LocalDate.of(2015, 11, 1)), Date.valueOf(LocalDate.of(2016, 7, 1)), true, users.get(13), insurances.get(33), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(108L, Date.valueOf(LocalDate.of(2015, 12, 1)), Date.valueOf(LocalDate.of(2017, 10, 1)), true, users.get(13), insurances.get(35), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(109L, Date.valueOf(LocalDate.of(2015, 1, 1)), Date.valueOf(LocalDate.of(2015, 4, 1)), true, users.get(14), insurances.get(4), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(110L, Date.valueOf(LocalDate.of(2015, 2, 1)), Date.valueOf(LocalDate.of(2015, 8, 1)), true, users.get(14), insurances.get(7), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(111L, Date.valueOf(LocalDate.of(2015, 3, 1)), Date.valueOf(LocalDate.of(2016, 1, 1)), true, users.get(14), insurances.get(10), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(112L, Date.valueOf(LocalDate.of(2015, 4, 1)), Date.valueOf(LocalDate.of(2017, 1, 1)), true, users.get(14), insurances.get(13), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(113L, Date.valueOf(LocalDate.of(2015, 5, 1)), Date.valueOf(LocalDate.of(2019, 1, 1)), true, users.get(14), insurances.get(16), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(114L, Date.valueOf(LocalDate.of(2015, 6, 1)), Date.valueOf(LocalDate.of(2021, 1, 1)), true, users.get(14), insurances.get(19), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(115L, Date.valueOf(LocalDate.of(2015, 7, 1)), Date.valueOf(LocalDate.of(2024, 1, 1)), true, users.get(14), insurances.get(22), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(116L, Date.valueOf(LocalDate.of(2015, 8, 1)), Date.valueOf(LocalDate.of(2018, 1, 1)), true, users.get(14), insurances.get(25), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(117L, Date.valueOf(LocalDate.of(2015, 9, 1)), Date.valueOf(LocalDate.of(2022, 1, 1)), true, users.get(14), insurances.get(28), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(118L, Date.valueOf(LocalDate.of(2015, 10, 1)), Date.valueOf(LocalDate.of(2016, 4, 1)), true, users.get(14), insurances.get(31), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(119L, Date.valueOf(LocalDate.of(2015, 11, 1)), Date.valueOf(LocalDate.of(2016, 7, 1)), true, users.get(14), insurances.get(34), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(120L, Date.valueOf(LocalDate.of(2015, 12, 1)), Date.valueOf(LocalDate.of(2017, 10, 1)), true, users.get(14), insurances.get(35), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(121L, Date.valueOf(LocalDate.of(2015, 1, 1)), Date.valueOf(LocalDate.of(2015, 4, 1)), true, users.get(15), insurances.get(5), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(122L, Date.valueOf(LocalDate.of(2015, 2, 1)), Date.valueOf(LocalDate.of(2015, 8, 1)), true, users.get(15), insurances.get(8), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(123L, Date.valueOf(LocalDate.of(2015, 3, 1)), Date.valueOf(LocalDate.of(2016, 1, 1)), true, users.get(15), insurances.get(11), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(124L, Date.valueOf(LocalDate.of(2015, 4, 1)), Date.valueOf(LocalDate.of(2017, 1, 1)), true, users.get(15), insurances.get(14), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(125L, Date.valueOf(LocalDate.of(2015, 5, 1)), Date.valueOf(LocalDate.of(2019, 1, 1)), true, users.get(15), insurances.get(17), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(126L, Date.valueOf(LocalDate.of(2015, 6, 1)), Date.valueOf(LocalDate.of(2021, 1, 1)), true, users.get(15), insurances.get(20), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(127L, Date.valueOf(LocalDate.of(2015, 7, 1)), Date.valueOf(LocalDate.of(2024, 1, 1)), true, users.get(15), insurances.get(23), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(128L, Date.valueOf(LocalDate.of(2015, 8, 1)), Date.valueOf(LocalDate.of(2018, 1, 1)), true, users.get(15), insurances.get(26), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(129L, Date.valueOf(LocalDate.of(2015, 9, 1)), Date.valueOf(LocalDate.of(2022, 1, 1)), true, users.get(15), insurances.get(29), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(130L, Date.valueOf(LocalDate.of(2015, 10, 1)), Date.valueOf(LocalDate.of(2016, 4, 1)), true, users.get(15), insurances.get(32), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(131L, Date.valueOf(LocalDate.of(2015, 11, 1)), Date.valueOf(LocalDate.of(2016, 7, 1)), true, users.get(15), insurances.get(35), Collections.emptyList(), Collections.emptyList()));
+            subscriptions.add(new Subscription(132L, Date.valueOf(LocalDate.of(2015, 12, 1)), Date.valueOf(LocalDate.of(2017, 10, 1)), true, users.get(15), insurances.get(35), Collections.emptyList(), Collections.emptyList()));
 
-            claims.add(new Claim(1L, "Crash clio 4",  Date.valueOf(LocalDate.now()), ClaimStatus.APPROVED, users.get(1), users.get(2)));
-            claims.add(new Claim(2L, "Crash Citroen C3",  Date.valueOf(LocalDate.now().plusDays(12)), ClaimStatus.REFUSED, users.get(1), users.get(2)));
-            claims.add(new Claim(3L, "Crash Peugeut 206",  Date.valueOf(LocalDate.now().plusDays(16)), ClaimStatus.PENDING, users.get(1), null));
-            claims.add(new Claim(4L, "Crash Renault",  Date.valueOf(LocalDate.now().plusDays(18)), ClaimStatus.ASSIGNED, users.get(1), users.get(2)));
-            claims.add(new Claim(5L, "Crash Mercedes",  Date.valueOf(LocalDate.now().plusDays(20)), ClaimStatus.PROGRESS, users.get(1), users.get(2)));
-            claims.add(new Claim(6L, "Crash Audi",  Date.valueOf(LocalDate.now().plusDays(22)), ClaimStatus.CLOSED, users.get(1), users.get(2)));
-            claims.add(new Claim(7L, "Crash Skoda",  Date.valueOf(LocalDate.now().plusDays(24)), ClaimStatus.CANCELLED, users.get(1), users.get(2)));
+            claims.add(new Claim(1L, "Collision with a Clio 4 at the intersection",  Date.valueOf(LocalDate.of(2023, 1, 12)), ClaimStatus.APPROVED, users.get(1), users.get(2)));
+            claims.add(new Claim(2L, "Fender bender involving a Citroen C3 on the highway",  Date.valueOf(LocalDate.of(2023, 7, 11)), ClaimStatus.APPROVED, users.get(1), users.get(2)));
+            claims.add(new Claim(3L, "Parking lot incident with a Peugeot 206",  Date.valueOf(LocalDate.of(2022, 1, 1)), ClaimStatus.APPROVED, users.get(1), users.get(2)));
+            claims.add(new Claim(4L, "Side collision with a Renault during rush hour traffic",  Date.valueOf(LocalDate.of(2022, 1, 1)), ClaimStatus.APPROVED, users.get(1), users.get(2)));
+            claims.add(new Claim(5L, "Major accident involving a Mercedes on a rainy day",  Date.valueOf(LocalDate.of(2022, 1, 1)), ClaimStatus.APPROVED, users.get(1), users.get(22)));
+            claims.add(new Claim(6L, "Intersection crash with an Audi on a foggy morning",  Date.valueOf(LocalDate.of(2022, 1, 1)), ClaimStatus.APPROVED, users.get(6), users.get(21)));
+            claims.add(new Claim(7L, "Hit and run incident with a Skoda in a shopping center",  Date.valueOf(LocalDate.of(2022, 1, 1)), ClaimStatus.APPROVED, users.get(6), users.get(21)));
+            claims.add(new Claim(8L, "Rear-end collision with a Ford Focus at a traffic signal", Date.valueOf(LocalDate.of(2022, 1, 1)), ClaimStatus.APPROVED, users.get(6), users.get(21)));
+            claims.add(new Claim(9L, "T-bone collision with a Toyota Camry at an intersection", Date.valueOf(LocalDate.of(2022, 1, 1)), ClaimStatus.APPROVED, users.get(6), users.get(23)));
+            claims.add(new Claim(10L, "Side-swipe incident with a Honda Civic on the highway", Date.valueOf(LocalDate.of(2022, 1, 1)), ClaimStatus.APPROVED, users.get(6), users.get(21)));
+            claims.add(new Claim(11L, "Parking lot collision with a Chevrolet Silverado", Date.valueOf(LocalDate.of(2022, 1, 1)), ClaimStatus.APPROVED, users.get(6), users.get(21)));
+            claims.add(new Claim(12L, "Hit and run incident in a residential area", Date.valueOf(LocalDate.of(2022, 1, 1)), ClaimStatus.APPROVED, users.get(6), users.get(22)));
+            claims.add(new Claim(13L, "Fender bender with a BMW 3 Series at a roundabout", Date.valueOf(LocalDate.of(2022, 1, 1)), ClaimStatus.ASSIGNED, users.get(1), users.get(2)));
+            claims.add(new Claim(14L, "Collision with a motorcycle on a narrow street", Date.valueOf(LocalDate.of(2022, 1, 1)), ClaimStatus.ASSIGNED, users.get(1), users.get(2)));
+            claims.add(new Claim(15L, "Accident involving a delivery truck on the highway", Date.valueOf(LocalDate.of(2022, 1, 1)), ClaimStatus.PENDING, users.get(1), null));
 
+            expertises.add(new Expertise(1L, "Front side", Date.valueOf(LocalDate.of(2022, 1, 1)), 700.00, "https://firebasestorage.googleapis.com/v0/b/assurapp-a7675.appspot.com/o/c-joyful-uWOBgtCD_m8-unsplash.jpg?alt=media&token=92225d1f-0a54-4f00-8696-901aadf37770", claims.get(0), users.get(2)));
+            expertises.add(new Expertise(2L, "Rear-end damage analysis", Date.valueOf(LocalDate.of(2022, 1, 1)), 850.50, "https://firebasestorage.googleapis.com/v0/b/assurapp-a7675.appspot.com/o/clark-van-der-beken-CSkriQWeTVs-unsplash.jpg?alt=media&token=dccb85fe-ceb1-416c-b323-66bf8fcad8fa", claims.get(1), users.get(2)));
+            expertises.add(new Expertise(3L, "Parking lot collision assessment", Date.valueOf(LocalDate.of(2022, 1, 1)), 600.75, "https://firebasestorage.googleapis.com/v0/b/assurapp-a7675.appspot.com/o/denny-muller-FXrcBTOy8Fw-unsplash.jpg?alt=media&token=31f9694b-4417-4153-a31c-ee294be9dde5", claims.get(2), users.get(2)));
+            expertises.add(new Expertise(4L, "Side collision during rush hour", Date.valueOf(LocalDate.of(2022, 1, 1)), 920.20, "https://firebasestorage.googleapis.com/v0/b/assurapp-a7675.appspot.com/o/ian-valerio-9UxW_MqBGe4-unsplash.jpg?alt=media&token=43c949ec-3d8e-4b40-9d21-0ad35f522fa0", claims.get(3), users.get(2)));
+            expertises.add(new Expertise(5L, "Major accident reconstruction", Date.valueOf(LocalDate.of(2022, 1, 1)), 1100.90, "https://firebasestorage.googleapis.com/v0/b/assurapp-a7675.appspot.com/o/karl-solano-WM5WRBl-EZ8-unsplash.jpg?alt=media&token=6f628a35-822e-4fec-9fa6-5cc61aec52ec", claims.get(4), users.get(22)));
+            expertises.add(new Expertise(6L, "Intersection crash analysis", Date.valueOf(LocalDate.of(2022, 1, 1)), 980.60, "https://firebasestorage.googleapis.com/v0/b/assurapp-a7675.appspot.com/o/marek-piwnicki-W4j2apqyyFw-unsplash.jpg?alt=media&token=5d9d2562-c483-400f-9902-49e5ab7ad1da", claims.get(5), users.get(21)));
+            expertises.add(new Expertise(7L, "Hit and run incident assessment", Date.valueOf(LocalDate.of(2022, 1, 1)), 750.30, "https://firebasestorage.googleapis.com/v0/b/assurapp-a7675.appspot.com/o/michael-jin-ipHlSSaC3vk-unsplash.jpg?alt=media&token=6b44e26c-5707-42d3-8568-a51f77afa6b0", claims.get(6), users.get(21)));
+            expertises.add(new Expertise(8L, "Rear-end collision inspection", Date.valueOf(LocalDate.of(2022, 1, 1)), 800.40, "https://firebasestorage.googleapis.com/v0/b/assurapp-a7675.appspot.com/o/mick-haupt-XTZHvQ9MUKI-unsplash.jpg?alt=media&token=34f403c3-6d24-4bf4-a95c-ff3f8f3f0a56", claims.get(7), users.get(22)));
+            expertises.add(new Expertise(9L, "T-bone collision analysis", Date.valueOf(LocalDate.of(2022, 1, 1)), 900.50, "https://firebasestorage.googleapis.com/v0/b/assurapp-a7675.appspot.com/o/niclas-lundin-qGzWty2oBlQ-unsplash.jpg?alt=media&token=196d6e8d-a119-469b-b8a4-e4e73c52831d", claims.get(8), users.get(23)));
+            expertises.add(new Expertise(10L, "Side-swipe incident examination", Date.valueOf(LocalDate.of(2022, 1, 1)), 670.80, "https://firebasestorage.googleapis.com/v0/b/assurapp-a7675.appspot.com/o/usman-malik-cbXfPEOc1-k-unsplash.jpg?alt=media&token=4a6baf6a-0eb2-482c-9f84-6706c7b9f20f", claims.get(9), users.get(21)));
+            expertises.add(new Expertise(11L, "Parking lot collision review", Date.valueOf(LocalDate.of(2022, 1, 1)), 720.90, "https://firebasestorage.googleapis.com/v0/b/assurapp-a7675.appspot.com/o/usman-malik-kE__1vnDxg4-unsplash.jpg?alt=media&token=69803470-cf5e-476d-93b6-9722e2ad9717", claims.get(10), users.get(21)));
+            expertises.add(new Expertise(12L, "Hit and run incident inspection", Date.valueOf(LocalDate.of(2022, 1, 1)), 880.25, "https://firebasestorage.googleapis.com/v0/b/assurapp-a7675.appspot.com/o/usman-malik-xlxeGeh1DY4-unsplash.jpg?alt=media&token=99a1f7f9-afae-478c-a89d-3d4060a36042", claims.get(11), users.get(22)));
 
-            expertises.add(new Expertise(1L, "Front side", Date.valueOf(LocalDate.now()), 700.00, "assets/expertises/clio.jpg", claims.get(0), users.get(2)));
-            expertises.add(new Expertise(2L, "Wheel damage", Date.valueOf(LocalDate.now().plusDays(13)), 1200.00, "assets/expertises/citroen.jpg",claims.get(1) , users.get(2)));
-            expertises.add(new Expertise(4L, "Front side", Date.valueOf(LocalDate.now().plusDays(20)), 700.00, "assets/expertises/citroen.jpg",claims.get(4) , users.get(2)));
-            expertises.add(new Expertise(5L, "Front side", Date.valueOf(LocalDate.now().plusDays(22)), 700.00, "assets/expertises/peugeot.jpg",claims.get(5) , users.get(2)));
-            expertises.add(new Expertise(6L, "Front side", Date.valueOf(LocalDate.now().plusDays(24)), 700.00, "assets/expertises/clio.jpg",claims.get(6) , users.get(2)));
-
-
-            payments.add(new Payment(1L, 220.80, Date.valueOf(LocalDate.now()), PaymentStatus.COMPLETED));
-            payments.add(new Payment(2L, 332.89, Date.valueOf(LocalDate.now().plusDays(1)), PaymentStatus.COMPLETED));
-            payments.add(new Payment(3L, 224.92, Date.valueOf(LocalDate.now().plusDays(2)), PaymentStatus.COMPLETED));
 
             roleRepository.saveAll(roles);
             userRepository.saveAll(users);
@@ -251,9 +410,21 @@ public class DataInitializer {
             subscriptionRepository.saveAll(subscriptions);
             claimRepository.saveAll(claims);
             expertiseRepository.saveAll(expertises);
-            paymentRepository.saveAll(payments);
-            subscriptions.get(0).setPayments(payments);
-            subscriptions.get(0).setClaims(claims);
+
+            subscriptions.get(11).setClaims(claims.subList(0, 5));
+            subscriptions.get(11).setClaims(claims.subList(12, 15));
+            subscriptions.get(23).setClaims(claims.subList(5, 12));
+
+            for (Subscription s: subscriptions) {
+                String value = s.getInsurance().getTerms().get(0).getDescription().split(" ")[0];
+                long duration = Period.between(s.getStartDate().toLocalDate(), s.getEndDate().toLocalDate()).toTotalMonths();
+                Double amount = Double.parseDouble(value) * duration;
+                Payment p = new Payment(null, amount, s.getStartDate(), PaymentStatus.COMPLETED);
+                payments.add(p);
+                Payment pay = paymentRepository.save(p);
+                s.setPayments(new ArrayList<>(s.getPayments()));
+                s.getPayments().add(pay);
+            }
             subscriptionRepository.saveAll(subscriptions);
         };
     }

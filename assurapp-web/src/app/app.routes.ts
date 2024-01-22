@@ -51,7 +51,7 @@ export const routes: Routes = [
       { path: "profile/changePassword", component: ChangePasswordComponent},
       { path: "profile/delete", component: ConfirmDeleteComponent},
       { path: 'insurances', component: InsurancesDashboardComponent, canActivate: [AuthGuard], data: {roles: [Roles.INSURER, Roles.CLIENT]}},
-      { path: 'insurances/clients', component: ManageUsersComponent, canActivate: [AuthGuard], data: {roles: [Roles.INSURER]}},
+      { path: 'clients', component: ManageUsersComponent, canActivate: [AuthGuard], data: {roles: [Roles.INSURER]}},
       { path: 'insurances/add', component: AddInsuranceComponent, canActivate: [AuthGuard], data: {roles: [Roles.INSURER]}},
       { path: 'insurances/update/:id', component: UpdateInsuranceComponent, canActivate: [AuthGuard], data: {roles: [Roles.INSURER]}},
       { path: 'subscriptions', component: SubscriptionsComponent, canActivate: [AuthGuard], data: {roles: [Roles.INSURER, Roles.CLIENT]}},

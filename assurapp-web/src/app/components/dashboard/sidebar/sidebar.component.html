@@ -41,7 +41,7 @@
 
       @if (getRole() === Roles.INSURER) {
         <li>
-          <a routerLink="/dashboard/insurances/clients"
+          <a routerLink="/dashboard/clients"
              [ngClass]="{'bg-gray-700 text-white': active('clients'),'text-gray-400 hover:bg-gray-800 hover:text-white-300': !active('clients')}"
              class="w-full flex items-center gap-x-3.5 py-2 px-2.5 text-sm rounded-lg focus:outline-none focus:ring-1 focus:ring-gray-600">
             <svg class="flex-shrink-0 w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
