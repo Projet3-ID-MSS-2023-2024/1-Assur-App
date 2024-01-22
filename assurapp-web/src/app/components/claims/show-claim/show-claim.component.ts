@@ -35,7 +35,7 @@ export class ShowClaimComponent implements OnInit{
       this.expertService.getExpertiseById(parseInt(id)).subscribe({
         next: (expertise) => {
           this.expertise = expertise;
-          this.claimService.getClaimById(expertise.id).subscribe({
+          this.claimService.getClaimById(expertise.claim.id).subscribe({
                   next: (claim) => {
                     this.claim = claim;
                   },
