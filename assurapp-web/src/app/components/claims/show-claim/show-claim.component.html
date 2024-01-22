@@ -1,0 +1,43 @@
+<div class="w-full max-w-px mx-auto p-6">
+  <div class="mt-7 bg-white border border-gray-200 rounded-xl shadow-sm dark:bg-gray-800 dark:border-gray-700">
+    <div class="p-4 sm:p-7">
+      <div class="text-center">
+        <h1 class="block text-2xl font-bold text-gray-800 dark:text-white">Claim n°{{claim.id}}</h1>
+        <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">Don't forget that all informations can't be modifiable</p>
+      </div>
+
+      <div class="mt-5">
+        <div class="py-3 flex items-center text-xs text-gray-400 uppercase before:flex-[1_1_0%] before:border-t before:border-gray-200 before:me-6 after:flex-[1_1_0%] after:border-t after:border-gray-200 after:ms-6 dark:text-gray-500 dark:before:border-gray-600 dark:after:border-gray-600"></div>
+        <!-- Form -->
+        <form>
+          <div class="grid gap-y-4">
+          <div>
+              <label class="block text-sm mb-2 dark:text-white">Picture of claims</label>
+              <div class="relative">
+                <img src="{{expertise.imageFile}}" alt="{{expertise.imageFile}}" class="w-1/2 lg:w-2/5 h-50 mx-auto object-cover rounded-lg">
+              </div>
+           </div>
+            <div>
+              <label for="date" class="block text-sm mb-2 dark:text-white">Incident Date</label>
+              <div class="relative">
+                <input [disabled]="true" [(ngModel)]="claim.date" type="text" id="date" name="date" class="py-3 px-4 block w-full border-gray-200 border-[1px] rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-100 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600">
+              </div>
+            </div>
+            <div class="relative">
+              <label for="date" class="block text-sm mb-2 dark:text-white">Description</label>
+                  <textarea [disabled]="true" [(ngModel)]="claim.description" [ngModelOptions]="{standalone: true}" id="hs-floating-textarea" class="peer p-4 block w-full border-gray-200 border-[1px] rounded-lg text-sm placeholder:text-transparent focus:border-blue-500 focus:ring-blue-500 disabled:opacity-100 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600
+                  focus:pt-6
+                  focus:pb-2
+                  [&:not(:placeholder-shown)]:pt-6
+                  [&:not(:placeholder-shown)]:pb-2
+                  autofill:pt-6
+                  autofill:pb-2" placeholder="Descrip the incident"></textarea>
+            </div>
+          </div>
+        </form>
+        <!-- End Form -->
+        <p-toast position="top-center"></p-toast>
+      </div>
+    </div>
+  </div>
+</div>

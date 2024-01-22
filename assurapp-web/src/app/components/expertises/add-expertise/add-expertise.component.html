@@ -1,0 +1,59 @@
+<div class="w-full max-w-px mx-auto p-6">
+  <div class="mt-7 bg-white border border-gray-200 rounded-xl shadow-sm dark:bg-gray-800 dark:border-gray-700">
+    <div class="p-4 sm:p-7">
+      <div class="text-center">
+        <h1 class="block text-2xl font-bold text-gray-800 dark:text-white">Expertise for Claim n°{{claim.id}}</h1>
+        <h2 class="block text-lg font-bold text-gray-800 dark:text-white">This is the expertise linked at this claim</h2>
+        <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">Don't forget that all informations can't be modifiable</p>
+      </div>
+      <div class="mt-5">
+        <div class="py-3 flex items-center text-xs text-gray-400 uppercase before:flex-[1_1_0%] before:border-t before:border-gray-200 before:me-6 after:flex-[1_1_0%] after:border-t after:border-gray-200 after:ms-6 dark:text-gray-500 dark:before:border-gray-600 dark:after:border-gray-600"></div>
+        <!-- Form -->
+        <form>
+          <div class="grid gap-y-4">
+            <div>
+              <label for="date" class="block text-sm mb-2 dark:text-white">Expertise Date</label>
+              <div class="relative">
+                <input [(ngModel)]="expertise.date" type="datetime-local" id="date" name="date" class="py-3 px-4 block w-full border-gray-200 border-[1px] rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600">
+              </div>
+            </div>
+            <div class="relative">
+                  <textarea [(ngModel)]="expertise.description" [ngModelOptions]="{standalone: true}" id="hs-floating-textarea" class="peer p-4 block w-full border-gray-200 border-[1px] rounded-lg text-sm placeholder:text-transparent focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600
+                  focus:pt-6
+                  focus:pb-2
+                  [&:not(:placeholder-shown)]:pt-6
+                  [&:not(:placeholder-shown)]:pb-2
+                  autofill:pt-6
+                  autofill:pb-2" placeholder="Descrip the incident"></textarea>
+              <label for="hs-floating-textarea" class="absolute top-0 start-0 p-4 h-full text-sm truncate pointer-events-none transition ease-in-out duration-100 border border-transparent dark:text-white peer-disabled:opacity-50 peer-disabled:pointer-events-none
+                    peer-focus:text-xs
+                    peer-focus:-translate-y-1.5
+                    peer-focus:text-gray-500
+                    peer-[:not(:placeholder-shown)]:text-xs
+                    peer-[:not(:placeholder-shown)]:-translate-y-1.5
+                    peer-[:not(:placeholder-shown)]:text-gray-500">Description</label>
+            </div>
+            <div>
+              <label for="amount" class="block text-sm mb-2 dark:text-white">Estimated Amount</label>
+              <div class="relative">
+                <input [(ngModel)]="expertise.estimation" type="number" id="amount" name="amount" class="py-3 px-4 block w-full border-gray-200 border-[1px] rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600">
+              </div>
+            </div>
+            <div class="mt-5">
+              <label for="image" class="block text-sm mb-2 dark:text-white">Upload Image</label>
+              <input type="file" (change)="onFileSelected($event)" id="image" name="image" class="py-3 px-4 block w-full border-gray-200 border-[1px]  rounded-lg text-sm focus:border-blue-500 focus:ring-blue-500 dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600">
+            </div>
+            <button (click)="addExpertise()" class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">Add Expertise</button>
+          </div>
+        </form>
+        <!-- End Form -->
+        <p-toast position="top-center"></p-toast>
+      </div>
+    </div>
+  </div>
+  <div class="w-full inline-flex justify-center items-center">
+  <div *ngIf="loading" class="animate-spin inline-block w-9 h-9 border-[3px] border-current border-t-transparent text-blue-600 rounded-full dark:text-blue-500" role="status" aria-label="loading">
+  <span class="sr-only">Loading...</span>
+</div>
+</div>
+</div>

@@ -1,0 +1,143 @@
+<div class="max-w-px px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+  <div class="flex flex-col">
+    <div class="-m-1.5 overflow-x-auto">
+      <div class="p-1.5 min-w-full inline-block align-middle">
+        <div class="bg-white border border-gray-200 rounded-xl shadow-sm overflow-hidden dark:bg-slate-900 dark:border-gray-700">
+          <div class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-b border-gray-200 dark:border-gray-700">
+            <div>
+              <h2 class="text-xl font-semibold text-gray-800 dark:text-gray-200">
+                Insurances
+              </h2>
+              <p class="text-sm text-gray-600 dark:text-gray-400">
+                Create offers, edit and delete.
+              </p>
+            </div>
+
+            <div>
+              <div class="inline-flex gap-x-2 items-center">
+                <span class="text-sm text-gray-600 dark:text-gray-400">Filter:</span>
+                <select (change)="filter($event)" name="type" id="type" class="py-2 px-3 pe-11 block w-full border-[1px] border-gray-200 shadow-sm text-sm rounded-lg focus:border-blue-500 focus:ring-blue-500 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:ring-gray-600">
+                    <option value="ALL">ALL</option>
+                  @for (type of types; track type) {
+                    <option [value]="type">{{type}}</option>
+                  }
+                </select>
+                <button routerLink="add" type="button" class="py-2 px-8 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+                  Create
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <table class="min-w-full divide-y divide-gray-200 dark:divide-gray-700">
+            <thead class="bg-gray-50 dark:bg-slate-800">
+            <tr>
+              <th scope="col" class="px-6 py-3 text-start">
+                <a class="group inline-flex items-center gap-x-2">
+										<span class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+										  Name
+										</span>
+                </a>
+              </th>
+
+              <th scope="col" class="px-6 py-3 text-start">
+                <a class="group inline-flex items-center gap-x-2">
+										<span class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+										  Type
+										</span>
+                </a>
+              </th>
+
+              <th scope="col" class="px-6 py-3 text-start">
+                <a class="group inline-flex items-center gap-x-2">
+									<span class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+									  Coverage Amount
+									</span>
+                </a>
+              </th>
+
+              <th scope="col" class="px-6 py-3 text-start">
+                <a class="group inline-flex items-center gap-x-2">
+									<span class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+									  Terms
+									</span>
+                </a>
+              </th>
+
+              <th scope="col" class="px-6 py-3 text-end">
+								<span class="text-xs font-semibold uppercase tracking-wide text-gray-800 dark:text-gray-200">
+									  Actions
+								</span>
+              </th>
+            </tr>
+            </thead>
+
+            <tbody class="divide-y divide-gray-200 dark:divide-gray-700">
+              @for (insurance of data; track insurance.id) {
+                <tr class="bg-white hover:bg-gray-50 dark:bg-slate-900 dark:hover:bg-slate-800">
+                  <td class="h-px w-px whitespace-nowrap">
+                    <div class="px-6 py-2">
+                      <div class="block text-sm text-black-600 decoration-2 dark:text-white">{{ insurance.name }}</div>
+                    </div>
+                  </td>
+                  <td class="h-px w-px whitespace-nowrap">
+                    <div class="px-6 py-2">
+                      <div class="block text-sm text-black-600 decoration-2 dark:text-white">{{ insurance.type }}</div>
+                    </div>
+                  </td>
+                  <td class="h-px w-px whitespace-nowrap">
+                    <div class="px-6 py-2">
+                      <div class="block text-sm text-black-600 decoration-2 dark:text-white">{{ insurance.coverageAmount | currency: 'EUR' }}</div>
+                    </div>
+                  </td>
+                  <td class="h-px w-px whitespace-nowrap">
+                    <div class="px-6 py-2">
+                      <div class="block text-xs text-black-600 decoration-2 dark:text-gray-600">
+                        {{ insurance.terms[0].name }} - {{ insurance.terms[0].description }} <br>
+                      </div>
+                    </div>
+                  </td>
+                  <td class="h-px w-px  whitespace-nowrap">
+                    <div class="flex justify-end ps-6 py-2 me-2">
+                      <button routerLink="update/{{insurance.id}}" type="button" class="me-2 py-2 px-2 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125" />
+                        </svg>
+                      </button>
+                      <button (click)="delete(insurance.id)" type="button" class="py-2 px-2 inline-flex items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-red-600 text-white hover:bg-red-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                          <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                        </svg>
+                      </button>
+                    </div>
+                  </td>
+                </tr>
+              }
+            </tbody>
+          </table>
+
+          <div class="px-6 py-4 grid gap-3 md:flex md:justify-between md:items-center border-t border-gray-200 dark:border-gray-700">
+            <div>
+              <p class="text-sm text-gray-600 dark:text-gray-400">
+                <span class="font-semibold text-gray-800 dark:text-gray-200">{{insurances.length > 10 ? insurances.length: data.length}}</span> results
+              </p>
+            </div>
+
+            <div>
+              <div class="inline-flex gap-x-2">
+                <button (click)="previous()" [disabled]="!isPrev()" type="button" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+                  <svg class="flex-shrink-0 w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                  Prev
+                </button>
+                <button (click)="next()" [disabled]="!isNext()" type="button" class="py-2 px-3 inline-flex items-center gap-x-2 text-sm font-medium rounded-lg border border-gray-200 bg-white text-gray-800 shadow-sm hover:bg-gray-50 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-white dark:hover:bg-gray-800 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+                  Next
+                  <svg class="flex-shrink-0 w-4 h-4" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

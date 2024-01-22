@@ -1,0 +1,173 @@
+<!-- <div class="bg-white p-8 rounded shadow-md w-96">
+    <h2 class="text-2xl font-semibold mb-4 text-black">Add User</h2>
+    <form>
+        <div class="mb-4">
+            <label for="name" class="block text-sm font-medium text-black text-black ">Name</label>
+            <input [(ngModel)]="user.name" type="text" id="name" name="name"
+                class="mt-1 p-2 w-full border rounded-md bg-gray-200 text-black">
+        </div>
+
+        <div class="mb-4">
+            <label for="lastname" class="block text-sm font-medium text-black">Last Name</label>
+            <input [(ngModel)]="user.lastname" type="text" id="lastname" name="lastname"
+                class="mt-1 p-2 w-full border rounded-md bg-gray-200 text-black">
+        </div>
+
+        <div class="mb-4">
+            <label for="email" class="block text-sm font-medium text-black">Email</label>
+            <input [(ngModel)]="user.email" type="email" id="email" name="email"
+                class="mt-1 p-2 w-full border rounded-md bg-gray-200 text-black">
+        </div>
+
+        <div class="mb-4">
+            <label  for="password" class="block text-sm font-medium text-black">Password</label>
+            <input [(ngModel)]="user.password" type="password" id="password" name="password" class="mt-1 p-2 w-full border rounded-md bg-gray-200 text-black">
+        </div>
+
+        <div class="mb-4">
+            <label for="confirmPassword" class="block text-sm font-medium text-black ">Confirm Password</label>
+            <input type="password" id="confirmPassword" name="confirmPassword"
+                class="mt-1 p-2 w-full border rounded-md bg-gray-200 text-black">
+        </div> 
+
+        <div class="mb-4">
+            <label for="role" class="block text-sm font-medium text-black">Role</label>
+            <select id="role" [(ngModel)]="user.role" name="role"
+                class="mt-1 p-2 w-full border rounded-md bg-gray-200 text-black">
+                <option value="INSURER">INSURER</option>
+                <option value="EXPERT">EXPERT</option>
+            </select>
+        </div>
+
+        <button (click)="addUser()" class="bg-blue-500 text-white px-4 py-2 rounded-md"> + Add User</button>
+    </form>
+</div> -->
+  
+  <div class="max-w-px px-4 py-10 sm:px-6 lg:px-8 lg:py-14 mx-auto">
+    <div class="bg-white border-[1px] rounded-xl shadow p-4 sm:p-7 dark:bg-slate-900 dark:border-gray-700">
+      <form [formGroup]="adminAddUser" (ngSubmit)="onSubmit()" class="flex flex-col">
+        <div class="grid sm:grid-cols-12 gap-2 sm:gap-4 py-8 first:pt-0 last:pb-0 border-t first:border-transparent border-gray-200 dark:border-gray-700 dark:first:border-transparent">
+          <div class="sm:col-span-12">
+            <h2 class="text-lg font-semibold text-gray-800 dark:text-gray-200">
+              Add new user
+            </h2>
+          </div>
+  
+          <div class="sm:col-span-12">
+            <div class="mb-4">
+              <label for="name" class="block text-sm font-medium text-gray-500 mt-2.5">
+                Name
+              </label>
+              <input type="name" id="name" formControlName="name" class="mt-1 p-2 w-full border rounded-md bg-gray-200 text-black"  required/>
+
+              <span *ngIf="adminAddUser.get('name')?.invalid && adminAddUser.get('name')?.touched" class="flex w-full max-w-sm overflow-hidden bg-white rounded-b-lg shadow-md dark:bg-gray-800">
+                <div class="px-4 py-1 -mx-2">
+                    <p class="text-xs text-red-600 dark:text-red-300">
+                      The name is required
+                    </p>
+                </div>
+              </span>
+
+            </div>
+          </div>
+  
+          <div class="sm:col-span-12">
+            <div class="mb-4">
+              <label for="lastname" class="block text-sm font-medium text-gray-500 mt-2.5">
+                LastName
+              </label>
+              <input type="lastname" id="lastname" formControlName="lastname" class="mt-1 p-2 w-full border rounded-md bg-gray-200 text-black"  required/>
+            
+
+            <span *ngIf="adminAddUser.get('lastname')?.invalid && adminAddUser.get('lastname')?.touched" class="flex w-full max-w-sm overflow-hidden bg-white rounded-b-lg shadow-md dark:bg-gray-800">
+              <div class="px-4 py-1 -mx-2">
+                  <p class="text-xs text-red-600 dark:text-red-300">
+                    The LastName is required
+                  </p>
+              </div>
+            </span>
+            </div>
+          </div>
+  
+          <div class="sm:col-span-12">
+              <div class="mb-4">
+                <label for="email" class="block text-sm font-medium text-gray-500 mt-2.5">
+                  Email
+                </label>
+                <input type="email" id="email" formControlName="email" class="mt-1 p-2 w-full border rounded-md bg-gray-200 text-black"  required/>
+
+              <span *ngIf="adminAddUser.get('email')?.invalid && adminAddUser.get('email')?.touched" class="flex w-full max-w-sm overflow-hidden bg-white rounded-b-lg shadow-md dark:bg-gray-800">
+                <div class="px-4 py-1 -mx-2">
+                    <p class="text-xs text-red-600 dark:text-red-300">
+                      The email is required
+                    </p>
+                </div>
+              </span>
+            </div>
+          </div>
+  
+          <div class="sm:col-span-12">
+            <div class="mb-4">
+              <label for="role" class="block text-sm font-medium text-gray-500 mt-2.5">
+                Role
+              </label>
+              <select id="role" name="role" formControlName="role" class="mt-1 p-2 w-full border rounded-md bg-gray-200 text-black"  required>
+                <option [value]="'INSURER'" [selected]="adminAddUser.get('role')?.value === 'INSURER'">INSURER</option>
+                <option [value]="'EXPERT'" [selected]="adminAddUser.get('role')?.value === 'EXPERT'">EXPERT</option>
+              </select>
+            
+
+              <span *ngIf="adminAddUser.get('role')?.invalid && adminAddUser.get('role')?.touched" class="flex w-full max-w-sm overflow-hidden bg-white rounded-b-lg shadow-md dark:bg-gray-800">
+                <div class="px-4 py-1 -mx-2">
+                    <p class="text-xs text-red-600 dark:text-red-300">
+                      The role is required
+                    </p>
+                </div>
+              </span>
+            </div>
+          </div>
+
+
+          <div class="sm:col-span-6">
+            <label for="password" class="inline-block text-sm font-medium text-gray-500 mt-2.5">
+              Password
+            </label>
+            <input type="password" formControlName="password" class="mt-1 p-2 w-full border rounded-md bg-gray-200 text-black"  required/>
+
+            <span *ngIf="adminAddUser.get('password')?.invalid && adminAddUser.get('password')?.touched" class="flex w-full max-w-sm overflow-hidden bg-white rounded-b-lg shadow-md dark:bg-gray-800">
+              <div class="px-4 py-1 -mx-2">
+                  <p class="text-xs text-red-600 dark:text-red-300">
+                    The password is required
+                  </p>
+              </div>
+            </span>
+
+          </div>
+  
+          <div class="sm:col-span-6">
+            <label for="confirmpassword" class="inline-block text-sm font-medium text-gray-500 mt-2.5">
+              Confirm Password
+            </label>
+            <input type="password" formControlName="confirmpassword" class="mt-1 p-2 w-full border rounded-md bg-gray-200 text-black"  required/>
+
+            <span *ngIf="adminAddUser.get('password')?.invalid && adminAddUser.get('password')?.touched" class="flex w-full max-w-sm overflow-hidden bg-white rounded-b-lg shadow-md dark:bg-gray-800">
+              <div class="px-4 py-1 -mx-2">
+                  <p class="text-xs text-red-600 dark:text-red-300">
+                    The confirm password is required
+                  </p>
+              </div>
+            </span>
+
+          </div>
+
+          
+        </div>
+        <button type="submit" class="w-full py-3 px-4 inline-flex justify-center items-center gap-x-2 text-sm font-semibold rounded-lg border border-transparent bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 disabled:pointer-events-none dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600">
+          Submit
+        </button>
+      </form>
+    </div>
+  </div>
+  
+  
+  

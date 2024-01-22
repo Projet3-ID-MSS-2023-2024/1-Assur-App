@@ -1,0 +1,188 @@
+<section class="bg-white dark:bg-gray-900">
+  <div class="flex justify-center min-h-screen">
+    <app-navbar class="fixed w-full"></app-navbar>
+    <div class="hidden bg-cover lg:block lg:w-2/5" style="background-image: url('https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')">
+    </div>
+
+    <div class="flex items-center w-full max-w-3xl p-8 mx-auto lg:px-12 lg:w-3/5">
+      <div class="w-full">
+        <h1 class="text-2xl font-semibold tracking-wider text-gray-800 capitalize dark:text-white">
+          Join Assur.App and stay covered
+        </h1>
+
+        <p class="mt-2 text-gray-500 dark:text-gray-400">
+          Let’s get you all set up so you can verify your personal account and begin setting up your profile.
+        </p>
+
+        <div class="mt-4">
+          <h2 class="text-gray-500 dark:text-gray-300">Select type of account</h2>
+
+          <div class="mt-3 flex select-none flex-wrap items-center gap-1">
+            <label class="">
+              <input type="radio" [(ngModel)]="this.role.label" name="role" value="CLIENT" class="peer sr-only" checked/>
+              <p class="flex space-x-4 text-gray-800 dark:text-gray-100 peer-checked:bg-blue-500 peer-checked:text-white rounded-lg border border-bg-blue-500 px-5 py-3 font-bold">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
+                </svg>
+                <span>
+                  Client
+                </span>
+                </p>
+            </label>
+            <label class="">
+              <input type="radio" [(ngModel)]="this.role.label" name="role" value="INSURER" class="peer sr-only" />
+              <p class="flex space-x-4 text-gray-800 dark:text-gray-100 peer-checked:bg-blue-500 peer-checked:text-white rounded-lg border border-bg-blue-500 px-5 py-3 font-bold">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 9.776c.112-.017.227-.026.344-.026h15.812c.117 0 .232.009.344.026m-16.5 0a2.25 2.25 0 0 0-1.883 2.542l.857 6a2.25 2.25 0 0 0 2.227 1.932H19.05a2.25 2.25 0 0 0 2.227-1.932l.857-6a2.25 2.25 0 0 0-1.883-2.542m-16.5 0V6A2.25 2.25 0 0 1 6 3.75h3.879a1.5 1.5 0 0 1 1.06.44l2.122 2.12a1.5 1.5 0 0 0 1.06.44H18A2.25 2.25 0 0 1 20.25 9v.776" />
+                </svg><span>
+                Insurer
+              </span>
+                </p>
+            </label>
+            <label class="">
+              <input type="radio" [(ngModel)]="this.role.label" name="role" value="EXPERT" class="peer sr-only" />
+              <p class="flex space-x-4 text-gray-800 dark:text-gray-100 peer-checked:bg-blue-500 peer-checked:text-white rounded-lg border border-bg-blue-500 px-5 py-3 font-bold">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="m15.75 15.75-2.489-2.489m0 0a3.375 3.375 0 1 0-4.773-4.773 3.375 3.375 0 0 0 4.774 4.774ZM21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                </svg>
+                <span>Expert</span>
+                </p>
+            </label>
+          </div>
+        </div>
+
+        <form [formGroup]="form" (ngSubmit)="onSubmit()" class="grid grid-cols-1 gap-6 mt-8 md:grid-cols-2">
+          <div>
+            <label  class="block mb-2 text-sm text-gray-600 dark:text-gray-200">First name</label>
+            <input id="name" formControlName="name" type="text" placeholder="John" class="block w-full px-5 py-3 mt-1 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+            <span *ngIf="form.get('name')?.invalid && form.get('name')?.touched" class="flex w-full max-w-sm overflow-hidden bg-white rounded-b-lg shadow-md dark:bg-gray-800">
+            <div class="px-4 py-1 -mx-2">
+                <p class="text-xs text-red-600 dark:text-red-300">
+                  Required field
+                </p>
+            </div>
+            </span>
+          </div>
+
+          <div>
+            <label class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Last name</label>
+            <input id="lastname" formControlName="lastname" type="text" placeholder="Snow" class="block w-full px-5 py-3 mt-1 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+            <span *ngIf="form.get('lastname')?.invalid && form.get('lastname')?.touched" class="flex w-full max-w-sm overflow-hidden bg-white rounded-b-lg shadow-md dark:bg-gray-800">
+            <div class="px-4 py-1 -mx-2">
+                <p class="text-xs text-red-600 dark:text-red-300">
+                  Required field
+                </p>
+            </div>
+              </span>
+          </div>
+
+          <div>
+            <label class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Identification Number (NISS or N°BCE)</label>
+            <input type="text" formControlName="legalId" placeholder="000.0000-000.00" class="block w-full px-5 py-3 mt-1 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+            <span *ngIf="form.get('legalId')?.invalid && form.get('legalId')?.touched" class="flex w-full max-w-sm overflow-hidden bg-white rounded-b-lg shadow-md dark:bg-gray-800">
+            <div class="px-4 py-1 -mx-2">
+                <p class="text-xs text-red-600 dark:text-red-300">
+                  Invalid field
+                </p>
+            </div>
+              </span>
+          </div>
+
+          <div>
+            <label class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Street address</label>
+            <input type="text" formControlName="streetAddress" placeholder="Street" class="block w-full px-5 py-3 mt-1 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+            <span *ngIf="form.get('streetAddress')?.invalid && form.get('streetAddress')?.touched" class="flex w-full max-w-sm overflow-hidden bg-white rounded-b-lg shadow-md dark:bg-gray-800">
+            <div class="px-4 py-1 -mx-2">
+                <p class="text-xs text-red-600 dark:text-red-300">
+                  Required field
+                </p>
+            </div>
+              </span>
+          </div>
+
+          <div>
+            <label class="block mb-2 text-sm text-gray-600 dark:text-gray-200">City</label>
+            <input type="text" formControlName="city" placeholder="City" class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+            <span *ngIf="form.get('city')?.invalid && form.get('city')?.touched" class="flex w-full max-w-sm overflow-hidden bg-white rounded-b-lg shadow-md dark:bg-gray-800">
+            <div class="px-4 py-1 -mx-2">
+                <p class="text-xs text-red-600 dark:text-red-300">
+                  Required field
+                </p>
+            </div>
+              </span>
+          </div>
+
+          <div>
+            <label class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Country</label>
+            <input type="text" formControlName="country" placeholder="Country" class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+            <span *ngIf="form.get('country')?.invalid && form.get('country')?.touched" class="flex w-full max-w-sm overflow-hidden bg-white rounded-b-lg shadow-md dark:bg-gray-800">
+            <div class="px-4 py-1 -mx-2">
+                <p class="text-xs text-red-600 dark:text-red-300">
+                  Required field
+                </p>
+            </div>
+              </span>
+          </div>
+
+          <div>
+            <label class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Phone number</label>
+            <input type="text" formControlName="phoneNumber" placeholder="+32-XXX-XX-XX-XX" class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+            <span *ngIf="form.get('phoneNumber')?.invalid && form.get('phoneNumber')?.touched" class="flex w-full max-w-sm overflow-hidden bg-white rounded-b-lg shadow-md dark:bg-gray-800">
+            <div class="px-4 py-1 -mx-2">
+                <p class="text-xs text-red-600 dark:text-red-300">
+                  Invalid field
+                </p>
+            </div>
+              </span>
+
+          </div>
+
+          <div>
+            <label class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Email address</label>
+            <input id="email" type="email" formControlName="email" placeholder="johnsnow@example.com" class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+            <span *ngIf="form.get('email')?.invalid && form.get('email')?.touched" class="flex w-full max-w-sm overflow-hidden bg-white rounded-b-lg shadow-md dark:bg-gray-800">
+            <div class="px-4 py-1 -mx-2">
+                <p class="text-xs text-red-600 dark:text-red-300">
+                  Not valid email
+                </p>
+            </div>
+          </span>
+          </div>
+
+          <div>
+            <label class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Password</label>
+            <input id="password" type="password" formControlName="password" placeholder="Enter your password" class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+            <span *ngIf="form.get('password')?.invalid && form.get('password')?.touched" class="flex w-full max-w-sm overflow-hidden bg-white rounded-b-lg shadow-md dark:bg-gray-800">
+            <div class="px-4 py-1 -mx-2">
+                <p class="text-xs text-red-600 dark:text-red-300">
+                  The password must be longer
+                </p>
+            </div>
+          </span>
+          </div>
+          <div>
+            <label class="block mb-2 text-sm text-gray-600 dark:text-gray-200">Confirm password</label>
+            <input id="confirmPassword" type="password" formControlName="confirmPassword" placeholder="Enter your password" class="block w-full px-5 py-3 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-lg dark:placeholder-gray-600 dark:bg-gray-900 dark:text-gray-300 dark:border-gray-700 focus:border-blue-400 dark:focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+            <span *ngIf="form?.errors?.['mismatch'] && form.touched" class="flex w-full max-w-sm overflow-hidden bg-white rounded-b-lg shadow-md dark:bg-gray-800">
+            <div class="px-4 py-1 -mx-2">
+                <p class="text-xs text-red-600 dark:text-red-300">
+                  The password are not the same
+                </p>
+            </div>
+          </span>
+          </div>
+
+          <button [disabled]="form.invalid" type="submit"
+            class="flex items-center justify-between w-full px-6 py-3 text-sm tracking-wide text-white capitalize transition-colors duration-300 transform bg-blue-500 rounded-lg hover:bg-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50 disabled:bg-slate-400">
+            <span>Sign Up</span>
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 rtl:-scale-x-100" viewBox="0 0 20 20" fill="currentColor">
+              <path fill-rule="evenodd"
+                    d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                    clip-rule="evenodd" />
+            </svg>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
