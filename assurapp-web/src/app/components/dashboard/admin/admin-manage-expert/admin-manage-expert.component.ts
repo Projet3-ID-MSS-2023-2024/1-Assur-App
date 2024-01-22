@@ -39,7 +39,6 @@ export class AdminManageExpertComponent implements OnInit {
     const subscription = this.userService.getAllUser().subscribe(
       {
         next: (data: any) => {
-          console.log(data);
           this.users = data;
           this.filterInsurers();
           this.getData();
