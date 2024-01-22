@@ -9,6 +9,7 @@ import {Payment} from "../interfaces/payment";
   providedIn: 'root'
 })
 export class PaymentService {
+  private payments: Payment[] = [];
 
   constructor(private http: HttpClient,
               private authenticationService: AuthenticationService) { }
@@ -51,5 +52,17 @@ export class PaymentService {
   deletePayment(id: number): Observable<void> {
     const headers = this.authenticationService.getHeaders();
     return this.http.delete<void>(`${environment.api}/payments/${id}`, {headers});
+  }
+
+  push(payment: Payment) {
+    this.payments.push(payment);
+  }
+
+  get(): Payment[] {
+    return this.payments;
+  }
+
+  pop() {
+    this.payments = [];
   }
 }

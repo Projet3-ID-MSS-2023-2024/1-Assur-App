@@ -65,23 +65,33 @@ export class PaymentComponent implements OnInit {
         label: 'paypal'
       },
       createOrder: (data: any, actions: any) => {
-        this.payment = {
-          id: 0,
-          amount: this.amount,
-          transactionDate: new Date(),
-          status: PaymentStatus.PENDING,
+        if (this.paymentService.get().length === 0) {
+          this.payment = {
+            id: 0,
+            amount: this.amount,
+            transactionDate: new Date(),
+            status: PaymentStatus.PENDING,
+          }
+          this.paymentService.addPayment(this.payment).subscribe({
+            next: data => {
+              this.payment = data;
+              this.subscription.payments.push(this.payment);
+              this.subscriptionService.updateSubscription(this.subscription).subscribe({
+                next: () => this.popupService.show("Payment added", PopupType.INFO),
+                error: () => this.popupService.show("Can't access to API", PopupType.ERROR)
+              })
+            },
+            error: () => this.popupService.show("Can't access to API", PopupType.ERROR)
+          });
+        } else {
+          this.paymentService.getPaymentById(this.paymentService.get()[0].id).subscribe({
+            next: data => {
+              this.payment = data;
+              this.paymentService.pop();
+            }
+          })
+
         }
-        this.paymentService.addPayment(this.payment).subscribe({
-          next: data => {
-            this.payment = data;
-            this.subscription.payments.push(this.payment);
-            this.subscriptionService.updateSubscription(this.subscription).subscribe({
-              next: () => this.popupService.show("Payment added", PopupType.INFO),
-              error: () => this.popupService.show("Can't access to API", PopupType.ERROR)
-            })
-          },
-          error: () => this.popupService.show("Can't access to API", PopupType.ERROR)
-        });
         return actions.order.create({
           purchase_units: [
             {

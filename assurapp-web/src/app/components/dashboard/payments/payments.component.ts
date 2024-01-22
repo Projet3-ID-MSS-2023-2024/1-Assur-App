@@ -1,6 +1,6 @@
 import {Component, OnInit, signal} from '@angular/core';
 import {CurrencyPipe, DatePipe} from "@angular/common";
-import {RouterLink} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {AuthenticationService} from "../../../services/authentication.service";
 import {Roles} from "../../../enums/roles";
 import {Payment} from "../../../interfaces/payment";
@@ -40,6 +40,7 @@ export class PaymentsComponent implements OnInit {
               private popupService: PopupService,
               private invoiceService: InvoiceService,
               private paymentService: PaymentService,
+              private router: Router,
               private subscriptionService: SubscriptionService) {}
 
   ngOnInit(): void {
@@ -145,6 +146,10 @@ export class PaymentsComponent implements OnInit {
 
   invoice(subscription: Subscription, payment: Payment) {
     this.invoiceService.download(subscription.client, subscription.insurance, payment, subscription.startDate, subscription.endDate);
+  }
+  add(payment: Payment) {
+    this.paymentService.push(payment);
+    this.router.navigate([`/dashboard/payments/add/${this.subscription(payment.id).id}`]);
   }
 
   protected readonly PaymentStatus = PaymentStatus;
